@@ -2,6 +2,9 @@
 
 Ruby ACH parser
 
+Format documentation here: http://achrulesonline.org/
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
