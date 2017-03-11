@@ -4,6 +4,12 @@ Ruby ACH parser
 
 Format documentation here: http://achrulesonline.org/
 
+The definition for the ach records is defined in YAML, since some vendors
+adjust the format some.
+
+Significant work in progress
+
+
 
 ## Installation
 

@@ -40,9 +40,33 @@ RSpec.describe Nacha::Field do
   end
 
   describe 'contents' do
-    it 'handles constants' do
-      expect(Nacha::Field.new(valid_params).to_ach).to eq '1'
+    describe 'constants' do
+      it 'sets the value' do
+        expect(Nacha::Field.new(valid_params).to_ach).to eq '1'
+      end
     end
+
+    describe 'Numeric' do
+      let(:valid_params) do
+        {
+          inclusion: 'M',
+          contents: 'Numeric',
+          position: 1..10
+        }
+      end
+
+      it 'is right justified' do
+        expect(Nacha::Field.new(valid_params).justification).to eq :rjust
+      end
+
+      it 'converts strings' do
+        field = Nacha::Field.new(valid_params)
+        field.data = '100'
+        expect(field.to_ach).to eq '0000000100'
+      end
+
+    end
+
   end
 
 end
