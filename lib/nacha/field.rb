@@ -6,6 +6,7 @@ class Nacha::Field
   attr_accessor :inclusion, :contents, :position
   attr_accessor :data
   attr_reader :data_type
+  attr_reader :validator
   attr_reader :justification
   attr_reader :fill_character
   attr_reader :output_conversion
@@ -40,9 +41,21 @@ class Nacha::Field
       @output_conversion = [:to_i]
       @fill_character = '0'
     when /bTTTTAAAAC/
-      @data_type = AbaNumber
+      @data_type = Nacha::AbaNumber
+      @validator = :valid?
       @justification = :rjust
-      @output_conversion = [:to_i]
+      @output_conversion = [:to_s]
+      @fill_character = ' '
+    when 'YYMMDD'
+      @data_type = Nacha::AchDate
+      @justification = :rjust
+      @validator = :valid?
+      @output_conversion = [:to_s]
+      @fill_character = ' '
+    when 'Alphameric'
+      @data_type = String
+      @justification = :ljust
+      @output_conversion = [:to_s]
       @fill_character = ' '
     end
   end
@@ -52,7 +65,11 @@ class Nacha::Field
   end
 
   def valid?
-    inclusion && contents && position
+    @valid = inclusion && contents && position
+    if(@validator && @data)
+      @valid &&= @data.send(@validator)
+    end
+    @valid
   end
 
   def to_ach

@@ -67,6 +67,61 @@ RSpec.describe Nacha::Field do
 
     end
 
+    describe 'ABA Numbers' do
+      let(:valid_params) do
+        {
+          inclusion: 'M',
+          contents: 'bTTTTAAAAC',
+          position: 14..23
+        }
+      end
+      let(:aba_number) { ' 051009296' }
+
+      it 'can be created' do
+        field = Nacha::Field.new(valid_params)
+        field.data = ' 051009296'
+        expect(field.valid?).to be_truthy
+      end
+      it 'output correctly' do
+        field = Nacha::Field.new(valid_params)
+        field.data = aba_number
+        expect(field.valid?).to be_truthy
+        expect(field.to_ach).to eq aba_number
+      end
+    end
+
+    describe 'YYMMDD dates' do
+      let(:valid_params) do
+        {
+          inclusion: 'M',
+          contents: 'YYMMDD',
+          position: 24..29
+        }
+      end
+      let(:ambiguous_date) { '170102' }
+
+      it 'can be created' do
+        field = Nacha::Field.new(valid_params)
+        field.data = ambiguous_date
+        expect(field.valid?).to be_truthy
+      end
+
+      it 'output correctly' do
+        field = Nacha::Field.new(valid_params)
+        field.data = ambiguous_date
+        expect(field.valid?).to be_truthy
+        expect(field.to_ach).to eq ambiguous_date
+      end
+
+      it 'behaves like a date' do
+        field = Nacha::Field.new(valid_params)
+        field.data = ambiguous_date
+        expect(field.data).to be_a Date
+        field.data += 1
+        expect(field.data).to eq (Date.strptime(ambiguous_date,"%y%m%d") + 1)
+      end
+    end
+
   end
 
 end

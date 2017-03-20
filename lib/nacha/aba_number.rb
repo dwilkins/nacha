@@ -17,7 +17,7 @@ class Nacha::AbaNumber
 
   def routing_number= val
     @valid = nil
-    @routing_number = val
+    @routing_number = val.strip
   end
 
   def add_check_digit
