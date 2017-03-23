@@ -6,10 +6,13 @@ require "nacha/record/filler_record_type"
 
 
 class Nacha::BaseRecord
-  attr_accessor :definition, :children, :record_name, :fields
+  attr_accessor :children, :record_name, :fields
+  attr_reader :definition
+
+  RECORD_DEFINITION = {  }  # Set by the child classes
 
   def initialize opts = {}
-    @fields = {}
+    create_fields_from_definition
     opts.each do |k,v|
       puts "k = #{k}"
       setter = "#{k}="
@@ -19,40 +22,48 @@ class Nacha::BaseRecord
     end
   end
 
-
-  def definition= record_def
-    @record_name = record_def.keys.first
-    @fields = record_def[@record_name]['fields'].collect do |field|
-      [field[0].to_sym, Nacha::Field.new(field[1])]
-    end.to_h
+  def create_fields_from_definition
+    @fields ||= {  }
+    definition.each_pair do |field_name, field_def|
+      @fields[field_name.to_sym] = Nacha::Field.new(field_def)
+    end
   end
 
-  def field
-    @fields
+  def self.definition
+    const_get("RECORD_DEFINITION")
+  end
+
+  def definition
+    self.class.definition
+  end
+
+  def fields
   end
 
 
- def respond_to?(method_name, include_private = false)
-   field_name = method_name.to_s.gsub(/=$/,'').to_sym
-   @fields[field_name] || super
- end
+  def respond_to?(method_name, include_private = false)
+    puts "Checking for #{method_name}"
+    field_name = method_name.to_s.gsub(/=$/,'').to_sym
+    definition[field_name] || super
+  end
 
-
- def method_missing(method_name, *args, &block)
-   field_name = method_name.to_s.gsub(/=$/,'').to_sym
-   is_assignment = (/[^=]*=$/o =~ method_name.to_s)
-   if @fields[field_name]
-     if is_assignment
-       # @fields[field_name].send(:data=,*args)
-       @fields[field_name].send(:data=,*args)
-       @dirty = true
-     else
-       # @fields[field_name].data
-       @fields[field_name]
-     end
-   else
-     super
-   end
- end
+  def method_missing(method_name, *args, &block)
+    puts "method_missing Checking for #{method_name}"
+    field_name = method_name.to_s.gsub(/=$/,'').to_sym
+    puts "method_missing actually Checking for #{field_name}"
+    is_assignment = (/[^=]*=$/o =~ method_name.to_s)
+    if @fields[field_name]
+      if is_assignment
+        # @fields[field_name].send(:data=,*args)
+        @fields[field_name].send(:data=,*args)
+        @dirty = true
+      else
+        # @fields[field_name].data
+        @fields[field_name]
+      end
+    else
+      super
+    end
+  end
 
 end
