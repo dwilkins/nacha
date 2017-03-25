@@ -9,12 +9,14 @@ class Nacha::BaseRecord
   attr_accessor :children, :record_name, :fields
   attr_reader :definition
 
+  @@unpack_str = nil
+  @@macher = nil
+
   RECORD_DEFINITION = {  }  # Set by the child classes
 
   def initialize opts = {}
     create_fields_from_definition
     opts.each do |k,v|
-      puts "k = #{k}"
       setter = "#{k}="
       if(respond_to?(setter))
         send(setter, v) unless v.nil?
@@ -40,17 +42,38 @@ class Nacha::BaseRecord
   def fields
   end
 
+  def self.unpack_str
+    @unpack_str ||= definition.values.collect {|d|
+      'A' + d['position'].size.to_s
+    }.join.freeze
+  end
+
+  def self.matcher
+    @matcher ||=
+      definition['matcher'] ||
+      Regexp.new('\A' + definition.values.collect do |d|
+                   if(d['contents'] =~ /\AC(.*)\z/)
+                     $1
+                   else
+                     '.' * d['position'].size
+                   end
+                 end.join + '\z')
+  end
+
+
+
+
+
+
+
 
   def respond_to?(method_name, include_private = false)
-    puts "Checking for #{method_name}"
     field_name = method_name.to_s.gsub(/=$/,'').to_sym
     definition[field_name] || super
   end
 
   def method_missing(method_name, *args, &block)
-    puts "method_missing Checking for #{method_name}"
     field_name = method_name.to_s.gsub(/=$/,'').to_sym
-    puts "method_missing actually Checking for #{field_name}"
     is_assignment = (/[^=]*=$/o =~ method_name.to_s)
     if @fields[field_name]
       if is_assignment

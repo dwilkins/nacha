@@ -28,7 +28,7 @@ file_header_record:
     file_id_modifier:
       inclusion: M
       contents: 'A-Z0-9'
-      position: !ruby/range 35..37
+      position: !ruby/range 34..34
     record_size:
       inclusion: M
       contents: C094

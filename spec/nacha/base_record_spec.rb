@@ -1,14 +1,7 @@
 require 'spec_helper'
 
 
-RSpec.describe Nacha::BaseRecord do
-
-  before(:all) {
-    @loader = Nacha::Loader.new
-  }
-
-  let(:file_header_record_def) { YAML.load(File.read('lib/config/definitions/file_header_record.yml')) }
-
+RSpec.describe Nacha::BaseRecord, :nacha_record_type do
 
   it 'fields can be loaded' do
     record = Nacha::Record::FileHeaderRecord.new
