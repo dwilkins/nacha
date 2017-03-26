@@ -10,11 +10,13 @@ class Nacha::Field
   attr_reader :justification
   attr_reader :fill_character
   attr_reader :output_conversion
+  attr_reader :json_output
 
   def initialize opts = {}
     @data_type = String
     @justification = :ljust
     @fill_character =  ' '.freeze
+    @json_output = [:to_s]
     @output_conversion = [:to_s]
     opts.each do |k,v|
       setter = "#{k}="
@@ -22,10 +24,6 @@ class Nacha::Field
         send(setter, v) unless v.nil?
       end
     end
-  end
-
-  def unpack_str
-    "A#{position.count}"
   end
 
   # CXXX Constant
@@ -38,6 +36,7 @@ class Nacha::Field
     when /Numeric/
       @data_type = ::BigDecimal
       @justification = :rjust
+      @json_output = [:to_i]
       @output_conversion = [:to_i]
       @fill_character = '0'
     when /bTTTTAAAAC/
@@ -50,6 +49,7 @@ class Nacha::Field
       @data_type = Nacha::AchDate
       @justification = :rjust
       @validator = :valid?
+      @json_output = [:iso8601]
       @output_conversion = [:to_s]
       @fill_character = ' '
     when 'Alphameric'
@@ -74,6 +74,10 @@ class Nacha::Field
 
   def to_ach
     to_s.send(justification,position.count, fill_character)
+  end
+
+  def to_json_output
+    @json_output ? @data.send(*json_output) : to_s
   end
 
   def to_s

@@ -1,6 +1,6 @@
 # Nacha
 
-Ruby ACH parser
+Validating Ruby ACH parser and generator
 
 Format documentation here: http://achrulesonline.org/
 
@@ -29,7 +29,40 @@ Or install it yourself as:
 
 ## Usage
 
-So complicated
+API may change at any time.   Pull requests welcomed
+
+
+`"101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"`
+```ruby
+    ach_records = Nacha.parse(ach_file)
+
+    ach_records[0].class  # => Nacha::Record::FileHeaderRecord
+
+    ach_records[0].to_json
+```
+```json
+{
+  "record_type_code": "1",
+  "priority_code": 1,
+  "immediate_destination": "124000054",
+  "immediate_origin": "124000054",
+  "file_creation_date": "2009-07-02",
+  "file_creation_time": "1214",
+  "file_id_modifier": "A",
+  "record_size": "094",
+  "blocking_factor": "10",
+  "format_code": "1",
+  "immediate_destination_name": "ZIONS FIRST NATIONAL BA",
+  "immediate_origin_name": "ZIONS FIRST NATIONAL BA",
+  "reference_code": "       1"
+}
+```
+
+
+
+
+
+
 
 ## Development
 

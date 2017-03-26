@@ -3,7 +3,7 @@ require "nacha/record/control_record_type"
 require "nacha/record/header_record_type"
 require "nacha/record/detail_record_type"
 require "nacha/record/filler_record_type"
-
+require 'json'
 
 class Nacha::BaseRecord
   attr_accessor :children, :record_name, :fields
@@ -31,15 +31,26 @@ class Nacha::BaseRecord
     end
   end
 
+  def to_h
+    @fields.keys.collect do |key|
+      [key,@fields[key].to_s]
+    end.to_h
+  end
+
+  def to_json
+    # to_h.to_json
+    JSON.pretty_generate(
+      @fields.keys.collect do |key|
+        [key,@fields[key].to_json_output]
+      end.to_h)
+  end
+
   def self.definition
     const_get("RECORD_DEFINITION")
   end
 
   def definition
     self.class.definition
-  end
-
-  def fields
   end
 
   def self.unpack_str
@@ -61,11 +72,13 @@ class Nacha::BaseRecord
   end
 
 
-
-
-
-
-
+  def self.parse ach_str
+    rec = self.new
+    ach_str.unpack(self.unpack_str).zip(rec.fields.values) { |input_data, field|
+      field.data = input_data
+    }
+    rec
+  end
 
   def respond_to?(method_name, include_private = false)
     field_name = method_name.to_s.gsub(/=$/,'').to_sym
