@@ -1,0 +1,55 @@
+---
+batch_header_record:
+  fields:
+    record_type_code:
+      inclusion: M
+      contents: C5
+      position: !ruby/range 1..1
+    service_class_code:
+      inclusion: M
+      contents: Numeric
+      position: !ruby/range 2..4
+    company_name:
+      inclusion: M
+      contents: Alphameric
+      position: !ruby/range 5..20
+    company_discretionary_data:
+      inclusion: O
+      contents: Alphameric
+      position: !ruby/range 21..40
+    company_identification:
+      inclusion: M
+      contents: Alphameric
+      position: !ruby/range 41..50
+    standard_entry_class_code:
+      inclusion: M
+      contents: Alphameric
+      position: !ruby/range 51..53
+    company_entry_description:
+      inclusion: M
+      contents: Alphameric
+      position: !ruby/range 54..63
+    company_descriptive_date:
+      inclusion: O
+      contents: Alphameric
+      position: !ruby/range 64..69
+    effective_entry_date:
+      inclusion: R
+      contents: YYMMDD
+      position: !ruby/range 70..75
+    settlement_date_julian:
+      inclusion: M
+      contents: Numeric
+      position: !ruby/range 76..78
+    originator_status_code:
+      inclusion: M
+      contents: Alphameric
+      position: !ruby/range 79..79
+    originating_dfi_identification:
+      inclusion: M
+      contents: TTTTAAAA
+      position: !ruby/range 80..87
+    batch_number:
+      inclusion: M
+      contents: Numeric
+      position: !ruby/range 88..94

@@ -90,7 +90,6 @@ RSpec.describe "Nacha::Record::FileHeaderRecord", :nacha_record_type do
     end
 
     it 'has the right keys' do
-      puts fhr_json
       expect(JSON.parse(fhr_json).keys).to contain_exactly("record_type_code",
                                                            "priority_code",
                                                            "immediate_destination",
