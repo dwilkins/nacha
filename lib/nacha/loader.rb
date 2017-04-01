@@ -66,7 +66,7 @@ class Nacha::Loader
         record_class = nil
       end
       next if record_class
-      record_class = Nacha::Record.const_set(record_class_name, Class.new(Nacha::BaseRecord))
+      record_class = Nacha::Record.const_set(record_class_name, Class.new(Nacha::Record::Base))
       # mixin any specific mixins for this record definition???
       mixins.each do |mixin|
         record_class.instance_eval do
