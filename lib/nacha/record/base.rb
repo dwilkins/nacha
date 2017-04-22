@@ -1,20 +1,21 @@
-require "nacha/record/addenda_record_type"
-require "nacha/record/control_record_type"
-require "nacha/record/header_record_type"
-require "nacha/record/detail_record_type"
-require "nacha/record/filler_record_type"
+# require "nacha/record/addenda_record_type"
+# require "nacha/record/control_record_type"
+# require "nacha/record/header_record_type"
+# require "nacha/record/detail_record_type"
+# require "nacha/record/filler_record_type"
 require 'json'
 
 module Nacha
   module Record
     class Base
-      attr_accessor :children, :record_name, :fields
-      attr_reader :definition
+      attr_accessor :children, :fields
+      attr_reader :definition, :name
 
       @@unpack_str = nil
-      @@macher = nil
+      @@matcher = nil
 
       RECORD_DEFINITION = {  }  # Set by the child classes
+      RECORD_NAME = ''
 
       def initialize opts = {}
         create_fields_from_definition
@@ -49,6 +50,10 @@ module Nacha
 
       def self.definition
         const_get("RECORD_DEFINITION")
+      end
+
+      def self.name
+        const_get("RECORD_NAME")
       end
 
       def definition

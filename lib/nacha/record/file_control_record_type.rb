@@ -1,6 +1,6 @@
 module Nacha
   module Record
-    module FillerRecordType
+    module FileControlRecordType
       def self.included base
         base.extend ClassMethods
       end

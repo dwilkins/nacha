@@ -4,12 +4,12 @@ class Nacha::Loader
   attr_accessor :record_defs
 
   RECORD_TYPE_MIXINS = {
-    'C1' => Nacha::Record::HeaderRecordType,
-    'C5' => Nacha::Record::HeaderRecordType,
+    'C1' => Nacha::Record::FileHeaderRecordType,
+    'C5' => Nacha::Record::BatchHeaderRecordType,
     'C6' => Nacha::Record::DetailRecordType,
     'C7' => Nacha::Record::AddendaRecordType,
-    'C8' => Nacha::Record::ControlRecordType,
-    'C9' => Nacha::Record::ControlRecordType,
+    'C8' => Nacha::Record::BatchControlRecordType,
+    'C9' => Nacha::Record::FileControlRecordType,
     'C' + '9' * 94 => Nacha::Record::FillerRecordType
   }
 
@@ -25,7 +25,6 @@ class Nacha::Loader
     load
   end
 
-
   def record_defs_dir= val
     dir = Dir.open(val)  # check for existance, access, etc
 
@@ -34,7 +33,6 @@ class Nacha::Loader
       @record_defs_dir = val
     end
   end
-
 
   def record_defs
     @record_defs ||=
@@ -47,11 +45,10 @@ class Nacha::Loader
       end
   end
 
-
   def load
     # get definitions
-    mixins = []
     classes = record_defs.keys.collect do |record_name|
+      mixins = []
       # determine type (header, detail, control, addenda, filler)
       definition = record_defs[record_name]
       record_class_name = record_name.split('_').collect(&:capitalize).join('')
@@ -73,13 +70,19 @@ class Nacha::Loader
           include mixin
         end
       end
+      begin
+        mixins << Nacha::Record.constantize("Nacha::Record::#{record_class_name}")
+      rescue Exception => e
+        # not all record types will have a specialization mixin - that's fine
+      end
+
       # set the RECORD_DEFINITION for the class
+      record_class.const_set('RECORD_NAME',record_name.dup)
       if(definition['fields'])
         record_class.const_set('RECORD_DEFINITION',definition["fields"].dup)
       end
       # set the fields for this class, or allow the class to do it
     end
   end
-
 
 end

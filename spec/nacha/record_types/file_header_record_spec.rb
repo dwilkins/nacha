@@ -29,43 +29,43 @@ RSpec.describe "Nacha::Record::FileHeaderRecord", :nacha_record_type do
   describe 'parses a record' do
     let(:fhr) { Nacha::Record::FileHeaderRecord.parse(example_file_header_record) }
 
-    it 'record_type_code'           do
+    it 'record_type_code' do
       expect(fhr.record_type_code.to_ach).to eq '1'
     end
 
-    it 'priority_code'              do
+    it 'priority_code' do
       expect(fhr.priority_code.to_ach).to eq '01'
     end
 
-    it 'immediate_destination'      do
+    it 'immediate_destination' do
       expect(fhr.immediate_destination.to_ach).to eq ' 124000054'
     end
 
-    it 'immediate_origin'           do
+    it 'immediate_origin' do
       expect(fhr.immediate_origin.to_ach).to eq  ' 124000054'
     end
 
-    it 'file_creation_date'         do
+    it 'file_creation_date' do
       expect(fhr.file_creation_date.to_ach).to eq '090702'
     end
 
-    it 'file_creation_time'         do
+    it 'file_creation_time' do
       expect(fhr.file_creation_time.to_ach).to eq '1214'
     end
 
-    it 'file_id_modifier'           do
+    it 'file_id_modifier' do
       expect(fhr.file_id_modifier.to_ach).to eq 'A'
     end
 
-    it 'record_size'                do
+    it 'record_size' do
       expect(fhr.record_size.to_ach).to eq '094'
     end
 
-    it 'blocking_factor'            do
+    it 'blocking_factor' do
       expect(fhr.blocking_factor.to_ach).to eq '10'
     end
 
-    it 'format_code'                do
+    it 'format_code' do
       expect(fhr.format_code.to_ach).to eq '1'
     end
 
@@ -73,12 +73,16 @@ RSpec.describe "Nacha::Record::FileHeaderRecord", :nacha_record_type do
       expect(fhr.immediate_destination_name.to_ach).to eq 'ZIONS FIRST NATIONAL BA'
     end
 
-    it 'immediate_origin_name'      do
+    it 'immediate_origin_name' do
       expect(fhr.immediate_origin_name.to_ach).to eq 'ZIONS FIRST NATIONAL BA'
     end
 
-    it 'reference_code'             do
+    it 'reference_code' do
       expect(fhr.reference_code.to_ach).to eq '       1'
+    end
+
+    it 'child_record_types' do
+      expect(fhr.child_record_types.count).to eq 3
     end
   end
 
