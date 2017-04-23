@@ -39,8 +39,7 @@ batch_header_record:
       position: !ruby/range 70..75
     settlement_date_julian:
       inclusion: M
-      # contents: Numeric
-      contents: Alphameric
+      contents: Numeric
       position: !ruby/range 76..78
     originator_status_code:
       inclusion: M

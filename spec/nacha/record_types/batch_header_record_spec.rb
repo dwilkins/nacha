@@ -8,6 +8,12 @@ RSpec.describe "Nacha::Record::BatchHeaderRecord", :nacha_record_type do
     "5220DHI PAYROLL                         2870327243PPDDHIPAYROLL090702081205   1124000050000001"
   }
 
+  let(:example_batch_header_record_settlement_date) {
+    #         1         2         3         4         5         6         7         8         9
+    #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
+    "5220DHI PAYROLL                         2870327243PPDDHIPAYROLL0907020812051001124000050000001"
+  }
+
   it 'exists' do
     expect { Nacha::Record::BatchHeaderRecord }.to_not raise_error()
   end
@@ -23,8 +29,12 @@ RSpec.describe "Nacha::Record::BatchHeaderRecord", :nacha_record_type do
   it 'recognizes input' do
     expect(Nacha::Record::BatchHeaderRecord.matcher).to match example_batch_header_record
   end
+
   describe 'parses a record' do
     let(:record) { Nacha::Record::BatchHeaderRecord.parse(example_batch_header_record) }
+    let(:record_with_settlement_date) {
+      Nacha::Record::BatchHeaderRecord.parse(example_batch_header_record_settlement_date)
+    }
 
     it 'record_type_code' do
       expect(record.record_type_code.to_ach).to eq '5'
@@ -62,8 +72,12 @@ RSpec.describe "Nacha::Record::BatchHeaderRecord", :nacha_record_type do
       expect(record.effective_entry_date.to_ach).to eq '081205'
     end
 
-    xit 'settlement_date_julian' do
-      expect(record.settlement_date_julian.to_ach).to eq '000'
+    it 'blank settlement_date_julian' do
+      expect(record.settlement_date_julian.to_ach).to eq '   '
+    end
+
+    it 'settlement_date_julian' do
+      expect(record_with_settlement_date.settlement_date_julian.to_ach).to eq '100'
     end
 
     it 'originator_status_code' do
@@ -77,7 +91,5 @@ RSpec.describe "Nacha::Record::BatchHeaderRecord", :nacha_record_type do
     it 'batch_number' do
       expect(record.batch_number.to_ach).to eq '0000001'
     end
-
   end
-
 end

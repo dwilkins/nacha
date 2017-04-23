@@ -36,16 +36,13 @@ module Nacha
 
       def to_h
         @fields.keys.collect do |key|
-          [key,@fields[key].to_s]
+          [key,@fields[key].to_json_output]
         end.to_h
       end
 
       def to_json
         # to_h.to_json
-        JSON.pretty_generate(
-          @fields.keys.collect do |key|
-            [key,@fields[key].to_json_output]
-          end.to_h)
+        JSON.pretty_generate(to_h)
       end
 
       def self.definition

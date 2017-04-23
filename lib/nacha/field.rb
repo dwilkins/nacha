@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'pry'
 require 'bigdecimal'
 
@@ -5,6 +6,7 @@ class Nacha::Field
 
   attr_accessor :inclusion, :contents, :position
   attr_accessor :data
+  attr_reader  :input_data
   attr_reader :data_type
   attr_reader :validator
   attr_reader :justification
@@ -31,12 +33,12 @@ class Nacha::Field
   def contents= val
     @contents = val
     case @contents
-    when /\AC(.*)\z/
+    when /\AC(.*)\z/  # Constant
       @data = $1
     when /Numeric/
-      @data_type = ::BigDecimal
+      @data_type = Nacha::Numeric
       @justification = :rjust
-      @json_output = [:to_i]
+      @json_output = [[:to_i]]
       @output_conversion = [:to_i]
       @fill_character = '0'
     when /bTTTTAAAAC/
@@ -49,7 +51,7 @@ class Nacha::Field
       @data_type = Nacha::AchDate
       @justification = :rjust
       @validator = :valid?
-      @json_output = [:iso8601]
+      @json_output = [[:iso8601]]
       @output_conversion = [:to_s]
       @fill_character = ' '
     when 'Alphameric'
@@ -57,11 +59,18 @@ class Nacha::Field
       @justification = :ljust
       @output_conversion = [:to_s]
       @fill_character = ' '
+    when /\$+\¢\¢/
+      @data_type = Nacha::Numeric
+      @justification = :rjust
+      @json_output = [[:to_i],[:/,100.0]]
+      @output_conversion = [:to_i]
+      @fill_character = '0'
     end
   end
 
   def data= val
     @data = @data_type.new(val)
+    @input_data = val
   end
 
   def valid?
@@ -73,11 +82,21 @@ class Nacha::Field
   end
 
   def to_ach
-    to_s.send(justification,position.count, fill_character)
+    str = to_s
+    fill_char = @fill_character
+    fill_char = ' ' unless str
+    str ||= ""
+    str.send(justification,position.count, fill_char)
   end
 
   def to_json_output
-    @json_output ? @data.send(*json_output) : to_s
+    if(@json_output)
+      @json_output.reduce(@data) { |output, operation|
+        output = output.send(*operation)
+      }
+    else
+      to_s
+    end
   end
 
   def to_s
