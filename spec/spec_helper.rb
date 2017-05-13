@@ -13,4 +13,16 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+  config.order = :random
 end
+
+# Silence output from pending examples in documentation formatter
+module FormatterOverrides
+  def dump_pending(_)
+  end
+end
+
+RSpec::Core::Formatters::DocumentationFormatter.prepend FormatterOverrides
+
+# Silence output from pending examples in progress formatter
+RSpec::Core::Formatters::ProgressFormatter.prepend FormatterOverrides
