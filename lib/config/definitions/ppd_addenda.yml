@@ -1,5 +1,5 @@
 ---
-ppd_addenda_record:
+ppd_addenda:
   fields:
     record_type_code:
       inclusion: M

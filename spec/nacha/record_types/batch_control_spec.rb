@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::BatchControlRecord", :nacha_record_type do
+RSpec.describe "Nacha::Record::BatchControl", :nacha_record_type do
 
   let(:example_batch_control_record) {
     #         1         2         3         4         5         6         7         8         9
@@ -10,22 +10,22 @@ RSpec.describe "Nacha::Record::BatchControlRecord", :nacha_record_type do
 
 
   it 'exists' do
-    expect { Nacha::Record::BatchControlRecord }.to_not raise_error()
+    expect { Nacha::Record::BatchControl }.to_not raise_error()
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::BatchControlRecord.unpack_str).to eq 'A1A3A6A10A12A12A10A19A6A8A7'
+    expect(Nacha::Record::BatchControl.unpack_str).to eq 'A1A3A6A10A12A12A10A19A6A8A7'
   end
 
   it 'generates a regexp matcher' do
-    expect(Nacha::Record::BatchControlRecord.matcher).to be_a Regexp
+    expect(Nacha::Record::BatchControl.matcher).to be_a Regexp
   end
 
   it 'recognizes input' do
-    expect(Nacha::Record::BatchControlRecord.matcher).to match example_batch_control_record
+    expect(Nacha::Record::BatchControl.matcher).to match example_batch_control_record
   end
   describe 'parses a record' do
-    let(:bcr) { Nacha::Record::BatchControlRecord.parse(example_batch_control_record) }
+    let(:bcr) { Nacha::Record::BatchControl.parse(example_batch_control_record) }
 
     it 'record_type_code' do
       expect(bcr.record_type_code.to_ach).to eq '8'

@@ -1,33 +1,33 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::FileHeaderRecord", :nacha_record_type do
+RSpec.describe "Nacha::Record::FileHeader", :nacha_record_type do
 
   let(:example_file_header_record) {
     "101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"
   }
 
   it 'exists' do
-    expect { Nacha::Record::FileHeaderRecord }.to_not raise_error()
+    expect { Nacha::Record::FileHeader }.to_not raise_error()
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::FileHeaderRecord.unpack_str).to eq 'A1A2A10A10A6A4A1A3A2A1A23A23A8'
+    expect(Nacha::Record::FileHeader.unpack_str).to eq 'A1A2A10A10A6A4A1A3A2A1A23A23A8'
   end
 
   it 'generates a regexp matcher' do
-    expect(Nacha::Record::FileHeaderRecord.matcher).to be_a Regexp
+    expect(Nacha::Record::FileHeader.matcher).to be_a Regexp
   end
 
   it 'generates a valid matcher' do
-    expect(Nacha::Record::FileHeaderRecord.matcher).to eq /\A1.................................094101......................................................\z/
+    expect(Nacha::Record::FileHeader.matcher).to eq /\A1.................................094101......................................................\z/
   end
 
   it 'recognizes input' do
-    expect(Nacha::Record::FileHeaderRecord.matcher).to match example_file_header_record
+    expect(Nacha::Record::FileHeader.matcher).to match example_file_header_record
   end
 
   describe 'parses a record' do
-    let(:fhr) { Nacha::Record::FileHeaderRecord.parse(example_file_header_record) }
+    let(:fhr) { Nacha::Record::FileHeader.parse(example_file_header_record) }
 
     it 'record_type_code' do
       expect(fhr.record_type_code.to_ach).to eq '1'
@@ -87,7 +87,7 @@ RSpec.describe "Nacha::Record::FileHeaderRecord", :nacha_record_type do
   end
 
   describe 'generates json' do
-    let(:fhr_json) { Nacha::Record::FileHeaderRecord.parse(example_file_header_record).to_json }
+    let(:fhr_json) { Nacha::Record::FileHeader.parse(example_file_header_record).to_json }
 
     it 'is well formed' do
       expect(JSON.parse(fhr_json)).to be_a Hash

@@ -1,5 +1,5 @@
 ---
-batch_header_record:
+batch_header:
   fields:
     record_type_code:
       inclusion: M

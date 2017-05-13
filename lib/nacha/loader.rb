@@ -39,7 +39,10 @@ class Nacha::Loader
       begin
         yaml_data = {}
         Dir.glob(File.join(@record_defs_dir,'*.yml')) do |f|
-          yaml_data.merge!(YAML.load(File.read(f)))
+          new_yaml_data = YAML.load(File.read(f))
+          if(new_yaml_data)
+            yaml_data.merge!(new_yaml_data)
+          end
         end
         yaml_data
       end

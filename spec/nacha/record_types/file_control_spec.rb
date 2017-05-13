@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::FileControlRecord", :nacha_record_type, focust: true do
+RSpec.describe "Nacha::Record::FileControl", :nacha_record_type, focust: true do
 
   let(:example_file_control_record) {
     #         1         2         3         4         5         6         7         8         9
@@ -10,23 +10,23 @@ RSpec.describe "Nacha::Record::FileControlRecord", :nacha_record_type, focust: t
 
 
   it 'exists' do
-    expect { Nacha::Record::FileControlRecord }.to_not raise_error()
+    expect { Nacha::Record::FileControl }.to_not raise_error()
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::FileControlRecord.unpack_str).to eq 'A1A6A6A8A10A12A12A39'
+    expect(Nacha::Record::FileControl.unpack_str).to eq 'A1A6A6A8A10A12A12A39'
   end
 
   it 'generates a regexp matcher' do
-    expect(Nacha::Record::FileControlRecord.matcher).to be_a Regexp
+    expect(Nacha::Record::FileControl.matcher).to be_a Regexp
   end
 
   it 'recognizes input' do
-    expect(Nacha::Record::FileControlRecord.matcher).to match example_file_control_record
+    expect(Nacha::Record::FileControl.matcher).to match example_file_control_record
   end
 
   describe 'parses a record' do
-    let(:fcr) { Nacha::Record::FileControlRecord.parse(example_file_control_record) }
+    let(:fcr) { Nacha::Record::FileControl.parse(example_file_control_record) }
     let(:fcr_hash) do
       {
         batch_count: 1,

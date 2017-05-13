@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::BatchHeaderRecord", :nacha_record_type do
+RSpec.describe "Nacha::Record::BatchHeader", :nacha_record_type do
 
   let(:example_batch_header_record) {
     #         1         2         3         4         5         6         7         8         9
@@ -15,25 +15,25 @@ RSpec.describe "Nacha::Record::BatchHeaderRecord", :nacha_record_type do
   }
 
   it 'exists' do
-    expect { Nacha::Record::BatchHeaderRecord }.to_not raise_error()
+    expect { Nacha::Record::BatchHeader }.to_not raise_error()
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::BatchHeaderRecord.unpack_str).to eq 'A1A3A16A20A10A3A10A6A6A3A1A8A7'
+    expect(Nacha::Record::BatchHeader.unpack_str).to eq 'A1A3A16A20A10A3A10A6A6A3A1A8A7'
   end
 
   it 'generates a regexp matcher' do
-    expect(Nacha::Record::BatchHeaderRecord.matcher).to be_a Regexp
+    expect(Nacha::Record::BatchHeader.matcher).to be_a Regexp
   end
 
   it 'recognizes input' do
-    expect(Nacha::Record::BatchHeaderRecord.matcher).to match example_batch_header_record
+    expect(Nacha::Record::BatchHeader.matcher).to match example_batch_header_record
   end
 
   describe 'parses a record' do
-    let(:record) { Nacha::Record::BatchHeaderRecord.parse(example_batch_header_record) }
+    let(:record) { Nacha::Record::BatchHeader.parse(example_batch_header_record) }
     let(:record_with_settlement_date) {
-      Nacha::Record::BatchHeaderRecord.parse(example_batch_header_record_settlement_date)
+      Nacha::Record::BatchHeader.parse(example_batch_header_record_settlement_date)
     }
 
     it 'record_type_code' do
