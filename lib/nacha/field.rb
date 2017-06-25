@@ -81,6 +81,14 @@ class Nacha::Field
     @valid
   end
 
+  def unpack_str
+    if(@data_type == Nacha::Numeric)
+      'a' + position.size.to_s
+    else
+      'A' + position.size.to_s
+    end
+  end
+
   def to_ach
     str = to_s
     fill_char = @fill_character

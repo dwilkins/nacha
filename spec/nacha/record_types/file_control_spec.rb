@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::FileControl", :nacha_record_type, focust: true do
+RSpec.describe "Nacha::Record::FileControl", :nacha_record_type do
 
   let(:example_file_control_record) {
     #         1         2         3         4         5         6         7         8         9
@@ -14,7 +14,7 @@ RSpec.describe "Nacha::Record::FileControl", :nacha_record_type, focust: true do
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::FileControl.unpack_str).to eq 'A1A6A6A8A10A12A12A39'
+    expect(Nacha::Record::FileControl.unpack_str).to eq 'A1a6a6a8a10a12a12A39'
   end
 
   it 'generates a regexp matcher' do

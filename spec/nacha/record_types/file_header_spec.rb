@@ -11,7 +11,7 @@ RSpec.describe "Nacha::Record::FileHeader", :nacha_record_type do
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::FileHeader.unpack_str).to eq 'A1A2A10A10A6A4A1A3A2A1A23A23A8'
+    expect(Nacha::Record::FileHeader.unpack_str).to eq 'A1a2A10A10A6A4A1A3A2A1A23A23A8'
   end
 
   it 'generates a regexp matcher' do

@@ -59,7 +59,7 @@ module Nacha
 
       def self.unpack_str
         @unpack_str ||= definition.values.collect {|d|
-          'A' + d['position'].size.to_s
+          Nacha::Field.new(d).unpack_str
         }.join.freeze
       end
 

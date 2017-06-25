@@ -31,5 +31,5 @@ adv_file_control:
       position: !ruby/range 52..71
     reserved:
       inclusion: M
-      contents: 'C                                       '
-      position: !ruby/range 56..94
+      contents: 'C                       '
+      position: !ruby/range 72..94

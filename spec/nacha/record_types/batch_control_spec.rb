@@ -14,7 +14,7 @@ RSpec.describe "Nacha::Record::BatchControl", :nacha_record_type do
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::BatchControl.unpack_str).to eq 'A1A3A6A10A12A12A10A19A6A8A7'
+    expect(Nacha::Record::BatchControl.unpack_str).to eq 'A1a3a6a10a12a12A10A19A6A8a7'
   end
 
   it 'generates a regexp matcher' do

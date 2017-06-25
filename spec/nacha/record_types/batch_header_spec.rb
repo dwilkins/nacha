@@ -19,7 +19,7 @@ RSpec.describe "Nacha::Record::BatchHeader", :nacha_record_type do
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::BatchHeader.unpack_str).to eq 'A1A3A16A20A10A3A10A6A6A3A1A8A7'
+    expect(Nacha::Record::BatchHeader.unpack_str).to eq 'A1a3A16A20A10A3A10A6A6a3A1A8a7'
   end
 
   it 'generates a regexp matcher' do
