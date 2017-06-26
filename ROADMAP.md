@@ -1,0 +1,49 @@
+- [ ] Define All Record Types
+  - [ ] AdvBatchControlRecord
+  - [ ] AdvEntryDetailRecord
+  - [x] AdvFileControlRecord
+  - [x] AdvFileHeaderRecord
+  - [ ] ArcEntryDetailRecord
+  - [x] BatchControlRecord
+  - [x] BatchHeaderRecord
+  - [ ] BocEntryDetailRecord
+  - [ ] CcdAddendaRecord
+  - [ ] CcdEntryDetailRecord
+  - [ ] CieAddendaRecord
+  - [ ] CieEntryDetailRecord
+  - [ ] CtxAddendaRecord
+  - [ ] CtxCorporateEntryDetailRecord
+  - [ ] DneAddendaRecord
+  - [ ] DneEntryDetailRecord
+  - [ ] EnrAddendaRecord
+  - [ ] EnrEntryDetailRecord
+  - [ ] FifthIatAddendaRecord
+  - [x] FileControlRecord
+  - [x] FileHeaderRecord
+  - [ ] FirstIatAddendaRecord
+  - [ ] FourthIatAddendaRecord
+  - [ ] IatBatchHeaderRecord
+  - [ ] IatEntryDetailRecord
+  - [ ] IatForeignCoorespondentBankInformationAddendaRecord
+  - [ ] IatRemittanceInformationAddendaRecord
+  - [ ] MteAddendaRecord
+  - [ ] MteEntryDetailRecord
+  - [ ] PopEntryDetailRecord
+  - [ ] PosAddendaRecord
+  - [ ] PosEntryDetailRecord
+  - [x] PpdAddendaRecord
+  - [x] PpdEntryDetailRecord
+  - [ ] RckEntryDetailRecord
+  - [ ] SecondIatAddendaRecord
+  - [ ] SeventhIatAddendaRecord
+  - [ ] ShrAddendaRecord
+  - [ ] ShrEntryDetailRecord
+  - [ ] SixthIatAddendaRecord
+  - [ ] TelEntryDetailRecord
+  - [ ] ThirdIatAddendaRecord
+  - [ ] TrcEntryDetailRecord
+  - [ ] TrxAddendaRecord
+  - [ ] TrxEntryDetailRecord
+  - [ ] WebAddendaRecord
+  - [ ] WebEntryDetailRecord
+  - [ ] XckEntryDetailRecord
