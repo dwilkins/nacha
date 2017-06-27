@@ -1,18 +1,18 @@
 - [ ] Define All Record Types
-  - [ ] AdvBatchControlRecord
-  - [ ] AdvEntryDetailRecord
+  - [x] AdvBatchControlRecord
+  - [x] AdvEntryDetailRecord
   - [x] AdvFileControlRecord
   - [x] AdvFileHeaderRecord
-  - [ ] ArcEntryDetailRecord
+  - [x] ArcEntryDetailRecord
   - [x] BatchControlRecord
   - [x] BatchHeaderRecord
-  - [ ] BocEntryDetailRecord
-  - [ ] CcdAddendaRecord
-  - [ ] CcdEntryDetailRecord
-  - [ ] CieAddendaRecord
-  - [ ] CieEntryDetailRecord
-  - [ ] CtxAddendaRecord
-  - [ ] CtxCorporateEntryDetailRecord
+  - [x] BocEntryDetailRecord
+  - [x] CcdAddendaRecord
+  - [x] CcdEntryDetailRecord
+  - [x] CieAddendaRecord
+  - [x] CieEntryDetailRecord
+  - [x] CtxAddendaRecord
+  - [x] CtxCorporateEntryDetailRecord
   - [ ] DneAddendaRecord
   - [ ] DneEntryDetailRecord
   - [ ] EnrAddendaRecord
