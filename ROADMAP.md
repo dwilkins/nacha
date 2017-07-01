@@ -13,17 +13,17 @@
   - [x] CieEntryDetailRecord
   - [x] CtxAddendaRecord
   - [x] CtxCorporateEntryDetailRecord
-  - [ ] DneAddendaRecord
-  - [ ] DneEntryDetailRecord
-  - [ ] EnrAddendaRecord
-  - [ ] EnrEntryDetailRecord
+  - [x] DneAddendaRecord
+  - [x] DneEntryDetailRecord
+  - [x] EnrAddendaRecord
+  - [x] EnrEntryDetailRecord
   - [ ] FifthIatAddendaRecord
   - [x] FileControlRecord
   - [x] FileHeaderRecord
   - [ ] FirstIatAddendaRecord
   - [ ] FourthIatAddendaRecord
   - [ ] IatBatchHeaderRecord
-  - [ ] IatEntryDetailRecord
+  - [x] IatEntryDetailRecord
   - [ ] IatForeignCoorespondentBankInformationAddendaRecord
   - [ ] IatRemittanceInformationAddendaRecord
   - [ ] MteAddendaRecord
