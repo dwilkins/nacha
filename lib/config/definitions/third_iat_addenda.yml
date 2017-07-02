@@ -1,0 +1,27 @@
+---
+third_iat_addenda:
+  fields:
+    record_type_code:
+      inclusion: M
+      contents: C7
+      position: !ruby/range 1..1
+    addenda_type_code:
+      inclusion: M
+      contents: C12
+      position: !ruby/range 2..3
+    originator_city_state:
+      inclusion: M
+      contents: Alphameric
+      position: !ruby/range 4..38
+    originator_country_postal:
+      inclusion: M
+      contents: Alphameric
+      position: !ruby/range 39..73
+    reserved:
+      inclusion: M
+      contents: 'C              '
+      position: !ruby/range 74..87
+    entry_detail_sequence_number:
+      inclusion: M
+      contents: Numeric
+      position: !ruby/range 88..94

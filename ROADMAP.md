@@ -17,30 +17,30 @@
   - [x] DneEntryDetailRecord
   - [x] EnrAddendaRecord
   - [x] EnrEntryDetailRecord
-  - [ ] FifthIatAddendaRecord
   - [x] FileControlRecord
   - [x] FileHeaderRecord
-  - [ ] FirstIatAddendaRecord
-  - [ ] FourthIatAddendaRecord
-  - [ ] IatBatchHeaderRecord
   - [x] IatEntryDetailRecord
-  - [ ] IatForeignCoorespondentBankInformationAddendaRecord
-  - [ ] IatRemittanceInformationAddendaRecord
-  - [ ] MteAddendaRecord
-  - [ ] MteEntryDetailRecord
+  - [x] FirstIatAddendaRecord
+  - [x] SecondIatAddendaRecord
+  - [x] ThirdIatAddendaRecord
+  - [x] FourthIatAddendaRecord
+  - [x] FifthIatAddendaRecord
+  - [x] SixthIatAddendaRecord
+  - [x] SeventhIatAddendaRecord
+  - [x] IatForeignCoorespondentBankInformationAddendaRecord
+  - [x] IatRemittanceInformationAddendaRecord
+  - [x] IatBatchHeaderRecord
+  - [x] MteAddendaRecord
+  - [x] MteEntryDetailRecord
   - [ ] PopEntryDetailRecord
   - [ ] PosAddendaRecord
   - [ ] PosEntryDetailRecord
   - [x] PpdAddendaRecord
   - [x] PpdEntryDetailRecord
   - [ ] RckEntryDetailRecord
-  - [ ] SecondIatAddendaRecord
-  - [ ] SeventhIatAddendaRecord
   - [ ] ShrAddendaRecord
   - [ ] ShrEntryDetailRecord
-  - [ ] SixthIatAddendaRecord
   - [ ] TelEntryDetailRecord
-  - [ ] ThirdIatAddendaRecord
   - [ ] TrcEntryDetailRecord
   - [ ] TrxAddendaRecord
   - [ ] TrxEntryDetailRecord
