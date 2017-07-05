@@ -100,7 +100,7 @@ class Nacha::Field
   def to_json_output
     if(@json_output)
       @json_output.reduce(@data) { |output, operation|
-        output = output.send(*operation)
+        output = output.send(*operation) if output
       }
     else
       to_s

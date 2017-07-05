@@ -12,5 +12,6 @@ require 'nacha/parser'
 require 'nacha/loader'
 
 module Nacha
+  Nacha::Loader.new
   # Your code goes here...
 end

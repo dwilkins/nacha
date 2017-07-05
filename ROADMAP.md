@@ -1,4 +1,4 @@
-- [ ] Define All Record Types
+- [x] Define All Record Types
   - [x] AdvBatchControlRecord
   - [x] AdvEntryDetailRecord
   - [x] AdvFileControlRecord
@@ -48,3 +48,9 @@
   - [x] WebAddendaRecord
   - [x] WebEntryDetailRecord
   - [x] XckEntryDetailRecord
+- [ ] Debug / Inspection
+- [ ] Field Validations
+- [ ] Record Validations
+- [ ] Implement record order logic
+  - [ ] Establish child record types
+  - [ ] Establish possible next record type

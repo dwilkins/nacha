@@ -45,6 +45,16 @@ module Nacha
         JSON.pretty_generate(to_h)
       end
 
+      def to_ach
+        @fields.keys.collect do |key|
+          @fields[key].to_ach
+        end.join
+      end
+
+      def inspect
+        "#<#{self.class.name}> #{to_h}"
+      end
+
       def self.definition
         const_get("RECORD_DEFINITION")
       end
