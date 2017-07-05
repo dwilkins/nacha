@@ -8,7 +8,6 @@ RSpec.describe "Nacha::Record::BatchControl", :nacha_record_type do
     "822000000200248602040000000000000000002001002870327243                         124000050000001"
   }
 
-
   it 'exists' do
     expect { Nacha::Record::BatchControl }.to_not raise_error()
   end
@@ -24,6 +23,7 @@ RSpec.describe "Nacha::Record::BatchControl", :nacha_record_type do
   it 'recognizes input' do
     expect(Nacha::Record::BatchControl.matcher).to match example_batch_control_record
   end
+
   describe 'parses a record' do
     let(:bcr) { Nacha::Record::BatchControl.parse(example_batch_control_record) }
 
