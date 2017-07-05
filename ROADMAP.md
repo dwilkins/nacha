@@ -32,9 +32,9 @@
   - [x] IatBatchHeaderRecord
   - [x] MteAddendaRecord
   - [x] MteEntryDetailRecord
-  - [ ] PopEntryDetailRecord
-  - [ ] PosAddendaRecord
-  - [ ] PosEntryDetailRecord
+  - [x] PopEntryDetailRecord
+  - [x] PosAddendaRecord
+  - [x] PosEntryDetailRecord
   - [x] PpdAddendaRecord
   - [x] PpdEntryDetailRecord
   - [ ] RckEntryDetailRecord
