@@ -1,5 +1,5 @@
 ---
-ccd_addenda:
+pos_addenda:
   fields:
     record_type_code:
       inclusion: M

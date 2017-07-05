@@ -1,0 +1,23 @@
+---
+trx_addenda:
+  fields:
+    record_type_code:
+      inclusion: M
+      contents: C7
+      position: !ruby/range 1..1
+    addenda_type_code:
+      inclusion: M
+      contents: C05
+      position: !ruby/range 2..3
+    payment_related_information:
+      inclusion: O
+      contents: Alphameric
+      position: !ruby/range 4..83
+    addenda_sequence_number:
+      inclusion: M
+      contents: Numeric
+      position: !ruby/range 84..87
+    entry_detail_sequence_number:
+      inclusion: M
+      contents: Numeric
+      position: !ruby/range 88..94

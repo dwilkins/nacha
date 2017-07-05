@@ -19,6 +19,7 @@
   - [x] EnrEntryDetailRecord
   - [x] FileControlRecord
   - [x] FileHeaderRecord
+  - [x] IatBatchHeaderRecord
   - [x] IatEntryDetailRecord
   - [x] FirstIatAddendaRecord
   - [x] SecondIatAddendaRecord
@@ -37,13 +38,13 @@
   - [x] PosEntryDetailRecord
   - [x] PpdAddendaRecord
   - [x] PpdEntryDetailRecord
-  - [ ] RckEntryDetailRecord
-  - [ ] ShrAddendaRecord
-  - [ ] ShrEntryDetailRecord
-  - [ ] TelEntryDetailRecord
-  - [ ] TrcEntryDetailRecord
-  - [ ] TrxAddendaRecord
-  - [ ] TrxEntryDetailRecord
-  - [ ] WebAddendaRecord
-  - [ ] WebEntryDetailRecord
-  - [ ] XckEntryDetailRecord
+  - [x] RckEntryDetailRecord
+  - [x] ShrAddendaRecord
+  - [x] ShrEntryDetailRecord
+  - [x] TelEntryDetailRecord
+  - [x] TrcEntryDetailRecord
+  - [x] TrxAddendaRecord
+  - [x] TrxEntryDetailRecord
+  - [x] WebAddendaRecord
+  - [x] WebEntryDetailRecord
+  - [x] XckEntryDetailRecord
