@@ -5,7 +5,7 @@ RSpec.describe Nacha::Loader do
 
 
   it 'reads definitions' do
-    loader = Nacha::Loader.new
+    loader = Nacha::Loader.instance
     expect(loader.record_defs['file_header']).to_not be_nil
   end
 
@@ -14,7 +14,8 @@ RSpec.describe Nacha::Loader do
       Nacha::Record.send(:remove_const,'FileHeader')
     end
     expect { Nacha::Record::FileHeader }.to raise_error(NameError)
-    loader = Nacha::Loader.new
+    loader = Nacha::Loader.instance
+    loader.load
     expect { Nacha::Record::FileHeader }.to_not raise_error()
   end
 

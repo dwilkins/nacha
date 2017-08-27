@@ -7,7 +7,7 @@ RSpec.configure do |config|
   config.filter_run_when_matching :focus
 
   config.when_first_matching_example_defined(:nacha_record_type) do
-    @loader = Nacha::Loader.new  # Load those classes
+    @loader = Nacha::Loader.instance  # Load those classes
   end
 
   config.expect_with :rspec do |c|

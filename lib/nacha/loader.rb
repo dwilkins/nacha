@@ -1,7 +1,11 @@
+require 'singleton'
+
 class Nacha::Loader
+  include Singleton
 
   attr_accessor :record_defs_dir
   attr_accessor :record_defs
+  attr_accessor :loaded_classes
 
   RECORD_TYPE_MIXINS = {
     'C1' => Nacha::Record::FileHeaderRecordType,
@@ -50,7 +54,7 @@ class Nacha::Loader
 
   def load
     # get definitions
-    classes = record_defs.keys.collect do |record_name|
+    @loaded_classes = record_defs.keys.collect do |record_name|
       mixins = []
       # determine type (header, detail, control, addenda, filler)
       definition = record_defs[record_name]
@@ -65,26 +69,28 @@ class Nacha::Loader
       rescue NameError => e
         record_class = nil
       end
-      next if record_class
-      record_class = Nacha::Record.const_set(record_class_name, Class.new(Nacha::Record::Base))
-      # mixin any specific mixins for this record definition???
-      mixins.each do |mixin|
-        record_class.instance_eval do
-          include mixin
+      unless record_class
+        record_class = Nacha::Record.const_set(record_class_name, Class.new(Nacha::Record::Base))
+        # mixin any specific mixins for this record definition???
+        mixins.each do |mixin|
+          record_class.instance_eval do
+            include mixin
+          end
         end
-      end
-      begin
-        mixins << Nacha::Record.constantize("Nacha::Record::#{record_class_name}")
-      rescue Exception => e
-        # not all record types will have a specialization mixin - that's fine
-      end
+        begin
+          mixins << Nacha::Record.constantize("Nacha::Record::#{record_class_name}")
+        rescue Exception => e
+          # not all record types will have a specialization mixin - that's fine
+        end
 
-      # set the RECORD_DEFINITION for the class
-      record_class.const_set('RECORD_NAME',record_name.dup)
-      if(definition['fields'])
-        record_class.const_set('RECORD_DEFINITION',definition["fields"].dup)
+        # set the RECORD_DEFINITION for the class
+        record_class.const_set('RECORD_NAME',record_name.dup)
+        if(definition['fields'])
+          record_class.const_set('RECORD_DEFINITION',definition["fields"].dup)
+        end
+        # set the fields for this class, or allow the class to do it
       end
-      # set the fields for this class, or allow the class to do it
+      record_class
     end
   end
 
