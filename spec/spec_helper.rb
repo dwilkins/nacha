@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "nacha"
+require "nacha/record/file_header_record_type"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

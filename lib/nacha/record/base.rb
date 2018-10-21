@@ -4,6 +4,7 @@
 # require "nacha/record/detail_record_type"
 # require "nacha/record/filler_record_type"
 require 'json'
+require 'nacha/field'
 
 module Nacha
   module Record
@@ -12,7 +13,7 @@ module Nacha
       attr_reader :definition, :name
 
       @@unpack_str = nil
-      @@matcher = nil
+      # @@matcher = nil
 
       RECORD_DEFINITION = {  }  # Set by the child classes
       RECORD_NAME = ''
@@ -56,7 +57,7 @@ module Nacha
       end
 
       def self.definition
-        const_get("RECORD_DEFINITION")
+        @definition = const_get("RECORD_DEFINITION")
       end
 
       def self.name
@@ -74,17 +75,15 @@ module Nacha
       end
 
       def self.matcher
-        @matcher ||=
-          definition['matcher'] ||
+        definition['matcher'] ||
           Regexp.new('\A' + definition.values.collect do |d|
-                       if(d['contents'] =~ /\AC(.*)\z/)
+                       if(d[:contents] =~ /\AC(.*)\z/ || d['contents'] =~ /\AC(.*)\z/)
                          $1
                        else
-                         '.' * d['position'].size
+                         '.' * (d[:position] || d['position']).size
                        end
                      end.join + '\z')
       end
-
 
       def self.parse ach_str
         rec = self.new

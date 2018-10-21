@@ -1,6 +1,9 @@
 # coding: utf-8
 require 'pry'
 require 'bigdecimal'
+require 'nacha/numeric'
+require 'nacha/aba_number'
+require 'nacha/ach_date'
 
 class Nacha::Field
 
