@@ -7,6 +7,8 @@ class Nacha::Loader
   attr_accessor :record_defs
   attr_accessor :loaded_classes
 
+
+  DEFINITIONS_DIR=File.join('lib','config','definitions')
   RECORD_TYPE_MIXINS = {
     'C1' => Nacha::Record::FileHeaderRecordType,
     'C5' => Nacha::Record::BatchHeaderRecordType,
@@ -60,7 +62,7 @@ class Nacha::Loader
       definition = record_defs[record_name]
       record_class_name = record_name.split('_').collect(&:capitalize).join('')
       record_class = "Nacha::Record::#{record_class_name}".to_sym
-      mixins << RECORD_TYPE_MIXINS[definition['fields']['record_type_code']['contents']]
+      mixins << RECORD_TYPE_MIXINS[definition['fields']['record_type_code'][:contents]]
       # add mixins depending on type
       # create the class
       record_class = nil

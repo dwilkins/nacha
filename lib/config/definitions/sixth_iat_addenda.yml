@@ -2,26 +2,26 @@
 sixth_iat_addenda:
   fields:
     record_type_code:
-      inclusion: M
-      contents: C7
-      position: !ruby/range 1..1
+      :inclusion: M
+      :contents: C7
+      :position: !ruby/range 1..1
     addenda_type_code:
-      inclusion: M
-      contents: C15
-      position: !ruby/range 2..3
+      :inclusion: M
+      :contents: C15
+      :position: !ruby/range 2..3
     receiver_identification_number:
-      inclusion: O
-      contents: Alphameric
-      position: !ruby/range 4..18
+      :inclusion: O
+      :contents: Alphameric
+      :position: !ruby/range 4..18
     receiver_street_address:
-      inclusion: M
-      contents: Alphameric
-      position: !ruby/range 19..53
+      :inclusion: M
+      :contents: Alphameric
+      :position: !ruby/range 19..53
     reserved:
-      inclusion: M
-      contents: 'C                                  '
-      position: !ruby/range 54..87
+      :inclusion: M
+      :contents: 'C                                  '
+      :position: !ruby/range 54..87
     entry_detail_sequence_number:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 88..94
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 88..94

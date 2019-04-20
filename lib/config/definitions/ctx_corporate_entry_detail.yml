@@ -2,50 +2,50 @@
 ctx_entry_detail:
   fields:
     record_type_code:
-      inclusion: M
-      contents: C6
-      position: !ruby/range 1..1
+      :inclusion: M
+      :contents: C6
+      :position: !ruby/range 1..1
     transaction_code:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 2..3
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 2..3
     receiving_dfi_identification:
-      inclusion: M
-      contents: TTTTAAAAC
-      position: !ruby/range 4..12
+      :inclusion: M
+      :contents: TTTTAAAAC
+      :position: !ruby/range 4..12
     dfi_account_number:
-      inclusion: R
-      contents: Alphameric
-      position: !ruby/range 13..29
+      :inclusion: R
+      :contents: Alphameric
+      :position: !ruby/range 13..29
     total_amount:
-      inclusion: M
-      contents: $$$$$$$$¢¢
-      position: !ruby/range 30..39
+      :inclusion: M
+      :contents: $$$$$$$$¢¢
+      :position: !ruby/range 30..39
     identification_number:
-      inclusion: O
-      contents: Alphameric
-      position: !ruby/range 40..54
+      :inclusion: O
+      :contents: Alphameric
+      :position: !ruby/range 40..54
     number_of_addenda_records:
-      inclusion: M
-      contents: Alphameric
-      position: !ruby/range 55..58
+      :inclusion: M
+      :contents: Alphameric
+      :position: !ruby/range 55..58
     receiving_company_name:
-      inclusion: R
-      contents: Alphameric
-      position: !ruby/range 59..74
+      :inclusion: R
+      :contents: Alphameric
+      :position: !ruby/range 59..74
     reserved:
-      inclusion: M
-      contents: Alphameric
-      position: !ruby/range 75..76
+      :inclusion: M
+      :contents: Alphameric
+      :position: !ruby/range 75..76
     discretionary_data:
-      inclusion: O
-      contents: Alphameric
-      position: !ruby/range 77..78
+      :inclusion: O
+      :contents: Alphameric
+      :position: !ruby/range 77..78
     addenda_record_indicator:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 79..79
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 79..79
     trace_number:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 80..94
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 80..94

@@ -2,38 +2,38 @@
 adv_batch_control:
   fields:
     record_type_code:
-      inclusion: M
-      contents: C8
-      position: !ruby/range 1..1
+      :inclusion: M
+      :contents: C8
+      :position: !ruby/range 1..1
     service_class_code:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 2..4
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 2..4
     entry_addenda_count:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 5..10
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 5..10
     entry_hash:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 11..20
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 11..20
     total_debit_entry_dollar_amount:
-      inclusion: M
-      contents: $$$$$$$$$$$$$$$$$$¢¢
-      position: !ruby/range 21..40
+      :inclusion: M
+      :contents: $$$$$$$$$$$$$$$$$$¢¢
+      :position: !ruby/range 21..40
     total_credit_entry_dollar_amount:
-      inclusion: M
-      contents: $$$$$$$$$$$$$$$$$$¢¢
-      position: !ruby/range 41..60
+      :inclusion: M
+      :contents: $$$$$$$$$$$$$$$$$$¢¢
+      :position: !ruby/range 41..60
     ach_operator_data:
-      inclusion: O
-      contents: Alphameric
-      position: !ruby/range 61..79
+      :inclusion: O
+      :contents: Alphameric
+      :position: !ruby/range 61..79
     originating_dfi_identification:
-      inclusion: M
-      contents: TTTAAAA
-      position: !ruby/range 80..87
+      :inclusion: M
+      :contents: TTTAAAA
+      :position: !ruby/range 80..87
     batch_number:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 88..94
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 88..94

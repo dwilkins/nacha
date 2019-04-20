@@ -56,6 +56,12 @@ module Nacha
         "#<#{self.class.name}> #{to_h}"
       end
 
+      def self.nacha_field(name, inclusion:, contents:, position: )
+        definition[name] = { inclusion: inclusion, contents: contents, position: position }
+        # @fields ||= { }
+        # @fields[name.to_sym] = Nacha::Field.new(field_def)
+      end
+
       def self.definition
         @definition = const_get("RECORD_DEFINITION")
       end
@@ -70,7 +76,7 @@ module Nacha
 
       def self.unpack_str
         @unpack_str ||= definition.values.collect {|d|
-          Nacha::Field.new(d).unpack_str
+          Nacha::Field.unpack_str(d)
         }.join.freeze
       end
 

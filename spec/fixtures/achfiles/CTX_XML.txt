@@ -1,0 +1,50 @@
+101 202881066 1300097831312031023A094101Bank of Any Town       Your Company           00000000
+5220Your Company                        1657777777CTXAutoPay   131204131204   1202881060000001
+62214852955392283334         00007989733221           0013Walmart             1202881060000101
+705<?xml version="1.0" encoding="UTF-8"?><Document xmlns:xsi="http://www.w3.org/20000010000101
+7051/XMLSchema-instance"xsi:noNamespaceSchemaLocation="file:NACHA.xsd“><RmtInf><Str00020000101
+705d><RfrdDocInf><Tp><CdOrPrtry><Cd>CINV</Cd></CdOrPrtry><Issr>Walmart</Issr></Tp><00030000101
+705Nb>7321239</Nb><RltdDt>2014-06-03</RltdDt></RfrdDocInf><RfrdDocAmt><DuePyblAmt C00040000101
+705cy="USD">953.19</DuePyblAmt><RmtdAmt Ccy="USD">953.19</RmtdAmt></RfrdDocAmt><Cdt00050000101
+705rRefInf><Tp><CdOrPrtry><Cd>VCHR</Cd></CdOrPrtry><Issr>Your Company</Issr></Tp><R00060000101
+705ef>24305</Ref></CdtrRefInf><Invcr><Nm>Walmart</Nm></Invcr><Invcee><Nm>Your Compa00070000101
+705ny</Nm></Invcee></Strd><Strd><RfrdDocInf><Tp><CdOrPrtry><Cd>VCHR</Cd></CdOrPrtry00080000101
+705><Issr>Walmart</Issr></Tp><Nb>7321511</Nb><RltdDt>2014-07-03</RltdDt></RfrdDocIn00090000101
+705f><RfrdDocAmt><RmtdAmt Ccy="USD">7036.54</RmtdAmt></RfrdDocAmt><CdtrRefInf><Tp><00100000101
+705CdOrPrtry><Cd>VCHR</Cd></CdOrPrtry><Issr>Your Company</Issr></Tp><Ref>24333</Ref00110000101
+705></CdtrRefInf><Invcr><Nm>Walmart</Nm></Invcr><Invcee><Nm>Your Company</Nm></Invc00120000101
+705ee></Strd></RmtInf></Document>                                                  00130000101
+62296078524558722229         00021249548222           0025Office Depot        1202881060000102
+705<?xml version="1.0" encoding="UTF-8"?><Document xmlns:xsi="http://www.w3.org/20000010000102
+7051/XMLSchema-instance"xsi:noNamespaceSchemaLocation="file:NACHA.xsd“><RmtInf><Str00020000102
+705d><RfrdDocInf><Tp><CdOrPrtry><Cd>CINV</Cd></CdOrPrtry><Issr>Office Depot</Issr><00030000102
+705/Tp><Nb>13334567</Nb><RltdDt>2014-06-01</RltdDt></RfrdDocInf><RfrdDocAmt><DuePyb00040000102
+705lAmt Ccy="USD">7451.52</DuePyblAmt><DscntApldAmt Ccy="USD">150.50</DscntApldAmt>00050000102
+705<AdjstmntAmtAndRsn><Amt Ccy="USD">49.50</Amt><CdtDbtInd>CRDT</CdtDbtInd><Rsn>1</00060000102
+705Rsn><AddtlInf>Pricing from old catalog</AddtlInf></AdjstmntAmtAndRsn><RmtdAmt Cc00070000102
+705y="USD">7251.52</RmtdAmt></RfrdDocAmt><CdtrRefInf><Tp><CdOrPrtry><Cd>PUOR</Cd></00080000102
+705CdOrPrtry><Issr>Your Company</Issr></Tp><Ref>24238</Ref></CdtrRefInf><Invcr><Nm>00090000102
+705Office Depot</Nm></Invcr><Invcee><Nm>Your Company</Nm></Invcee></Strd><Strd><Rfr00100000102
+705dDocInf><Tp><CdOrPrtry><Cd>CINV</Cd></CdOrPrtry><Issr>Office Depot</Issr></Tp><N00110000102
+705b>13357893</Nb><RltdDt>2014-07-01</RltdDt></RfrdDocInf><RfrdDocAmt><DuePyblAmt C00120000102
+705cy="USD">6700.00</DuePyblAmt><DscntApldAmt Ccy="USD">57.39</DscntApldAmt><Adjstm00130000102
+705ntAmtAndRsn><Amt Ccy="USD">5.00</Amt><CdtDbtInd>CRDT</CdtDbtInd><Rsn>59</Rsn><Ad00140000102
+705dtlInf>Never received at corporate</AddtlInf></AdjstmntAmtAndRsn><RmtdAmt Ccy="U00150000102
+705SD">6637.61</RmtdAmt></RfrdDocAmt><CdtrRefInf><Tp><CdOrPrtry><Cd>PUOR</Cd></CdOr00160000102
+705Prtry><Issr>Your Company</Issr></Tp><Ref>24247</Ref></CdtrRefInf><Invcr><Nm>Offi00170000102
+705ce Depot</Nm></Invcr><Invcee><Nm>Your Company</Nm></Invcee></Strd><Strd><RfrdDoc00180000102
+705Inf><Tp><CdOrPrtry><Cd>VCHR</Cd></CdOrPrtry><Issr>Office Depot</Issr></Tp><Nb>1300190000102
+705361023</Nb><RltdDt>2014-07-02</RltdDt></RfrdDocInf><RfrdDocAmt><DuePyblAmt Ccy="00200000102
+705USD">7400.00</DuePyblAmt><DscntApldAmt Ccy="USD">39.59</DscntApldAmt><RmtdAmt Cc00210000102
+705y="USD">7360.41</RmtdAmt></RfrdDocAmt><CdtrRefInf><Tp><CdOrPrtry><Cd>VCHR</Cd></00220000102
+705CdOrPrtry><Issr>Your Company</Issr></Tp><Ref>24298</Ref></CdtrRefInf><Invcr><Nm>00230000102
+705Office Depot</Nm></Invcr><Invcee><Nm>Your Company</Nm></Invcee></Strd></RmtInf><00240000102
+705/Document>                                                                      00250000102
+822000004001109314790000000000000000029239271657777777                         202881060000001
+9000001000005000000400110931479000000000000000002923927                                       
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999

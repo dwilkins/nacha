@@ -4,6 +4,8 @@ require 'nacha/aba_number'
 require 'nacha/ach_date'
 require 'nacha/field'
 require 'nacha/numeric'
+require 'nacha/record/batch/batch_header.rb'
+
 
 Dir["lib/nacha/record/*.rb"].each do |file|
   require File.expand_path(file)

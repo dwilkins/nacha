@@ -84,12 +84,12 @@ class Nacha::Field
     @valid
   end
 
-  def unpack_str
-    if(@data_type == Nacha::Numeric)
-      'a' + position.size.to_s
+  def self.unpack_str(definition = {  })
+    if(definition[:contents] =~ /(Numeric|\$+\¢\¢)/)
+      'a'
     else
-      'A' + position.size.to_s
-    end
+      'A'
+    end + definition[:position].size.to_s
   end
 
   def to_ach

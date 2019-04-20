@@ -8,9 +8,9 @@ module Nacha
       module ClassMethods
         def child_record_types
           [
-            "Nacha::Record::BatchHeaderRecord",
-            "Nacha::Record::FileControlRecord",
-            "Nacha::Record::FillerRecord"
+            "Nacha::Record::BatchHeader",
+            "Nacha::Record::FileControl",
+            "Nacha::Record::Filler"
           ]
         end
 

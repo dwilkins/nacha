@@ -2,34 +2,34 @@
 file_control:
   fields:
     record_type_code:
-      inclusion: M
-      contents: C9
-      position: !ruby/range 1..1
+      :inclusion: M
+      :contents: C9
+      :position: !ruby/range 1..1
     batch_count:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 2..7
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 2..7
     block_count:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 8..13
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 8..13
     entry_addenda_count:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 14..21
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 14..21
     entry_hash:
-      inclusion: M
-      contents: Numeric
-      position: !ruby/range 22..31
+      :inclusion: M
+      :contents: Numeric
+      :position: !ruby/range 22..31
     total_debit_entry_dollar_amount_in_file:
-      inclusion: M
-      contents: $$$$$$$$$$¢¢
-      position: !ruby/range 32..43
+      :inclusion: M
+      :contents: $$$$$$$$$$¢¢
+      :position: !ruby/range 32..43
     total_credit_entry_dollar_amount_in_file:
-      inclusion: M
-      contents: $$$$$$$$$$¢¢
-      position: !ruby/range 44..55
+      :inclusion: M
+      :contents: $$$$$$$$$$¢¢
+      :position: !ruby/range 44..55
     reserved:
-      inclusion: M
-      contents: 'C                                       '
-      position: !ruby/range 56..94
+      :inclusion: M
+      :contents: 'C                                       '
+      :position: !ruby/range 56..94
