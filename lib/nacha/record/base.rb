@@ -15,7 +15,7 @@ module Nacha
       @@unpack_str = nil
       # @@matcher = nil
 
-      RECORD_DEFINITION = {  }  # Set by the child classes
+      # RECORD_DEFINITION = {  }  # Set by the child classes
       RECORD_NAME = ''
 
       def initialize opts = {}
@@ -63,7 +63,7 @@ module Nacha
       end
 
       def self.definition
-        @definition = const_get("RECORD_DEFINITION")
+        @definition ||= {}
       end
 
       def self.name
@@ -81,9 +81,11 @@ module Nacha
       end
 
       def self.matcher
+        # debugger
+        # puts definition.keys.join(', ')
         definition['matcher'] ||
           Regexp.new('\A' + definition.values.collect do |d|
-                       if(d[:contents] =~ /\AC(.*)\z/ || d['contents'] =~ /\AC(.*)\z/)
+                       if(d[:contents] =~ /\AC(.+)\z/ || d['contents'] =~ /\AC(.+)\z/)
                          $1
                        else
                          '.' * (d[:position] || d['position']).size

@@ -1,5 +1,5 @@
 require 'nacha/record/base.rb'
-require 'nacha/record/batch_header_record_type.rb'
+require 'nacha/record/batch/batch_header_record_type.rb'
 
 module Nacha
   module Record

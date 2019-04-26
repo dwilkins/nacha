@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "Nacha::Record::FileHeader", :nacha_record_type do
-
   let(:example_file_header_record) {
     "101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"
   }
