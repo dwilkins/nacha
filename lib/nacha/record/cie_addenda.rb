@@ -4,7 +4,7 @@ require 'nacha/record/addenda_record_type.rb'
 
 module Nacha
   module Record
-    class CcdAddenda < Nacha::Record::Base
+    class CieAddenda < Nacha::Record::Base
       include AddendaRecordType
 
       nacha_field :record_type_code, inclusion: 'M', contents: 'C7', position: 1..1
