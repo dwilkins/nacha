@@ -4,7 +4,7 @@ require 'nacha/record/detail_record_type.rb'
 
 module Nacha
   module Record
-    class ArcEntryDetail < Nacha::Record::Base
+    class PpdEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
       nacha_field :record_type_code, inclusion: 'M', contents: 'C6', position: 1..1
