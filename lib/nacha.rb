@@ -14,9 +14,7 @@ Dir["lib/nacha/record/**/*.rb"].each do |file|
 end
 
 require 'nacha/parser'
-require 'nacha/loader'
 
 module Nacha
-  Nacha::Loader.instance
   # Your code goes here...
 end

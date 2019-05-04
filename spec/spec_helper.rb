@@ -7,10 +7,6 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = ".rspec_status"
   config.filter_run_when_matching :focus
 
-  config.when_first_matching_example_defined(:nacha_record_type) do
-    @loader = Nacha::Loader.instance  # Load those classes
-  end
-
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
