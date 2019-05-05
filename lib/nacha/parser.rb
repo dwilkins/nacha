@@ -2,13 +2,12 @@ require 'nacha'
 
 class Nacha::Parser
 
+  DEFAULT_RECORD_TYPES = [ 'Nacha::Record::FileHeader' ]
   def initialize
-    loader = Nacha::Loader.instance
     reset!
   end
 
   def reset!
-    @valid_record_types = [ 'Nacha::Record::FileHeader' ]
   end
 
   def parse_file(file)
@@ -16,27 +15,55 @@ class Nacha::Parser
     records = []
     File.foreach(file).with_index do |line, line_num|
       records << process(line,line_num, records.last)
-      parent = records.last if parent.is_a?()
+      parent = records.last if records.lasts.class.child_record_types.any?
     end
   end
 
   def parse_string(str)
     line_num = -1
-    str.scan(/.{94}/).map do |line|
+    records = []
+    str.scan(/.{94}/).each do |line|
       line_num += 1
-      process(line,line_num)
+      records << process(line,line_num, records.last)
     end.compact
+    records
   end
 
   def process(line, line_num, previous = nil)
-    record_type = nil
-    @valid_record_types.detect do |rt|
+    parent = previous
+    record = nil
+
+    record_types = valid_record_types(parent)
+    while(record_types)
+      record = parse_by_types(line, record_types)
+      break if record || !parent
+      parent = parent.parent
+      record_types = valid_record_types(parent)
+    end
+    add_child(parent, record)
+    record
+  end
+
+  def valid_record_types(parent)
+    return DEFAULT_RECORD_TYPES unless parent && parent.respond_to?(:child_record_types)
+    parent.child_record_types
+  end
+
+  def add_child(parent, child)
+    return unless parent && child
+    parent.children << child
+    child.parent = parent
+  end
+
+  def parse_by_types(line, record_types)
+    record_types.detect do |rt|
       record_type = Object.const_get(rt)
       if record_type.matcher =~ line
-        puts "It's an #{rt}"
-        return(record_type.parse line)
+        puts "It's a #{rt}"
+        return record_type.parse(line)
       end
     end
   end
+
 
 end

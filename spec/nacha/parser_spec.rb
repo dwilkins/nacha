@@ -20,9 +20,14 @@ RSpec.describe Nacha::Parser do
   end
 
   it 'parses a file' do
-    skip 'not working yet'
+    # skip 'not working yet'
     parsed = Nacha::Parser.new.parse_string(example_ach_file)
     expect(parsed).to be_a Array
     expect(parsed.count).to eq 10
+    expect(parsed[0]).to be_a Nacha::Record::FileHeader
+    expect(parsed[1]).to be_a Nacha::Record::BatchHeader
+    expect(parsed[2]).to be_a Nacha::Record::PpdEntryDetail
+    expect(parsed[3]).to be_a Nacha::Record::PpdEntryDetail
+    expect(parsed[4]).to be_a Nacha::Record::BatchControl
   end
 end

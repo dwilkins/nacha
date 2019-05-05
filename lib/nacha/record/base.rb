@@ -9,7 +9,7 @@ require 'nacha/field'
 module Nacha
   module Record
     class Base
-      attr_accessor :children, :fields
+      attr_accessor :children, :parent, :fields
       attr_reader :definition, :name
 
       @@unpack_str = nil
@@ -19,6 +19,7 @@ module Nacha
       RECORD_NAME = ''
 
       def initialize opts = {}
+        @children = []
         create_fields_from_definition
         opts.each do |k,v|
           setter = "#{k}="
@@ -81,7 +82,6 @@ module Nacha
       end
 
       def self.matcher
-        # debugger
         # puts definition.keys.join(', ')
         definition['matcher'] ||
           Regexp.new('\A' + definition.values.collect do |d|

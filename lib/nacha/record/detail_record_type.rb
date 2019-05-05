@@ -6,11 +6,11 @@ module Nacha
       end
 
       module ClassMethods
-        def self.child_record_types
+        def child_record_types
           []
         end
 
-        def self.next_record_types
+        def next_record_types
           []
         end
       end

@@ -13,12 +13,6 @@ module Nacha
             "Nacha::Record::Filler"
           ]
         end
-
-        def next_record_types
-          [
-            "Nacha::Record::BatchHeaderRecord",
-          ]
-        end
       end
 
       def child_record_types

@@ -5,6 +5,7 @@ module Nacha
   module Record
     class BatchHeader < Nacha::Record::Base
       include BatchHeaderRecordType
+
       nacha_field :record_type_code, inclusion: 'M', contents: 'C5', position: 1..1
       nacha_field :service_class_code, inclusion: 'M', contents: 'Numeric', position: 2..4
       nacha_field :company_name, inclusion: 'M', contents: 'Alphameric', position: 5..20
