@@ -1,22 +1,19 @@
-# require "nacha/record/addenda_record_type"
-# require "nacha/record/control_record_type"
-# require "nacha/record/header_record_type"
-# require "nacha/record/detail_record_type"
-# require "nacha/record/filler_record_type"
 require 'json'
 require 'nacha/field'
+require 'nacha/record/validations/field_validations'
 
 module Nacha
   module Record
     class Base
+      include FieldValidations
+
       attr_accessor :children, :parent, :fields
       attr_reader :definition, :name
+      attr_reader :validations
+      attr_accessor :errors
 
       @@unpack_str = nil
       # @@matcher = nil
-
-      # RECORD_DEFINITION = {  }  # Set by the child classes
-      RECORD_NAME = ''
 
       def initialize opts = {}
         @children = []
@@ -43,7 +40,6 @@ module Nacha
       end
 
       def to_json
-        # to_h.to_json
         JSON.pretty_generate(to_h)
       end
 
@@ -59,21 +55,38 @@ module Nacha
 
       def self.nacha_field(name, inclusion:, contents:, position: )
         definition[name] = { inclusion: inclusion, contents: contents, position: position }
-        # @fields ||= { }
-        # @fields[name.to_sym] = Nacha::Field.new(field_def)
+        validation_method = "valid_#{name.to_s}".to_sym
+        if respond_to?(validation_method)
+          validations[name] ||= []
+          validations[name] << validation_method
+        end
       end
 
       def self.definition
         @definition ||= {}
       end
 
-      def self.name
-        const_get("RECORD_NAME")
+      def self.validations
+        @validations ||= {}
+      end
+
+      def self.nacha_record_name(record_name)
+        @nacha_record_name = record_name
       end
 
       def definition
         self.class.definition
       end
+
+      def validate
+        self.class.definition.keys.map do |field|
+          if self.class.validations[field]
+            field_data = send(field)
+            send(self.class.validations[:field], field_data)
+          end
+        end
+      end
+
 
       def self.unpack_str
         @unpack_str ||= definition.values.collect {|d|

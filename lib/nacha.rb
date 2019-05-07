@@ -16,5 +16,8 @@ end
 require 'nacha/parser'
 
 module Nacha
-  # Your code goes here...
+  STANDARD_ENTRY_CLASS_CODES = %w( ACK ADV ARC ATX BOC CCD PPD CIE
+                                   COR CTX DNE ENR IAT POP POS SHR
+                                   MTE RCK TEL TRC TRX WEB XCK )
+
 end

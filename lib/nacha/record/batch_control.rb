@@ -1,6 +1,6 @@
 # coding: utf-8
 require 'nacha/record/base.rb'
-require 'nacha/record/batch/batch_control_record_type.rb'
+require 'nacha/record/batch_control_record_type.rb'
 
 module Nacha
   module Record

@@ -59,7 +59,6 @@ class Nacha::Parser
     record_types.detect do |rt|
       record_type = Object.const_get(rt)
       if record_type.matcher =~ line
-        puts "It's a #{rt}"
         return record_type.parse(line)
       end
     end
