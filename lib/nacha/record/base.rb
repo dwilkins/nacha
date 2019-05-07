@@ -10,7 +10,6 @@ module Nacha
       attr_accessor :children, :parent, :fields
       attr_reader :definition, :name
       attr_reader :validations
-      attr_accessor :errors
 
       @@unpack_str = nil
       # @@matcher = nil
@@ -54,7 +53,10 @@ module Nacha
       end
 
       def self.nacha_field(name, inclusion:, contents:, position: )
-        definition[name] = { inclusion: inclusion, contents: contents, position: position }
+        definition[name] = { inclusion: inclusion,
+                             contents: contents,
+                             position: position,
+                             name: name}
         validation_method = "valid_#{name.to_s}".to_sym
         if respond_to?(validation_method)
           validations[name] ||= []
@@ -86,7 +88,6 @@ module Nacha
           end
         end
       end
-
 
       def self.unpack_str
         @unpack_str ||= definition.values.collect {|d|

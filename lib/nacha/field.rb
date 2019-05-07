@@ -8,7 +8,7 @@ require 'nacha/ach_date'
 class Nacha::Field
 
   attr_accessor :inclusion, :contents, :position
-  attr_accessor :data
+  attr_accessor :data, :name, :errors
   attr_reader  :input_data
   attr_reader :data_type
   attr_reader :validator
@@ -19,6 +19,8 @@ class Nacha::Field
 
   def initialize opts = {}
     @data_type = String
+    @errors = []
+    @name = 'Unknown'.freeze
     @justification = :ljust
     @fill_character =  ' '.freeze
     @json_output = [:to_s]
@@ -82,6 +84,10 @@ class Nacha::Field
       @valid &&= @data.send(@validator)
     end
     @valid
+  end
+
+  def add_error err_string
+    errors << err_string
   end
 
   def self.unpack_str(definition = {  })
