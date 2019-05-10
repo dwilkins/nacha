@@ -13,6 +13,10 @@ module Nacha
         def valid_standard_entry_class_code field
           check_field_error(field) { STANDARD_ENTRY_CLASS_CODES.include? field.data }
         end
+
+        def valid_service_class_code field
+          check_field_error(field) { SERVICE_CLASS_CODES.include? field.to_s }
+        end
       end
     end
   end

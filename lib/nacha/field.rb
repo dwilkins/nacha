@@ -45,37 +45,49 @@ class Nacha::Field
       @justification = :rjust
       @json_output = [[:to_i]]
       @output_conversion = [:to_i]
-      @fill_character = '0'
+      @fill_character = '0'.freeze
     when /bTTTTAAAAC/
       @data_type = Nacha::AbaNumber
       @validator = :valid?
       @justification = :rjust
       @output_conversion = [:to_s]
-      @fill_character = ' '
+      @fill_character = ' '.freeze
     when 'YYMMDD'
       @data_type = Nacha::AchDate
       @justification = :rjust
       @validator = :valid?
       @json_output = [[:iso8601]]
       @output_conversion = [:to_s]
-      @fill_character = ' '
+      @fill_character = ' '.freeze
     when 'Alphameric'
       @data_type = String
       @justification = :ljust
       @output_conversion = [:to_s]
-      @fill_character = ' '
+      @fill_character = ' '.freeze
     when /\$+\¢\¢/
       @data_type = Nacha::Numeric
       @justification = :rjust
       @json_output = [[:to_i],[:/,100.0]]
       @output_conversion = [:to_i]
-      @fill_character = '0'
+      @fill_character = '0'.freeze
     end
   end
 
   def data= val
     @data = @data_type.new(val)
     @input_data = val
+  end
+
+  def mandatory?
+    @inclusion == 'M'.freeze
+  end
+
+  def required?
+    @inclusion == 'R'.freeze
+  end
+
+  def optional?
+    @inclusion == 'O'.freeze
   end
 
   def valid?
@@ -92,17 +104,17 @@ class Nacha::Field
 
   def self.unpack_str(definition = {  })
     if(definition[:contents] =~ /(Numeric|\$+\¢\¢)/)
-      'a'
+      'a'.freeze
     else
-      'A'
+      'A'.freeze
     end + definition[:position].size.to_s
   end
 
   def to_ach
     str = to_s
     fill_char = @fill_character
-    fill_char = ' ' unless str
-    str ||= ""
+    fill_char = ' '.freeze unless str
+    str ||= ''.freeze
     str.send(justification,position.count, fill_char)
   end
 

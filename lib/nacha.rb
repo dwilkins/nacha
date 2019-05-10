@@ -20,4 +20,5 @@ module Nacha
                                    COR CTX DNE ENR IAT POP POS SHR
                                    MTE RCK TEL TRC TRX WEB XCK )
 
+  SERVICE_CLASS_CODES = %w( 200 220 225 280 )
 end

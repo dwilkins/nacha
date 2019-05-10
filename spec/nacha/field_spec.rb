@@ -39,6 +39,30 @@ RSpec.describe Nacha::Field do
     end
   end
 
+  describe 'responds' do
+    let(:optional_field) { build(:company_descriptive_date) }
+    let(:mandatory_field) { build(:standard_entry_class_code) }
+    let(:required_field) { build(:effective_entry_date) }
+
+    it 'to mandatory?' do
+      expect(mandatory_field).to be_mandatory
+      expect(mandatory_field).to_not be_optional
+      expect(mandatory_field).to_not be_required
+    end
+
+    it 'to optional?' do
+      expect(optional_field).to be_optional
+      expect(optional_field).to_not be_mandatory
+      expect(optional_field).to_not be_required
+    end
+
+    it 'to required?' do
+      expect(required_field).to be_required
+      expect(required_field).to_not be_optional
+      expect(required_field).to_not be_mandatory
+    end
+  end
+
   describe 'contents' do
     describe 'constants' do
       it 'sets the value' do
