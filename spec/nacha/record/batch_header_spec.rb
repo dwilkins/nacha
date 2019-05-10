@@ -14,6 +14,15 @@ RSpec.describe "Nacha::Record::BatchHeader", :nacha_record_type do
     "5220DHI PAYROLL                         2870327243PPDDHIPAYROLL0907020812051001124000050000001"
   }
 
+  it 'has a factory' do
+    bh = build(:batch_header)
+    pbh = build(:ppd_batch_header)
+    expect(bh).to be_a Nacha::Record::BatchHeader
+    expect(pbh).to be_a Nacha::Record::BatchHeader
+    expect(bh.standard_entry_class_code.to_s).to eq('PPD')
+    expect(pbh.standard_entry_class_code.to_s).to eq('PPD')
+  end
+
   it 'exists' do
     expect { Nacha::Record::BatchHeader }.to_not raise_error()
   end

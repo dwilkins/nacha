@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "nacha"
+require "support/factory_bot"
 require "nacha/record/file_header_record_type"
 
 RSpec.configure do |config|
