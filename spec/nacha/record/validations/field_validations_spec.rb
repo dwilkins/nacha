@@ -63,4 +63,33 @@ RSpec.describe "Nacha::Record::FieldValidations" do
       end
     end
   end
+
+  describe 'transaction_code' do
+    let(:valid_fields) do
+      Nacha::TRANSACTION_CODES.map do |scc|
+        build(:transaction_code, data: scc.to_i)
+      end
+    end
+
+    let(:invalid_fields) do
+      %w(99 89 ).map do |scc|
+        build(:transaction_code, data: scc.to_i)
+      end
+    end
+
+    it 'recognizes valid transaction_codes' do
+      valid_fields.each do |valid_field|
+        expect(subject.valid_transaction_code valid_field).to be_truthy, valid_field.inspect
+        expect(valid_field.errors).to be_empty
+      end
+    end
+
+    it 'recognizes invalid transaction_codes' do
+      invalid_fields.each do |invalid_field|
+        expect(subject.valid_transaction_code invalid_field).to be_falsy, invalid_field.inspect
+        expect(invalid_field.errors.first).to match(/#{invalid_field}/)
+        expect(invalid_field.errors.first).to match(/is invalid/)
+      end
+    end
+  end
 end

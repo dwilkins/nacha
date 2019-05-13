@@ -89,6 +89,16 @@ module Nacha
         end
       end
 
+      def debit?
+        self.transaction_code &&
+          DEBIT_TRANSACTION_CODES.include?(self.transaction_code.to_s)
+      end
+
+      def credit?
+        self.transaction_code &&
+          CREDIT_TRANSACTION_CODES.include?(self.transaction_code.to_s)
+      end
+
       def self.unpack_str
         @unpack_str ||= definition.values.collect {|d|
           Nacha::Field.unpack_str(d)

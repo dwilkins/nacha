@@ -107,5 +107,12 @@ FactoryBot.define do
       position { 88..94 }
       data { '0' }
     end
+
+    factory :transaction_code do
+      mandatory
+      numeric
+      position { 2..3 }
+      data { '22' }
+    end
   end
 end

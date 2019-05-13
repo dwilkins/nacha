@@ -10,12 +10,16 @@ module Nacha
           (block_given? ? yield : condition) || (field.add_error("'#{field.data}' is invalid") && false)
         end
 
+        def valid_service_class_code field
+          check_field_error(field) { SERVICE_CLASS_CODES.include? field.to_s }
+        end
+
         def valid_standard_entry_class_code field
           check_field_error(field) { STANDARD_ENTRY_CLASS_CODES.include? field.data }
         end
 
-        def valid_service_class_code field
-          check_field_error(field) { SERVICE_CLASS_CODES.include? field.to_s }
+        def valid_transaction_code field
+          check_field_error(field) { TRANSACTION_CODES.include? field.to_s }
         end
       end
     end
