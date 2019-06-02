@@ -46,7 +46,7 @@ class Nacha::Field
       @json_output = [[:to_i]]
       @output_conversion = [:to_i]
       @fill_character = '0'.freeze
-    when /bTTTTAAAAC/
+    when /.?TTTTAAAAC/
       @data_type = Nacha::AbaNumber
       @validator = :valid?
       @justification = :rjust

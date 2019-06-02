@@ -8,7 +8,7 @@ end
 RSpec.describe "Nacha::Record::FieldValidations" do
   let(:subject) { DummyRecord }
 
-  describe 'standard_entry_class_code' do
+  describe 'valid_standard_entry_class_code' do
     let(:valid_fields) do
       Nacha::STANDARD_ENTRY_CLASS_CODES.map do |sec|
         build(:standard_entry_class_code, data: sec)
@@ -35,7 +35,7 @@ RSpec.describe "Nacha::Record::FieldValidations" do
     end
   end
 
-  describe 'service_class_code' do
+  describe 'valid_service_class_code' do
     let(:valid_fields) do
       Nacha::SERVICE_CLASS_CODES.map do |scc|
         build(:service_class_code, data: scc.to_i)
@@ -64,7 +64,7 @@ RSpec.describe "Nacha::Record::FieldValidations" do
     end
   end
 
-  describe 'transaction_code' do
+  describe 'valid_transaction_code' do
     let(:valid_fields) do
       Nacha::TRANSACTION_CODES.map do |scc|
         build(:transaction_code, data: scc.to_i)
@@ -89,6 +89,47 @@ RSpec.describe "Nacha::Record::FieldValidations" do
         expect(subject.valid_transaction_code invalid_field).to be_falsy, invalid_field.inspect
         expect(invalid_field.errors.first).to match(/#{invalid_field}/)
         expect(invalid_field.errors.first).to match(/is invalid/)
+      end
+    end
+  end
+
+  describe 'valid_receiving_dfi_identification' do
+    let(:dfi_identification_numbers) {
+      [
+        ['1' * 8, 8].join,
+        ['2' * 8, 6].join,
+        ['3' * 8, 4].join,
+        ['4' * 8, 2].join,
+        ['5' * 8, 0].join,
+        ['6' * 8, 8].join,
+        ['7' * 8, 6].join,
+        ['8' * 8, 4].join,
+        ['9' * 8, 2].join
+      ]
+    }
+    let(:valid_fields) do
+      dfi_identification_numbers.map do |din|
+        build(:receiving_dfi_identification, data: din)
+      end
+    end
+
+    let(:invalid_fields) do
+      dfi_identification_numbers.map do |din|
+        temp = din.dup
+        temp[2] = '0'
+        build(:receiving_dfi_identification, data: temp)
+      end
+    end
+
+    it 'recognizes valid receiving_identification' do
+      valid_fields.each do |valid_field|
+        expect(subject.valid_receiving_dfi_identification valid_field).to be_truthy, valid_field.inspect
+      end
+    end
+
+    it 'recognizes invalid receiving_identification' do
+      invalid_fields.each do |valid_field|
+        expect(subject.valid_receiving_dfi_identification valid_field).to be_falsey, valid_field.inspect
       end
     end
   end

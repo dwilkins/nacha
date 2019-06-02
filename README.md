@@ -4,12 +4,10 @@ Validating Ruby ACH parser and generator
 
 Format documentation here: http://achrulesonline.org/
 
-The definition for the ach records is defined in YAML, since some vendors
-adjust the format some.
+The definition of the records exactly mirrors the NACHA documentation so that
+development and business can use the same terminology.
 
-Significant work in progress
-
-
+Work in progress - contributors welcome.
 
 ## Installation
 
@@ -33,6 +31,7 @@ API may change at any time.   Pull requests welcomed
 
 
 `"101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"`
+
 ```ruby
     ach_records = Nacha.parse(ach_file)
 
@@ -57,11 +56,6 @@ API may change at any time.   Pull requests welcomed
   "reference_code": "       1"
 }
 ```
-
-
-
-
-
 
 
 ## Development

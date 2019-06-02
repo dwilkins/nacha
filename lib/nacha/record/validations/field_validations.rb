@@ -21,6 +21,10 @@ module Nacha
         def valid_transaction_code field
           check_field_error(field) { TRANSACTION_CODES.include? field.to_s }
         end
+
+        def valid_receiving_dfi_identification field
+          check_field_error(field) { field.valid? }
+        end
       end
     end
   end

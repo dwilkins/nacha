@@ -101,6 +101,13 @@ FactoryBot.define do
       data { '12345678' }
     end
 
+    factory :receiving_dfi_identification do
+      mandatory
+      contents { 'TTTTAAAAC' }
+      position { 4..12 }
+      data { '111111118' }
+    end
+
     factory :batch_number do
       mandatory
       numeric
