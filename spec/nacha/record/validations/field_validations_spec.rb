@@ -5,7 +5,7 @@ class DummyRecord
 end
 
 
-RSpec.describe "Nacha::Record::FieldValidations" do
+RSpec.describe 'Nacha::Record::FieldValidations' do
   let(:subject) { DummyRecord }
 
   describe 'valid_standard_entry_class_code' do

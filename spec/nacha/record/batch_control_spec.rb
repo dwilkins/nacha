@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::BatchControl", :nacha_record_type do
+RSpec.describe 'Nacha::Record::BatchControl', :nacha_record_type do
 
   let(:example_batch_control_record) {
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    "822000000200248602040000000000000000002001002870327243                         124000050000001"
+    '822000000200248602040000000000000000002001002870327243                         124000050000001'
   }
 
   it 'exists' do

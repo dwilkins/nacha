@@ -32,10 +32,15 @@ module Nacha
         end
       end
 
+      def record_type
+        Nacha.record_name(self.class)
+      end
+
       def to_h
-        @fields.keys.collect do |key|
-          [key,@fields[key].to_json_output]
-        end.to_h
+        {nacha_record_type: record_type}.merge(
+          @fields.keys.map do |key|
+            [key,@fields[key].to_json_output]
+          end.to_h)
       end
 
       def to_json
@@ -87,6 +92,15 @@ module Nacha
             send(self.class.validations[:field], field_data)
           end
         end
+      end
+
+      # look for invalid fields, if none, then return true
+      def valid?
+        !self.class.definition.keys.map do |field_sym|
+          field = send(field_sym)
+          next unless field.mandatory? ## TODO: levels of validity with 'R' and 'O' fields
+          field.valid?
+        end.detect { |valid| valid == false }
       end
 
       def debit?

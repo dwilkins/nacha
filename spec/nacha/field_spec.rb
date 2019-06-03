@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 RSpec.describe Nacha::Field do
   let(:valid_params) do
@@ -9,11 +9,11 @@ RSpec.describe Nacha::Field do
     }
   end
 
-  it "is one" do
+  it 'is one' do
     expect(Nacha::Field.new).to be_a Nacha::Field
   end
 
-  describe "defaults" do
+  describe 'defaults' do
     it 'data type' do
       expect(Nacha::Field.new(valid_params).data_type).to eq String
     end
@@ -142,7 +142,7 @@ RSpec.describe Nacha::Field do
         field.data = ambiguous_date
         expect(field.data).to be_a Date
         field.data += 1
-        expect(field.data).to eq (Date.strptime(ambiguous_date,"%y%m%d") + 1)
+        expect(field.data).to eq (Date.strptime(ambiguous_date,'%y%m%d') + 1)
       end
     end
 

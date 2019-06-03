@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::FileControl", :nacha_record_type do
+RSpec.describe 'Nacha::Record::FileControl', :nacha_record_type do
 
   let(:example_file_control_record) {
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    "9000001000001000000020024860204000000000000000000200100                                       "
+    '9000001000001000000020024860204000000000000000000200100                                       '
   }
 
 
@@ -29,12 +29,13 @@ RSpec.describe "Nacha::Record::FileControl", :nacha_record_type do
     let(:fcr) { Nacha::Record::FileControl.parse(example_file_control_record) }
     let(:fcr_hash) do
       {
+        nacha_record_type: 'file_control',
         batch_count: 1,
         block_count: 1,
         entry_addenda_count: 2,
         entry_hash: 24860204,
-        record_type_code: "9",
-        reserved: "",
+        record_type_code: '9',
+        reserved: '',
         total_credit_entry_dollar_amount_in_file: 2001.0,
         total_debit_entry_dollar_amount_in_file: 0.0
       }

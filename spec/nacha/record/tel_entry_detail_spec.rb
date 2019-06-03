@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::TelEntryDetail", :nacha_record_type do
+RSpec.describe 'Nacha::Record::TelEntryDetail', :nacha_record_type do
 
   it 'exists' do
     expect { Nacha::Record::TelEntryDetail }.to_not raise_error()

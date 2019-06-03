@@ -12,7 +12,7 @@ class Nacha::AbaNumber
           (7 * (n[1] + n[4] + n[7])) +
           (n[2] + n[5])
     intermediate = (sum % 10)
-    intermediate == 0 ? "0" : (10 - intermediate).to_s
+    intermediate == 0 ? '0' : (10 - intermediate).to_s
   end
 
   def routing_number= val

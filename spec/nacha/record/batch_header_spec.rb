@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::BatchHeader", :nacha_record_type do
+RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
 
   let(:example_batch_header_record) {
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    "5220DHI PAYROLL                         2870327243PPDDHIPAYROLL090702081205   1124000050000001"
+    '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL090702081205   1124000050000001'
   }
 
   let(:example_batch_header_record_settlement_date) {
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    "5220DHI PAYROLL                         2870327243PPDDHIPAYROLL0907020812051001124000050000001"
+    '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL0907020812051001124000050000001'
   }
 
   it 'has a factory' do

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe "Nacha::Record::FileHeader", :nacha_record_type do
+RSpec.describe 'Nacha::Record::FileHeader', :nacha_record_type do
   let(:example_file_header_record) {
-    "101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"
+    '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1'
   }
 
   it 'exists' do
@@ -93,19 +93,19 @@ RSpec.describe "Nacha::Record::FileHeader", :nacha_record_type do
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(fhr_json).keys).to contain_exactly("record_type_code",
-                                                           "priority_code",
-                                                           "immediate_destination",
-                                                           "immediate_origin",
-                                                           "file_creation_date",
-                                                           "file_creation_time",
-                                                           "file_id_modifier",
-                                                           "record_size",
-                                                           "blocking_factor",
-                                                           "format_code",
-                                                           'immediate_destination_name',
-                                                           "immediate_origin_name",
-                                                           "reference_code")
+      expect(JSON.parse(fhr_json).keys).to include('record_type_code',
+                                                   'priority_code',
+                                                   'immediate_destination',
+                                                   'immediate_origin',
+                                                   'file_creation_date',
+                                                   'file_creation_time',
+                                                   'file_id_modifier',
+                                                   'record_size',
+                                                   'blocking_factor',
+                                                   'format_code',
+                                                   'immediate_destination_name',
+                                                   'immediate_origin_name',
+                                                   'reference_code')
     end
 
   end

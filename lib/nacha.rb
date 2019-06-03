@@ -5,11 +5,11 @@ require 'nacha/ach_date'
 require 'nacha/field'
 require 'nacha/numeric'
 
-Dir["lib/nacha/record/*.rb"].each do |file|
+Dir['lib/nacha/record/*.rb'].each do |file|
   require File.expand_path(file)
 end
 
-Dir["lib/nacha/record/**/*.rb"].each do |file|
+Dir['lib/nacha/record/**/*.rb'].each do |file|
   require File.expand_path(file)
 end
 
@@ -26,4 +26,16 @@ module Nacha
   DEBIT_TRANSACTION_CODES  = %w( 25 26 27 28 29 35 36 37 38 39 46 47 48 49 55 56 82 84 86 88 ).freeze
 
   TRANSACTION_CODES = (CREDIT_TRANSACTION_CODES + DEBIT_TRANSACTION_CODES).freeze
+
+  def self.record_name str
+    underscore(str.to_s).split('/').last
+  end
+
+  def self.underscore str
+    str.gsub(/::/, '/').
+      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      tr('-', '_').
+      downcase
+  end
 end
