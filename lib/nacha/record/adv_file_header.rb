@@ -1,4 +1,6 @@
 # coding: utf-8
+# frozen_string_literal: true
+
 require 'nacha/record/base.rb'
 require 'nacha/record/file_header_record_type.rb'
 

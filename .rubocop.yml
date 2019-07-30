@@ -1,0 +1,42 @@
+inherit_gem:
+  gitlab-styles:
+    - rubocop-default.yml
+
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'tmp/**/*'
+    - 'bin/**/*'
+  CacheRootDirectory: tmp
+
+# This cop checks whether some constant value isn't a
+# mutable literal (e.g. array or hash).
+Style/MutableConstant:
+  Enabled: true
+
+Style/SafeNavigation:
+  Enabled: false
+
+# Frozen String Literal
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'spec/**/*'
+
+Metrics/LineLength:
+  Max: 92
+
+Naming/FileName:
+  ExpectMatchingDefinition: true
+  Exclude:
+    - 'spec/**/*'
+
+  IgnoreExecutableScripts: true
+
+Layout/LeadingCommentSpace:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false

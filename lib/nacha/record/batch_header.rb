@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nacha/record/base.rb'
 require 'nacha/record/batch_header_record_type.rb'
 
@@ -18,7 +20,7 @@ module Nacha
       nacha_field :settlement_date_julian, inclusion: 'M', contents: 'Numeric', position: 76..78
       nacha_field :originator_status_code, inclusion: 'M', contents: 'Alphameric', position: 79..79
       nacha_field :originating_dfi_identification, inclusion: 'M', contents: 'TTTTAAAA', position: 80..87
-      nacha_field :batch_number,  inclusion: 'M', contents: 'Numeric', position: 88..94
+      nacha_field :batch_number, inclusion: 'M', contents: 'Numeric', position: 88..94
     end
   end
 end

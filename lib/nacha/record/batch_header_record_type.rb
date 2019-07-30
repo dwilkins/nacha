@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Nacha
   module Record
     module BatchHeaderRecordType
-      def self.included base
+      def self.included(base)
         base.extend ClassMethods
       end
 
@@ -12,10 +14,10 @@ module Nacha
       end
 
       def child_record_types
-        sec = self.standard_entry_class_code.to_s.capitalize
+        sec = standard_entry_class_code.to_s.capitalize
         [
           'Nacha::Record::' + sec + 'EntryDetail',
-         'Nacha::Record::BatchControl'
+          'Nacha::Record::BatchControl'
         ]
       end
     end

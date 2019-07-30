@@ -1,4 +1,6 @@
 # coding: utf-8
+# frozen_string_literal: true
+
 require 'nacha/record/base.rb'
 require 'nacha/record/file_control_record_type.rb'
 
@@ -14,11 +16,9 @@ module Nacha
       nacha_field :total_credit_entry_dollar_amount_in_file, inclusion: 'M', contents: '$$$$$$$$$$¢¢', position: 52..71
       nacha_field :reserved, inclusion: 'M', contents: 'C', position: 72..94
 
-
       def initialize
         create_fields_from_definition
       end
     end
-
   end
 end

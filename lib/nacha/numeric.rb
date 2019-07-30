@@ -1,6 +1,7 @@
+# frozen_string_literal: true
 class Nacha::Numeric
   attr_accessor :value
-  def initialize val = nil
+  def initialize(val = nil)
     self.value = val
   end
 
@@ -16,17 +17,17 @@ class Nacha::Numeric
     end
   end
 
-  def value= val
-    if(val.is_a?(String))
+  def value=(val)
+    if val.is_a?(String)
       @value = val.dup
-      if(val.strip.length > 0)
-        @value = BigDecimal.new(val.strip)
+      if !val.strip.empty?
+        @value = BigDecimal(val.strip)
         @op_value = @value
       else
-        @op_value = BigDecimal.new(0)
+        @op_value = BigDecimal(0)
       end
     else
-      @value = BigDecimal.new(val)
+      @value = BigDecimal(val)
       @op_value = @value
     end
     @value
@@ -47,15 +48,15 @@ class Nacha::Numeric
   # necessarily the potentially string @value
   def method_missing(method_name, *args, &block)
     puts "In method_missing for #{method_name} value_class = #{@value.class}, op_value_class = #{@op_value.class}"
-    if(@op_value.respond_to? method_name)
+    if @op_value.respond_to? method_name
       old_op_value = @op_value.dup
-      if(method_name.to_s.match(/!\z/))
+      if /!\z/.match?(method_name.to_s)
         @op_value.send(method_name, *args, &block)
         return_value = @op_value
       else
         return_value = @op_value.send(method_name, *args, &block)
       end
-      if(old_op_value != return_value)
+      if old_op_value != return_value
         @value = return_value
         @op_value = return_value
       end
@@ -64,5 +65,4 @@ class Nacha::Numeric
       super
     end
   end
-
 end

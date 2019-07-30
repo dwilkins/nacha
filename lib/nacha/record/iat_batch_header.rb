@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nacha/record/base.rb'
 require 'nacha/record/batch_header_record_type.rb'
 

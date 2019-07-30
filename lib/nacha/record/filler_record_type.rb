@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Nacha
   module Record
     module FillerRecordType
-      def self.included base
+      def self.included(base)
         base.extend ClassMethods
       end
 

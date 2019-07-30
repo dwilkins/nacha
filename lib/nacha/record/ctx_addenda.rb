@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nacha/record/base.rb'
 require 'nacha/record/addenda_record_type.rb'
 module Nacha

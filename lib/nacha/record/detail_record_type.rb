@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Nacha
   module Record
     module DetailRecordType
-      def self.included base
+      def self.included(base)
         base.extend ClassMethods
       end
 
@@ -25,4 +27,3 @@ module Nacha
     end
   end
 end
-
