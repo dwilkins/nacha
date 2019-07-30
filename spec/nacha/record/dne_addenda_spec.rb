@@ -1,9 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe 'Nacha::Record::DneAddenda', :nacha_record_type do
-
+RSpec.describe Nacha::Record::DneAddenda, :nacha_record_type do
   it 'exists' do
-    expect { Nacha::Record::DneAddenda }.to_not raise_error()
+    expect { Nacha::Record::DneAddenda }.not_to raise_error
   end
-
 end

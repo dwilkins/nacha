@@ -1,15 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::BatchControl', :nacha_record_type do
-
-  let(:example_batch_control_record) {
+  let(:example_batch_control_record) do
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
     '822000000200248602040000000000000000002001002870327243                         124000050000001'
-  }
+  end
 
   it 'exists' do
-    expect { Nacha::Record::BatchControl }.to_not raise_error()
+    expect { Nacha::Record::BatchControl }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do

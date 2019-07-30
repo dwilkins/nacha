@@ -1,18 +1,17 @@
 require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
-
-  let(:example_batch_header_record) {
+  let(:example_batch_header_record) do
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
     '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL090702081205   1124000050000001'
-  }
+  end
 
-  let(:example_batch_header_record_settlement_date) {
+  let(:example_batch_header_record_settlement_date) do
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
     '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL0907020812051001124000050000001'
-  }
+  end
 
   it 'has a factory' do
     bh = build(:batch_header)
@@ -24,7 +23,7 @@ RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
   end
 
   it 'exists' do
-    expect { Nacha::Record::BatchHeader }.to_not raise_error()
+    expect { Nacha::Record::BatchHeader }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do
@@ -41,9 +40,9 @@ RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
 
   describe 'parses a record' do
     let(:record) { Nacha::Record::BatchHeader.parse(example_batch_header_record) }
-    let(:record_with_settlement_date) {
+    let(:record_with_settlement_date) do
       Nacha::Record::BatchHeader.parse(example_batch_header_record_settlement_date)
-    }
+    end
 
     it 'record_type_code' do
       expect(record.record_type_code.to_ach).to eq '5'

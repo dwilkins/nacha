@@ -1,16 +1,14 @@
 require 'spec_helper'
 
-RSpec.describe 'Nacha::Record::FileControl', :nacha_record_type do
-
-  let(:example_file_control_record) {
+RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
+  let(:example_file_control_record) do
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
     '9000001000001000000020024860204000000000000000000200100                                       '
-  }
-
+  end
 
   it 'exists' do
-    expect { Nacha::Record::FileControl }.to_not raise_error()
+    expect { Nacha::Record::FileControl }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do
@@ -75,7 +73,7 @@ RSpec.describe 'Nacha::Record::FileControl', :nacha_record_type do
 
     it 'converts to json' do
       expect(JSON.parse(fcr.to_json).values).to contain_exactly(*fcr_hash.values)
-      expect(JSON.parse(fcr.to_json).keys).to contain_exactly(*(fcr_hash.keys.collect(&:to_s)))
+      expect(JSON.parse(fcr.to_json).keys).to contain_exactly(*fcr_hash.keys.collect(&:to_s))
     end
   end
 end

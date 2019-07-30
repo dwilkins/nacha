@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
-  let(:example_file_header_record) {
+  let(:example_file_header_record) do
     '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1'
-  }
+  end
 
   it 'exists' do
-    expect { Nacha::Record::AdvFileHeader }.to_not raise_error()
+    expect { Nacha::Record::AdvFileHeader }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do
@@ -41,7 +41,7 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
     end
 
     it 'immediate_origin' do
-      expect(fhr.immediate_origin.to_ach).to eq  ' 124000054'
+      expect(fhr.immediate_origin.to_ach).to eq ' 124000054'
     end
 
     it 'file_creation_date' do
@@ -107,7 +107,5 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
                                                    'immediate_origin_name',
                                                    'reference_code')
     end
-
   end
-
 end
