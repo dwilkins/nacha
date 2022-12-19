@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'pry'
+#require 'pry'
 require 'bigdecimal'
 require 'nacha/numeric'
 require 'nacha/aba_number'

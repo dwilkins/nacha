@@ -20,13 +20,13 @@ class Nacha::Numeric
     if(val.is_a?(String))
       @value = val.dup
       if(val.strip.length > 0)
-        @value = BigDecimal.new(val.strip)
+        @value = BigDecimal(val.strip)
         @op_value = @value
       else
-        @op_value = BigDecimal.new(0)
+        @op_value = BigDecimal(0)
       end
     else
-      @value = BigDecimal.new(val)
+      @value = BigDecimal(val)
       @op_value = @value
     end
     @value
