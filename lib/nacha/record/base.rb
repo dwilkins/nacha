@@ -5,23 +5,21 @@ require 'nacha/record/validations/field_validations'
 module Nacha
   module Record
     class Base
-      include FieldValidations
+      include Validations::FieldValidations
 
       attr_accessor :children, :parent, :fields
-      attr_reader :definition, :name
-      attr_reader :validations
-
-      @@unpack_str = nil
-      # @@matcher = nil
+      attr_reader :name, :validations
 
       def initialize opts = {}
         @children = []
         create_fields_from_definition
         opts.each do |k,v|
           setter = "#{k}="
-          if(respond_to?(setter))
-            send(setter, v) unless v.nil?
-          end
+          next unless respond_to? setter
+
+          # rubocop:disable GitlabSecurity/PublicSend
+          send(setter, v) unless v.nil?
+          # rubocop:enable GitlabSecurity/PublicSend
         end
       end
 
@@ -62,11 +60,11 @@ module Nacha
                              contents: contents,
                              position: position,
                              name: name}
-        validation_method = "valid_#{name.to_s}".to_sym
-        if respond_to?(validation_method)
-          validations[name] ||= []
-          validations[name] << validation_method
-        end
+        validation_method = "valid_#{name}".to_sym
+        return unless respond_to?(validation_method)
+
+        validations[name] ||= []
+        validations[name] << validation_method
       end
 
       def self.definition
@@ -77,8 +75,8 @@ module Nacha
         @validations ||= {}
       end
 
-      def self.nacha_record_name(record_name)
-        @nacha_record_name = record_name
+      class << self
+        attr_reader :nacha_record_name
       end
 
       def definition
@@ -87,20 +85,27 @@ module Nacha
 
       def validate
         self.class.definition.keys.map do |field|
-          if self.class.validations[field]
-            field_data = send(field)
-            send(self.class.validations[:field], field_data)
-          end
+          next unless self.class.validations[field]
+
+          # rubocop:disable GitlabSecurity/PublicSend
+          field_data = send(field)
+          send(self.class.validations[:field], field_data)
+          # rubocop:enable GitlabSecurity/PublicSend
         end
       end
 
       # look for invalid fields, if none, then return true
       def valid?
-        !self.class.definition.keys.map do |field_sym|
+        statuses = self.class.definition.keys.map do |field_sym|
+          # rubocop:disable GitlabSecurity/PublicSend
           field = send(field_sym)
-          next unless field.mandatory? ## TODO: levels of validity with 'R' and 'O' fields
+          # rubocop:enable GitlabSecurity/PublicSend
+          next true unless field.mandatory?
+
+          ## TODO: levels of validity with 'R' and 'O' fields
           field.valid?
-        end.detect { |valid| valid == false }
+        end
+        !statuses.detect { |valid| valid == false }
       end
 
       def debit?
@@ -140,7 +145,8 @@ module Nacha
       end
 
       def respond_to?(method_name, include_private = false)
-        field_name = method_name.to_s.gsub(/=$/,'').to_sym
+        field_name = method_name.to_s.gsub(/=$/, '').to_sym
+
         definition[field_name] || super
       end
 
@@ -150,7 +156,9 @@ module Nacha
         if @fields[field_name]
           if is_assignment
             # @fields[field_name].send(:data=,*args)
-            @fields[field_name].send(:data=,*args)
+            # rubocop:disable GitlabSecurity/PublicSend
+            @fields[field_name].public_send(:data=, *args)
+            # rubocop:enable GitlabSecurity/PublicSend
             @dirty = true
           else
             # @fields[field_name].data
