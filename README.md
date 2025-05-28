@@ -30,11 +30,10 @@ Or install it yourself as:
 API may change at any time.   Pull requests welcomed
 
 
-`"101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"`
 
 ```ruby
-    ach_records = Nacha.parse(ach_file)
-
+    ach_string = "101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"
+    ach_records = Nacha::Parser.parse_string(ach_string)
     ach_records[0].class  # => Nacha::Record::FileHeaderRecord
 
     ach_records[0].to_json

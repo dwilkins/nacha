@@ -31,6 +31,16 @@ module Nacha
 
   TRANSACTION_CODES = (CREDIT_TRANSACTION_CODES + DEBIT_TRANSACTION_CODES).freeze
 
+  # Thanks @dimitrypo for this idea and code
+  def self.parse(object)
+    parser = Nacha::Parser.new
+    if object.is_a?(String)
+        parser.parse_string(object)
+    else
+      parser.parse_file(object)
+    end
+  end
+
   def self.record_name(str)
     underscore(str.to_s).split('/').last
   end

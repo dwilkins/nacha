@@ -1,4 +1,5 @@
-# coding: utf-8
+# frozen_string_literal: true
+
 require 'pry'
 require 'bigdecimal'
 require 'nacha/numeric'
@@ -6,10 +7,9 @@ require 'nacha/aba_number'
 require 'nacha/ach_date'
 
 class Nacha::Field
-
-  attr_accessor :inclusion, :contents, :position
-  attr_accessor :data, :name, :errors
-  attr_reader  :input_data
+  attr_accessor :inclusion, :position
+  attr_accessor :name, :errors
+  attr_reader :contents, :data, :input_data
   attr_reader :data_type
   attr_reader :validator
   attr_reader :justification
@@ -17,17 +17,17 @@ class Nacha::Field
   attr_reader :output_conversion
   attr_reader :json_output
 
-  def initialize opts = {}
+  def initialize(opts = {})
     @data_type = String
     @errors = []
-    @name = 'Unknown'.freeze
+    @name = 'Unknown'
     @justification = :ljust
-    @fill_character =  ' '.freeze
+    @fill_character = ' '
     @json_output = [:to_s]
     @output_conversion = [:to_s]
-    opts.each do |k,v|
+    opts.each do |k, v|
       setter = "#{k}="
-      if(respond_to?(setter))
+      if respond_to?(setter)
         send(setter, v) unless v.nil?
       end
     end
@@ -35,94 +35,92 @@ class Nacha::Field
 
   # CXXX Constant
   #
-  def contents= val
+  def contents=(val)
     @contents = val
     case @contents
-    when /\AC(.*)\z/  # Constant
-      @data = $1
+    when /\AC(.*)\z/ # Constant
+      @data = Regexp.last_match(1)
     when /Numeric/
       @data_type = Nacha::Numeric
       @justification = :rjust
       @json_output = [[:to_i]]
       @output_conversion = [:to_i]
-      @fill_character = '0'.freeze
+      @fill_character = '0'
     when /.?TTTTAAAAC/
       @data_type = Nacha::AbaNumber
       @validator = :valid?
       @justification = :rjust
       @output_conversion = [:to_s]
-      @fill_character = ' '.freeze
+      @fill_character = ' '
     when 'YYMMDD'
       @data_type = Nacha::AchDate
       @justification = :rjust
       @validator = :valid?
       @json_output = [[:iso8601]]
       @output_conversion = [:to_s]
-      @fill_character = ' '.freeze
+      @fill_character = ' '
     when 'Alphameric'
       @data_type = String
       @justification = :ljust
       @output_conversion = [:to_s]
-      @fill_character = ' '.freeze
-    when /\$+\¢\¢/
+      @fill_character = ' '
+    when /\$+\u00a2\u00a2/
       @data_type = Nacha::Numeric
       @justification = :rjust
-      @json_output = [[:to_i],[:/,100.0]]
+      @json_output = [[:to_i], [:/, 100.0]]
       @output_conversion = [:to_i]
-      @fill_character = '0'.freeze
+      @fill_character = '0'
     end
   end
 
-  def data= val
+  def data=(val)
     @data = @data_type.new(val)
     @input_data = val
   end
 
   def mandatory?
-    @inclusion == 'M'.freeze
+    @inclusion == 'M'
   end
 
   def required?
-    @inclusion == 'R'.freeze
+    @inclusion == 'R'
   end
 
   def optional?
-    @inclusion == 'O'.freeze
+    @inclusion == 'O'
   end
 
   def valid?
     @valid = inclusion && contents && position
-    if(@validator && @data)
-      @valid &&= @data.send(@validator)
-    end
+    @valid &&= @data.send(@validator) if @validator && @data
     @valid
   end
 
-  def add_error err_string
+  def add_error(err_string)
     errors << err_string
   end
 
-  def self.unpack_str(definition = {  })
-    if(definition[:contents] =~ /(Numeric|\$+\¢\¢)/)
-      'a'.freeze
+  def self.unpack_str(definition = {})
+    if definition[:contents] =~ /(Numeric|\$+\u00a2\u00a2)/
+      'a'
     else
-      'A'.freeze
+      'A'
     end + definition[:position].size.to_s
   end
 
   def to_ach
     str = to_s
     fill_char = @fill_character
-    fill_char = ' '.freeze unless str
-    str ||= ''.freeze
-    str.send(justification,position.count, fill_char)
+    fill_char = ' ' unless str
+    str ||= ''
+    str.send(justification, position.count, fill_char)
   end
 
   def to_json_output
-    if(@json_output)
-      @json_output.reduce(@data) { |output, operation|
+    if @json_output
+      @json_output.reduce(@data) do |output, operation|
         output = output.send(*operation) if output
-      }
+      end
     else
       to_s
     end
@@ -135,5 +133,4 @@ class Nacha::Field
   def raw
     @data
   end
-
 end

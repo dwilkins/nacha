@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 class DummyRecord
-  include Nacha::Record::FieldValidations
+  include Nacha::Record::Validations::FieldValidations
 end
 
-RSpec.describe 'Nacha::Record::FieldValidations' do
+RSpec.describe Nacha::Record::Validations::FieldValidations do
   let(:subject) { DummyRecord }
 
   describe 'valid_standard_entry_class_code' do

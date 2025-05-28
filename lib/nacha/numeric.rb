@@ -1,5 +1,4 @@
 class Nacha::Numeric
-  attr_accessor :value
   def initialize val = nil
     self.value = val
   end
@@ -20,24 +19,22 @@ class Nacha::Numeric
     if(val.is_a?(String))
       @value = val.dup
       if(val.strip.length > 0)
-        @value = BigDecimal.new(val.strip)
+        @value = BigDecimal(val.strip)
         @op_value = @value
       else
-        @op_value = BigDecimal.new(0)
+        @op_value = BigDecimal(0)
       end
     else
-      @value = BigDecimal.new(val)
+      @value = BigDecimal(val)
       @op_value = @value
     end
-    @value
   end
 
   def to_s
     @value ? @value.to_s : nil
   end
 
-  def respond_to?(method_name, include_private = false)
-    puts "In respond_to? #{method_name}"
+  def respond_to_missing?(method_name, include_private = false)
     @op_value.respond_to? method_name
   end
 
@@ -46,14 +43,15 @@ class Nacha::Numeric
   # should be checked to see if the operation is valid for it, not
   # necessarily the potentially string @value
   def method_missing(method_name, *args, &block)
-    puts "In method_missing for #{method_name} value_class = #{@value.class}, op_value_class = #{@op_value.class}"
-    if(@op_value.respond_to? method_name)
+    if @op_value.respond_to? method_name
       old_op_value = @op_value.dup
-      if(method_name.to_s.match(/!\z/))
+      if /!\z/.match?(method_name.to_s)
+        # rubocop:disable GitlabSecurity/PublicSend
         @op_value.send(method_name, *args, &block)
         return_value = @op_value
       else
         return_value = @op_value.send(method_name, *args, &block)
+        # rubocop:enable GitlabSecurity/PublicSend
       end
       if(old_op_value != return_value)
         @value = return_value

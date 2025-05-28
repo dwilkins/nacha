@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.add_dependency 'bigdecimal'
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "byebug"
@@ -41,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-doc", "~> 0.10"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "rubocop", '~> 0.69.0'
-  spec.add_development_dependency 'rubocop-performance', '~> 1.1.0'
-  spec.add_development_dependency 'rubocop-rspec', '~> 1.22.1'
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rspec'
 end
