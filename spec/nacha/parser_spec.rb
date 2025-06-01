@@ -31,4 +31,16 @@ RSpec.describe Nacha::Parser do
     expect(parsed[3]).to be_a Nacha::Record::PpdEntryDetail
     expect(parsed[4]).to be_a Nacha::Record::BatchControl
   end
+
+  it 'parses a string' do
+    expect_any_instance_of(Nacha::Parser).to receive(:parse_string).once
+    Nacha.parse("")
+  end
+
+  # Anything other than a string is assumed to be a file
+  # TODO: better file / URL handling
+  it 'parses a file' do
+    expect_any_instance_of(Nacha::Parser).to receive(:parse_file).once
+    Nacha.parse(nil)
+  end
 end
