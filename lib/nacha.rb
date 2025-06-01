@@ -7,11 +7,11 @@ require 'nacha/ach_date'
 require 'nacha/field'
 require 'nacha/numeric'
 
-Dir['lib/nacha/record/*.rb'].each do |file|
+Gem.find_files('nacha/record/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
   require File.expand_path(file)
 end
 
-Dir['lib/nacha/record/**/*.rb'].each do |file|
+Gem.find_files('nacha/record/**/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
   require File.expand_path(file)
 end
 
@@ -30,16 +30,26 @@ module Nacha
                                 48 49 55 56 82 84 86 88].freeze
 
   TRANSACTION_CODES = (CREDIT_TRANSACTION_CODES + DEBIT_TRANSACTION_CODES).freeze
+  class << self
+    def parse(object)
+      parser = Nacha::Parser.new
+      if object.is_a?(String)
+        parser.parse_string(object)
+      else
+        parser.parse_file(object)
+      end
+    end
 
-  def self.record_name(str)
-    underscore(str.to_s).split('/').last
-  end
+    def record_name(str)
+      underscore(str.to_s).split('/').last
+    end
 
-  def self.underscore(str)
-    str.gsub(/::/, '/')
-      .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
-      .gsub(/([a-z\d])([A-Z])/, '\1_\2')
-      .tr('-', '_')
-      .downcase
+    def underscore(str)
+      str.gsub(/::/, '/').
+        gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+        gsub(/([a-z\d])([A-Z])/,'\1_\2').
+        tr('-', '_').
+        downcase
+    end
   end
 end

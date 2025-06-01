@@ -20,7 +20,7 @@ class Nacha::Numeric
   def value=(val)
     if val.is_a?(String)
       @value = val.dup
-      if !val.strip.empty?
+      if(val.strip.length > 0)
         @value = BigDecimal(val.strip)
         @op_value = @value
       else
