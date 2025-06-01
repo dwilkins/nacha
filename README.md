@@ -29,8 +29,6 @@ Or install it yourself as:
 
 API may change at any time.   Pull requests welcomed
 
-
-
 ```ruby
     ach_string = "101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"
     ach_records = Nacha::Parser.parse_string(ach_string)
@@ -56,6 +54,23 @@ API may change at any time.   Pull requests welcomed
 }
 ```
 
+## Command Line Interface (CLI)
+
+This gem now includes a command-line interface for convenient parsing of NACHA files.
+
+### Usage
+
+```bash
+nacha --help
+```
+
+### Parsing a NACHA file
+
+To parse an existing NACHA file and view json output:
+
+```bash
+nacha parse your_nacha_file.ach
+```
 
 ## Development
 

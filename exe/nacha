@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+# This script is the entry point for the 'nacha' command.
+# It loads the CLI logic from the gem's `lib` directory.
+
+# Ensure the gem's lib directory is in the load path
+# so we can require its files relative to the gem.
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+# Require the main CLI module
+require 'nacha/cli'
+
+# Run the command-line interface
+Nacha::CLI.run(ARGV)

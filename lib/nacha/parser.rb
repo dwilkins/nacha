@@ -11,12 +11,7 @@ class Nacha::Parser
   def reset!; end
 
   def parse_file(file)
-    parent = nil
-    records = []
-    File.foreach(file).with_index do |line, line_num|
-      records << process(line, line_num, records.last)
-      parent = records.last if records.lasts.class.child_record_types.any?
-    end
+    parse_string(file&.read)
   end
 
   def parse_string(str)
