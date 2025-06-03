@@ -15,7 +15,7 @@ class Nacha::Parser
     records = []
     File.foreach(file).with_index do |line, line_num|
       records << process(line, line_num, records.last)
-      parent = records.last if records.lasts.class.child_record_types.any?
+      parent = records.last if records.last && records.last.respond_to?(:child_record_types) && records.last.child_record_types.any?
     end
   end
 

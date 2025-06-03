@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'open3' # For capturing stdout/stderr
 
 RSpec.describe 'Nacha CLI', type: :aruba do
-  let(:executable) { File.expand_path('../../../bin/nacha', __FILE__) } # Adjust path as needed
-  let(:valid_ach_file) { File.expand_path('../../fixtures/achfiles/ppd_valid_1.txt', __FILE__) }
+  let(:executable) { File.expand_path('../../exe/nacha', __FILE__) } # Corrected path
+  let(:valid_ach_file) { File.expand_path('../fixtures/achfiles/ppd_valid_1.txt', __FILE__) } # Corrected path
   let(:non_existent_file) { 'non_existent_file.ach' }
 
   describe 'parse command' do
@@ -37,8 +37,8 @@ RSpec.describe 'Nacha CLI', type: :aruba do
     end
 
     context 'when given an invalid ACH file (e.g., empty or malformed)' do
-      let(:invalid_ach_file) { File.expand_path('../../fixtures/achfiles/ccd_invalid_3.txt', __FILE__) } # Assuming this is invalid for parsing
-      let(:empty_ach_file) { File.expand_path('../../fixtures/achfiles/empty_file.txt', __FILE__) }
+      let(:invalid_ach_file) { File.expand_path('../fixtures/achfiles/ccd_invalid_3.txt', __FILE__) } # Corrected path
+      let(:empty_ach_file) { File.expand_path('../fixtures/achfiles/empty_file.txt', __FILE__) } # Corrected path
 
       before do
         # Create an empty file for testing
