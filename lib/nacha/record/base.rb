@@ -11,6 +11,7 @@ module Nacha
 
       attr_accessor :children, :parent, :fields
       attr_reader :name, :validations
+      attr_accessor :line_number
 
       def initialize(opts = {})
         @children = []
@@ -51,6 +52,15 @@ module Nacha
         @fields.keys.collect do |key|
           @fields[key].to_ach
         end.join
+      end
+
+      def to_html
+        "<div style=\"font-family: monospace;\"class='nacha-record tooltip #{record_type}'>" +
+          "<span class='tooltiptext'>#{record_type}</span>" +
+          "<span class='nacha-field' data-name='record-number'>#{"%05d" % [line_number]}&nbsp;|&nbsp</span>" +
+        @fields.keys.collect do |key|
+          @fields[key].to_html
+        end.join + "</div>"
       end
 
       def inspect

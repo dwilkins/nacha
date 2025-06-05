@@ -126,6 +126,20 @@ class Nacha::Field
     end
   end
 
+  def human_name
+    # @human_name ||= @name.to_s.gsub('_', ' ').capitalize
+    @human_name ||= @name.to_s.split('_').map(&:capitalize).join(' ')
+  end
+
+  def to_html
+    tooltip_text = "<span class=\"tooltiptext\" >#{human_name}</span>"
+    field_classes = "nacha-field tooltip data-field-name=\"#{@name}\""
+    ach_string = to_ach.gsub(' ', '&nbsp;')
+    "<span class=\"#{field_classes}\" data-name=\"#{@name}\">#{ach_string}" +
+      tooltip_text.to_s +
+      "</span>"
+  end
+
   def to_s
     @data.send(*output_conversion).to_s
   end
