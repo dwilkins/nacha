@@ -1,4 +1,5 @@
 require 'bundler/setup'
+require 'fileutils'
 require 'nacha'
 require 'support/factory_bot'
 require 'nacha/record/file_header_record_type'

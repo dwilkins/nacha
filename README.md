@@ -56,6 +56,10 @@ API may change at any time.   Pull requests welcomed
 }
 ```
 
+## Parse an ach file into an HTML file
+
+```
+nacha parse ach_file.ach > ach_file.html`
 
 ## Development
 

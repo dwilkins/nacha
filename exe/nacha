@@ -5,6 +5,13 @@ require 'nacha' # Assuming this loads the Nacha gem
 
 module Nacha
   class CLI < Thor
+
+    TEMPLATES_DIR = File.join(Gem::Specification.find_by_name("nacha").gem_dir,
+                              "templates").freeze
+
+    HTML_PREAMBLE_FILE = File.join(TEMPLATES_DIR, "html_preamble.html")
+    HTML_POSTAMBLE_FILE = File.join(TEMPLATES_DIR, "html_postamble.html")
+
     desc "parse FILE", "Parse an ACH file"
     def parse(file_path)
       begin
@@ -13,41 +20,12 @@ module Nacha
           exit 1
         end
 
-        ach_file = Nacha.parse(File.open(file_path)) # Use Nacha.parse
+        ach_file = [Nacha.parse(File.open(file_path)).first] # Use Nacha.parse
 
         # TODO: Determine a user-friendly way to output the parsed data.
         # For now, let's print the records.
         if ach_file && ach_file.is_a?(Array) && !ach_file.empty?
-          puts "Successfully parsed #{file_path}:"
-          ach_file.each_with_index do |record, index|
-            puts "Record ##{index + 1}:"
-            # Attempt to call a summary or to_s method if it exists,
-            # otherwise inspect the record.
-            if record.respond_to?(:to_s) && record.method(:to_s).owner != Kernel
-              puts record.to_s
-            else
-              puts record.inspect
-            end
-            # If records have children, print them too (simplified)
-            if record.respond_to?(:children) && record.children&.any?
-              puts "  Children:"
-              record.children.each_with_index do |child_record, child_index|
-                puts "    Child ##{child_index + 1}:"
-                if child_record.respond_to?(:to_s) && child_record.method(:to_s).owner != Kernel
-                  puts "    #{child_record.to_s}"
-                else
-                  puts "    #{child_record.inspect}"
-                end
-              end
-            end
-          end
-        elsif ach_file # It might be a single object if not an array
-          puts "Successfully parsed #{file_path}:"
-          if ach_file.respond_to?(:to_s) && ach_file.method(:to_s).owner != Kernel
-            puts ach_file.to_s
-          else
-            puts ach_file.inspect
-          end
+          output_html(file_path, ach_file)
         else
           puts "Could not parse the file or the file was empty."
         end
@@ -56,6 +34,39 @@ module Nacha
         puts e.backtrace.join("\n")
         exit 1
       end
+    end
+
+    private
+
+    def output_html(file_path, ach_file)
+      puts html_preamble
+      puts "<h1>Successfully parsed #{file_path}</h1>\n"
+      display_child(0, ach_file.first, 0) # Display the first record
+      puts html_postamble
+    end
+
+    def html_preamble
+      @html_preamble ||= File.read(HTML_PREAMBLE_FILE)
+    end
+
+    def html_postamble
+      @html_postamble ||= File.read(HTML_POSTAMBLE_FILE)
+    end
+
+    def display_child(level, record, index)
+      # Attempt to call a summary or to_s method if it exists,
+      # otherwise inspect the record.
+      level_indent = '  ' * level.to_i
+      puts "<html>"
+      puts record.to_html
+      if record.respond_to?(:children) && record.children.any?
+        if record.children.any?
+          record.children.each_with_index do |child_record, child_index|
+            display_child(level + 1, child_record, child_index)
+          end
+        end
+      end
+      puts "</html>"
     end
   end
 end
