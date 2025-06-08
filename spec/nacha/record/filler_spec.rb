@@ -1,3 +1,6 @@
+# coding: utf-8
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Nacha::Record::Filler, :nacha_record_type do
@@ -29,7 +32,6 @@ RSpec.describe Nacha::Record::Filler, :nacha_record_type do
   it 'is invalid with an invalid filler record' do
     invalid_filler_record = '9234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234'
     filler_record = subject.parse(invalid_filler_record)
-    puts filler_record.inspect
     expect(filler_record).to_not be_valid, filler_record.errors&.join(', ').to_s
     expect(filler_record.class).to eq Nacha::Record::Filler
     expect(filler_record.errors).to_not be_empty
