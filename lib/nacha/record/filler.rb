@@ -9,7 +9,7 @@ module Nacha
     class Filler < Nacha::Record::Base
       include FillerRecordType
 
-      nacha_field :record_type_code, inclusion: 'M', contents: 'C0', position: 1..1
+      nacha_field :record_type_code, inclusion: 'M', contents: ('C' + ('9' * 93)), position: 1..1
       nacha_field :filler, inclusion: 'M', contents: 'Numeric', position: 2..94
     end
   end
