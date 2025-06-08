@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require "nacha/has_errors"
+
 class Nacha::AbaNumber
   attr_reader :routing_number
   attr_reader :aba_number
+
+  include HasErrors
 
   def initialize(routing_number)
     self.routing_number = routing_number
@@ -31,7 +35,25 @@ class Nacha::AbaNumber
   end
 
   def valid?
-    @valid ||= (@routing_number.length == 9 && compute_check_digit == @routing_number.chars[8])
+    @valid ||= valid_routing_number_length? && valid_check_digit?
+  end
+
+  def valid_routing_number_length?
+    if @routing_number.length != 9
+      add_error("Routing number must be 9 digits long, but was #{@routing_number.length} digits long.")
+      false
+    else
+      true
+    end
+  end
+
+  def valid_check_digit?
+    if compute_check_digit != @routing_number.chars[8]
+      add_error("Incorrect Check Digit \"#{@routing_number.chars[8]}\" should be \"#{ compute_check_digit }\" ")
+      false
+    else
+      true
+    end
   end
 
   def to_s(with_checkdigit = true)

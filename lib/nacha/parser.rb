@@ -1,30 +1,41 @@
 # frozen_string_literal: true
 
 require 'nacha'
+require 'nacha/parser_context'
 
 class Nacha::Parser
   DEFAULT_RECORD_TYPES = ['Nacha::Record::FileHeader'].freeze
+
+  attr_reader :context
+
   def initialize
+    @context = Nacha::ParserContext.new
     reset!
   end
 
   def reset!; end
 
   def parse_file(file)
+    @context.parser_started_at = Time.now
+    @context.file_name = file
     parse_string(file.read)
   end
 
   def parse_string(str)
     line_num = -1
     records = []
+    @context.parser_started_at ||= Time.now
     str.scan(/.{94}/).each do |line|
       line_num += 1
+      @context.line_number = line_num
+      @context.line_length = line.length
       records << process(line, line_num, records.last)
     end.compact
     records
   end
 
   def process(line, line_num, previous = nil)
+    @context.line_errors = []
     parent = previous
     record = nil
 
@@ -32,7 +43,7 @@ class Nacha::Parser
     while record_types
       record = parse_by_types(line, record_types)
       break if record || !parent
-
+      record.validate if record
       parent = parent.parent
       record_types = valid_record_types(parent)
     end

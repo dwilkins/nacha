@@ -10,19 +10,25 @@ module Nacha
         end
         module ClassMethods
           def check_field_error(field, message = nil, condition = nil)
-            (block_given? ? yield : condition) || (field.add_error("'#{field.data}' is invalid") && false)
+            (block_given? ? yield : condition) || (field.add_error("'#{field.name}' '#{field}' is invalid") && false)
           end
 
           def valid_service_class_code field
-            check_field_error(field) { SERVICE_CLASS_CODES.include? field.to_s }
+            check_field_error(field, "'#{field.name}' '#{field}' should be one of #{SERVICE_CLASS_CODES.join(', ')}") {
+              SERVICE_CLASS_CODES.include? field.to_s
+            }
           end
 
           def valid_standard_entry_class_code field
-            check_field_error(field) { STANDARD_ENTRY_CLASS_CODES.include? field.data }
+            check_field_error(field, "'#{field.name}' '#{field}' should be one of #{STANDARD_ENTRY_CLASS_CODES.join(', ')}") {
+              STANDARD_ENTRY_CLASS_CODES.include? field.data
+            }
           end
 
           def valid_transaction_code field
-            check_field_error(field) { TRANSACTION_CODES.include? field.to_s }
+            check_field_error(field, "'#{field.name}' '#{field}' should be one of #{TRANSACTION_CODES.join(', ')}") {
+              TRANSACTION_CODES.include? field.to_s
+            }
           end
 
           def valid_receiving_dfi_identification field

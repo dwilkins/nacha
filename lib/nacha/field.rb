@@ -40,6 +40,13 @@ class Nacha::Field
     case @contents
     when /\AC(.*)\z/ # Constant
       @data = Regexp.last_match(1)
+    when /\$.*¢*/
+      @data_type = Nacha::Numeric
+      @justification = :rjust
+      cents = 10 ** (@contents.count('¢'))
+      @json_output = [[:to_i], [:/, cents]]
+      @output_conversion = [:to_i]
+      @fill_character = '0'
     when /Numeric/
       @data_type = Nacha::Numeric
       @justification = :rjust
@@ -64,12 +71,6 @@ class Nacha::Field
       @justification = :ljust
       @output_conversion = [:to_s]
       @fill_character = ' '
-    when /\$+\u00a2\u00a2/
-      @data_type = Nacha::Numeric
-      @justification = :rjust
-      @json_output = [[:to_i], [:/, 100.0]]
-      @output_conversion = [:to_i]
-      @fill_character = '0'
     end
   end
 

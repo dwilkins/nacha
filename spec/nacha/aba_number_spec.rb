@@ -70,6 +70,7 @@ RSpec.describe Nacha::AbaNumber do
   it 'rejects an incorrect check digit' do
     aba = described_class.new('111000026')
     expect(aba).not_to be_valid
+    expect(aba.errors.first).to match(/Incorrect Check Digit.*/)
   end
 
   it 'can add a check digit' do

@@ -24,6 +24,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'bigdecimal'
 
   spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "byebug"
+  spec.add_development_dependency "pry"
   spec.add_development_dependency "factory_bot"
   spec.add_development_dependency "gitlab-styles"
   spec.add_development_dependency "guard"

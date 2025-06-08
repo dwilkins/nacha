@@ -12,7 +12,9 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch(rspec.spec_support) { rspec.spec_dir }
   watch(rspec.spec_files)
   watch(%r{^lib/nacha/base_record\.rb}) { Dir.glob('spec/nacha/record_types/*_spec.rb') }
-  watch(%r{^lib/config/definitions/(.+)\.yml}) { |m| "spec/nacha/record_types/#{m[1]}_spec.rb" }
+  watch(%r{^lib/config/definitions/(.+)\.yml}) do |m|
+    "spec/nacha/record_types/#{m[1]}_spec.rb"
+  end
 
   # Ruby files
   ruby = dsl.ruby

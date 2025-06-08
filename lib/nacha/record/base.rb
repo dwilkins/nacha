@@ -10,11 +10,12 @@ module Nacha
       include Validations::FieldValidations
 
       attr_accessor :children, :parent, :fields
-      attr_reader :name, :validations
+      attr_reader :name, :validations, :errors
       attr_accessor :line_number
 
       def initialize(opts = {})
         @children = []
+        @errors = []
         create_fields_from_definition
         opts.each do |k, v|
           setter = "#{k}="
@@ -55,7 +56,7 @@ module Nacha
       end
 
       def to_html
-        "<div style=\"font-family: monospace;\"class='nacha-record tooltip #{record_type}'>" +
+        "<div style=\"font-family: monospace;\" class='nacha-record tooltip #{record_type}'>" +
           "<span class='tooltiptext'>#{record_type}</span>" +
           "<span class='nacha-field' data-name='record-number'>#{"%05d" % [line_number]}&nbsp;|&nbsp</span>" +
         @fields.keys.collect do |key|
@@ -96,28 +97,32 @@ module Nacha
       end
 
       def validate
-        self.class.definition.keys.map do |field|
-          next unless self.class.validations[field]
+        failing_checks = self.class.definition.keys.map do |field|
+          next true unless self.class.validations[field]
 
           # rubocop:disable GitlabSecurity/PublicSend
           field_data = send(field)
-          send(self.class.validations[:field], field_data)
+
+          self.class.validations[field].map do |validation_method|
+            self.class.send(validation_method, field_data)
+          end
           # rubocop:enable GitlabSecurity/PublicSend
-        end
+        end.flatten
       end
 
       # look for invalid fields, if none, then return true
       def valid?
-        statuses = self.class.definition.keys.map do |field_sym|
-          # rubocop:disable GitlabSecurity/PublicSend
-          field = send(field_sym)
-          # rubocop:enable GitlabSecurity/PublicSend
-          next true unless field.mandatory?
+        # statuses = self.class.definition.keys.map do |field_sym|
+        #   # rubocop:disable GitlabSecurity/PublicSend
+        #   field = send(field_sym)
+        #   # rubocop:enable GitlabSecurity/PublicSend
+        #   next true unless field.mandatory?
 
-          ## TODO: levels of validity with 'R' and 'O' fields
-          field.valid?
-        end
-        !statuses.detect { |valid| valid == false }
+        #   ## TODO: levels of validity with 'R' and 'O' fields
+        #   field.valid?
+        # end
+        statuses = validate
+        (statuses.detect { |valid| valid == false } != false)
       end
 
       def debit?
@@ -148,12 +153,36 @@ module Nacha
                             end.join + '\z')
       end
 
+      def self.strict_matcher
+        # puts definition.keys.join(', ')
+        definition['matcher'] ||
+          Regexp.new('\A' + definition.values.collect do |d|
+                              if d[:contents] =~ /\AC(.+)\z/ || d['contents'] =~ /\AC(.+)\z/
+                                Regexp.last_match(1)
+                              elsif d[:contents] =~ /\ANumeric\z/ || d['contents'] =~ /\ANumeric\z/
+                                '[0-9]' * (d[:position] || d['position']).size
+                              else
+                                '.' * (d[:position] || d['position']).size
+                              end
+                            end.join + '\z')
+      end
+
+
       def self.parse(ach_str)
         rec = new
         ach_str.unpack(unpack_str).zip(rec.fields.values) do |input_data, field|
           field.data = input_data
         end
         rec
+      end
+
+      def errors
+        (@errors + @fields.values.map { |field| field.errors }).flatten
+      end
+
+
+      def add_error(err_string)
+        @errors << err_string
       end
 
       def respond_to?(method_name, include_private = false)

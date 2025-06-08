@@ -28,6 +28,7 @@ RSpec.describe 'Nacha::Record::AdvFileControl', :nacha_record_type do
     let(:fcr_hash) do
       {
         nacha_record_type: 'adv_file_control',
+        record_type_code: '9',
         batch_count: 1,
         block_count: 1,
         entry_addenda_count: 2,
