@@ -34,6 +34,10 @@ module Nacha
           def valid_receiving_dfi_identification field
             check_field_error(field) { field.valid? }
           end
+
+          def valid_filler field
+            check_field_error(field) { field.to_s == ('9' * 93) }
+          end
         end
       end
     end
