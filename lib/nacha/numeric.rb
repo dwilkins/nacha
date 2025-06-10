@@ -6,8 +6,8 @@ class Nacha::Numeric
 
   def to_i
     if @value
-      if @value.is_a?(String) && @value.match(/ */)
-        self
+      if @value.is_a?(String) && @value.match(/\A *\z/)
+        @value # blank strings should return as blank
       else
         @value.to_i
       end
@@ -20,11 +20,14 @@ class Nacha::Numeric
     if val.is_a?(String)
       @value = val.dup
       if(val.strip.length > 0)
-        @value = BigDecimal(val.strip)
-        @op_value = @value
+        @op_value = BigDecimal(val.strip)
+        @value = val.dup
       else
         @op_value = BigDecimal(0)
       end
+    elsif val.nil?
+      @value = BigDecimal(0)
+      @op_value = @value
     else
       @value = BigDecimal(val)
       @op_value = @value
@@ -32,7 +35,7 @@ class Nacha::Numeric
   end
 
   def to_s
-    @value ? @value.to_s : nil
+    @value ? @value.to_i.to_s : nil
   end
 
   def respond_to_missing?(method_name, include_private = false)

@@ -15,16 +15,6 @@ RSpec.describe 'Nacha CLI', type: :aruba do
         expect(stdout).to include("data-name='record-number'") # Basic check for record output
         expect(status.success?).to be true
       end
-
-      xit 'prints information about the records' do
-        stdout, stderr, status = Open3.capture3(executable, 'parse', valid_ach_file)
-        expect(stderr).to be_empty
-        # Add more specific expectations about the output format if known
-        # For example, if records are expected to show specific fields:
-        # expect(stdout).to include("SomeExpectedField: SomeValue")
-        expect(stdout).to match(/data-name='record-number'\d+:/)
-        expect(status.success?).to be true
-      end
     end
 
     context 'when given a non-existent file' do
@@ -49,39 +39,7 @@ RSpec.describe 'Nacha CLI', type: :aruba do
         # Clean up the empty file
         FileUtils.rm(empty_ach_file, force: true)
       end
-
-      xit 'handles an empty file gracefully' do
-        stdout, stderr, status = Open3.capture3(executable, 'parse', empty_ach_file)
-        expect(stderr).to be_empty
-        expect(stdout).to include("Could not parse the file or the file was empty")
-        # Depending on implementation, exit status might be success or failure for empty files.
-        # If it's considered an error:
-        # expect(status.success?).to be false
-        # If it's not an error but just no data:
-        expect(status.success?).to be true # Current impl seems to exit 0 for this
-      end
-
-      # This test depends on Nacha.parse raising an error for ccd_invalid_3.txt
-      # or the CLI handling it as a parse failure.
-      xit 'handles a malformed ACH file' do
-        # The current Nacha.parse might not raise errors for all invalid structures,
-        # but rather return a partially parsed object or an empty array.
-        # The CLI currently prints "Could not parse..." for such cases or an error.
-        stdout, stderr, status = Open3.capture3(executable, 'parse', invalid_ach_file)
-
-        # Check if it prints a generic parse error or specific error
-        # This expectation might need adjustment based on actual behavior of Nacha.parse
-        # with ccd_invalid_3.txt
-        expect(stdout).to satisfy { |s| s.include?("An error occurred during parsing") || s.include?("Could not parse the file") }
-
-        # If Nacha.parse raises an error that the CLI catches and exits(1):
-        # expect(status.success?).to be false
-        # If Nacha.parse returns something that the CLI deems "not parseable" and exits(0) or exits(1):
-        # Adjust based on actual behavior. The current CLI tries to catch StandardError and exit 1.
-        expect(status.success?).to be false
-      end
     end
-
     # Helper to run the command
     def run_command(*args)
       Open3.capture3(executable, *args)
