@@ -12,7 +12,7 @@ RSpec.describe 'Nacha CLI', type: :aruba do
         stdout, stderr, status = Open3.capture3(executable, 'parse', valid_ach_file)
         expect(stderr).to be_empty
         expect(stdout).to include("Successfully parsed #{valid_ach_file}")
-        expect(stdout).to include("data-name='record-number'") # Basic check for record output
+        expect(stdout).to include("data-name=\"record-number\"") # Basic check for record output
         expect(status.success?).to be true
       end
     end

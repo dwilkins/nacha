@@ -77,6 +77,11 @@ class Nacha::Field
   def data=(val)
     @data = @data_type.new(val)
     @input_data = val
+  rescue StandardError => e
+    add_error("Invalid data for #{@name}: \"#{val.inspect}\"")
+    add_error("Error: #{e.message}")
+    @data = String.new(val.to_s)
+    @input_data = val
   end
 
   def mandatory?
@@ -134,9 +139,14 @@ class Nacha::Field
 
   def to_html
     tooltip_text = "<span class=\"tooltiptext\" >#{human_name}</span>"
-    field_classes = "nacha-field tooltip data-field-name=\"#{@name}\""
+    field_classes = ["nacha-field tooltip"]
+    field_classes += ['mandatory'] if mandatory?
+    field_classes += ['required'] if required?
+    field_classes += ['optional'] if optional?
+    field_classes += ['error'] if errors.any?
+
     ach_string = to_ach.gsub(' ', '&nbsp;')
-    "<span class=\"#{field_classes}\" data-name=\"#{@name}\">#{ach_string}" +
+    "<span data-field-name=\"#{@name}\" class=\"#{field_classes.join(' ')}\" data-name=\"#{@name}\">#{ach_string}" +
       tooltip_text.to_s +
       "</span>"
   end

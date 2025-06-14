@@ -6,60 +6,80 @@
 <title>NACHA File Parser</title>
 
 <style>
-body {
-        font-family: Arial, sans-serif;
-}
-body, h1, h2, h3, p {
-        margin: 0;
-        padding: 0;
-}
-body {
-        padding: 20px;
-}
-h1 {
+  body {
+    font-family: Arial, sans-serif;
+  }
+  body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    padding: 20px;
+  }
+  h1 {
 
-        font-size: 24px;
-        margin-bottom: 20px;
-}
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
 
-span.nacha-field:hover {
-  background-color: yellow;
-}
+  span.nacha-field:hover {
+    background-color: yellow;
+  }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  /* border-bottom: 1px dotted black;  *//* If you want dots under the hoverable text */
-}
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    /* border-bottom: 1px dotted black;  *//* If you want dots under the hoverable text */
+  }
 
-/* Tooltip text */
-.tooltip > .tooltiptext {
-  visibility: hidden;
-  /* width: 120px; */
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 5px;
-  border-radius: 6px;
+  /* Tooltip text */
+  .tooltip > .tooltiptext {
+    visibility: hidden;
+    /* width: 120px; */
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 6px;
 
-  top: 100%;
-  left: 50%;
+    top: 100%;
+    left: 50%;
 
-  /* Position the tooltip text - see examples below! */
-  position: absolute;
-  z-index: 1;
-}
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
 
-.nacha-record > .tooltiptext {
-  top: -50%;
-  left: 100%;
-  background-color: gray;
-}
+  .nacha-record {
+    font-family: monospace;
+  }
 
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover > .tooltiptext {
-  visibility: visible;
-}
+  .nacha-field {
+    display: inline-block;
+    background-color: #f0f0f0;
+  }
+  .nacha-field.error {
+    background-color: pink;
+  }
+  }
+
+   .nacha-record > .tooltiptext {
+     top: -50%;
+     left: 100%;
+     background-color: gray;
+   }
+
+   .record-type {
+     padding-left: 5px;
+     font-weight: bold;
+     color: #333;
+   }
+
+
+   /* Show the tooltip text when you mouse over the tooltip container */
+   .tooltip:hover > .tooltiptext {
+     visibility: visible;
+   }
 
 
 </style>
