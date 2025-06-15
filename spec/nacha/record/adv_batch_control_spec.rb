@@ -1,6 +1,5 @@
 require 'spec_helper'
-require 'pry'
-require 'byebug'
+
 
 RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
   let(:subject) { Nacha::Record::AdvBatchControl }

@@ -25,7 +25,8 @@ class Nacha::Parser
     line_num = -1
     records = []
     @context.parser_started_at ||= Time.now
-    str.scan(/.{94}/).each do |line|
+    str.scan(/(.{94}|(\A[^\n]+))/).each do |line|
+      line = line.first.strip
       line_num += 1
       @context.line_number = line_num
       @context.line_length = line.length
@@ -68,7 +69,8 @@ class Nacha::Parser
   def parse_by_types(line, record_types)
     record_types.detect do |rt|
       record_type = Object.const_get(rt)
-      return record_type.parse(line) if record_type.matcher =~ line
+      record = record_type.parse(line) if record_type.matcher =~ line
+      return record if record
     end
   end
 end

@@ -61,6 +61,24 @@ API may change at any time.   Pull requests welcomed
 ```
 nacha parse ach_file.ach > ach_file.html`
 
+
+## Discussion
+
+* Nacha::Record::Base defines a class method `nacha_field`
+* Each ACH record class defines its fields using `nacha_field`
+* Based on the information provided by `nacha_field` a regex matcher
+  for different record types can be built out of the constant parts
+  of the ACH record.
+* Each ACH record has a "RecordType" mixin that specifies the record
+  types that can follow this record.
+
+Parsing starts by looking for a default record type 'Nacha::Record::FileHeader'
+When that is found, the valid child record types for 'Nacha::Record::FileHeader'
+are gathered and the subsequent lines are parsed using only those types
+
+When a record is created, the fields for the instance are created from
+the field definitions.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

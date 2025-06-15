@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'pry'
-require 'byebug'
 
 RSpec.describe Nacha::Numeric do
   it 'initializes with a value' do
