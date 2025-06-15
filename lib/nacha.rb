@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'yaml'
+require 'nacha/version'
 require 'nacha/aba_number'
 require 'nacha/ach_date'
 require 'nacha/field'
 require 'nacha/numeric'
-require 'nacha/version'
 
 Gem.find_files('nacha/record/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
   require File.expand_path(file)
