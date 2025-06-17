@@ -55,8 +55,6 @@ module Nacha
       # Attempt to call a summary or to_s method if it exists,
       # otherwise inspect the record.
       return unless record
-      level_indent = '  ' * level.to_i
-      puts "<html>"
       puts record.to_html
       if record.respond_to?(:children) && record.children.any?
         if record.children.any?

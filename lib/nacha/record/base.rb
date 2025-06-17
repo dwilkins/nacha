@@ -3,7 +3,7 @@
 require 'json'
 require 'nacha/field'
 require 'nacha/record/validations/field_validations'
-
+require 'byebug'
 module Nacha
   module Record
     class Base
@@ -140,9 +140,12 @@ module Nacha
 
       def to_h
         { nacha_record_type: record_type,
-          errors: errors,
-          line_number: @line_number,
-          original_input_line: original_input_line}.merge(
+          metadata: {
+            errors: errors,
+            line_number: @line_number,
+            original_input_line: original_input_line
+          }
+        }.merge(
           @fields.keys.map do |key|
             [key, @fields[key].to_json_output]
           end.to_h)

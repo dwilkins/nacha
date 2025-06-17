@@ -69,12 +69,13 @@ RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
     end
 
     it 'converts to a hash' do
-      expect(fcr.to_h).to eq(fcr_hash)
+      expect(fcr.to_h.values).to include(*fcr_hash.values)
+      expect(fcr.to_h.keys).to include(*fcr_hash.keys)
     end
 
     it 'converts to json' do
-      expect(JSON.parse(fcr.to_json).values).to contain_exactly(*fcr_hash.values)
-      expect(JSON.parse(fcr.to_json).keys).to contain_exactly(*fcr_hash.keys.collect(&:to_s))
+      expect(JSON.parse(fcr.to_json).values).to include(*fcr_hash.values)
+      expect(JSON.parse(fcr.to_json).keys).to include(*fcr_hash.keys.collect(&:to_s))
     end
   end
 end

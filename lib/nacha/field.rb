@@ -99,6 +99,7 @@ class Nacha::Field
   def valid?
     @valid = inclusion && contents && position
     @valid &&= @data.send(@validator) if @validator && @data
+    @valid &&= @data.errors.nil? || @data.errors.nil? if @data.respond_to?(:errors)
     @valid
   end
 
