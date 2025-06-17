@@ -10,12 +10,13 @@ module Nacha
       include Validations::FieldValidations
 
       attr_accessor :children, :parent, :fields
-      attr_reader :name, :validations, :errors
+      attr_reader :name, :validations, :errors, :original_input_line
       attr_accessor :line_number
 
       def initialize(opts = {})
         @children = []
         @errors = []
+        @original_input_line = nil
         create_fields_from_definition
         opts.each do |k, v|
           setter = "#{k}="
@@ -113,8 +114,13 @@ module Nacha
           ach_str.unpack(unpack_str).zip(rec.fields.values) do |input_data, field|
             field.data = input_data
           end
+          rec.original_input_line = ach_str
           rec
         end
+      end # end class methods
+
+      def original_input_line=(line)
+        @original_input_line = line.dup if line.is_a?(String)
       end
 
       def create_fields_from_definition
@@ -133,7 +139,10 @@ module Nacha
       end
 
       def to_h
-        { nacha_record_type: record_type }.merge(
+        { nacha_record_type: record_type,
+          errors: errors,
+          line_number: @line_number,
+          original_input_line: original_input_line}.merge(
           @fields.keys.map do |key|
             [key, @fields[key].to_json_output]
           end.to_h)
