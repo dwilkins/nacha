@@ -115,6 +115,7 @@ module Nacha
             field.data = input_data
           end
           rec.original_input_line = ach_str
+          rec.validate
           rec
         end
       end # end class methods
@@ -184,8 +185,12 @@ module Nacha
       end
 
       def validate
-        failing_checks = self.class.definition.keys.map do |field|
-          next true unless self.class.validations[field]
+        # Run field-level validations first
+        @fields.values.each(&:validate)
+
+        # Then run record-level validations that might depend on multiple fields
+        self.class.definition.keys.each do |field|
+          next unless self.class.validations[field]
 
           # rubocop:disable GitlabSecurity/PublicSend
           field_data = send(field)
@@ -194,22 +199,13 @@ module Nacha
             self.class.send(validation_method, field_data)
           end
           # rubocop:enable GitlabSecurity/PublicSend
-        end.flatten
+        end
       end
 
       # look for invalid fields, if none, then return true
       def valid?
-        # statuses = self.class.definition.keys.map do |field_sym|
-        #   # rubocop:disable GitlabSecurity/PublicSend
-        #   field = send(field_sym)
-        #   # rubocop:enable GitlabSecurity/PublicSend
-        #   next true unless field.mandatory?
-
-        #   ## TODO: levels of validity with 'R' and 'O' fields
-        #   field.valid?
-        # end
-        statuses = validate
-        (statuses.detect { |valid| valid == false } != false)
+        validate
+        errors.empty?
       end
 
       # Checks if the current transaction code represents a debit transaction.

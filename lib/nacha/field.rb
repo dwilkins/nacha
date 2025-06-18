@@ -25,6 +25,8 @@ class Nacha::Field
     @fill_character = ' '
     @json_output = [:to_s]
     @output_conversion = [:to_s]
+    @validated = false
+    @data_assigned = false
     opts.each do |k, v|
       setter = "#{k}="
       if respond_to?(setter)
@@ -38,8 +40,6 @@ class Nacha::Field
   def contents=(val)
     @contents = val
     case @contents
-    when /\AC(.*)\z/ # Constant
-      @data = Regexp.last_match(1)
     when /\$.*¢*/
       @data_type = Nacha::Numeric
       @justification = :rjust
@@ -71,10 +71,15 @@ class Nacha::Field
       @justification = :ljust
       @output_conversion = [:to_s]
       @fill_character = ' '
+    when /\AC(.*)\z/ # Constant
+      @data = Regexp.last_match(1)
     end
   end
 
   def data=(val)
+    @validated = false
+    @data_assigned = true
+    @errors = []
     @data = @data_type.new(val)
     @input_data = val
   rescue StandardError => e
@@ -96,11 +101,44 @@ class Nacha::Field
     @inclusion == 'O'
   end
 
+  def validate
+    return if @validated
+
+    add_error("'inclusion' must be present for a field definition.") unless @inclusion
+    add_error("'position' must be present for a field definition.") unless @position
+    add_error("'contents' must be present for a field definition.") unless @contents
+
+    if @data_assigned && (mandatory? || required?) && (@input_data.nil? || @input_data.to_s.strip.empty?)
+      add_error("'#{human_name}' is a required field and cannot be blank.")
+    end
+
+    # Type-specific validations
+    if @data_type == Nacha::Numeric && @input_data.to_s.strip.match(/\D/)
+      add_error("Invalid characters in numeric field '#{human_name}'. Got '#{@input_data}'.")
+    end
+
+    # If data object has its own validation, run it.
+    if @validator && @data.is_a?(@data_type)
+      # The call to the validator might populate errors on the data object.
+      is_valid = @data.send(@validator)
+
+      # Collect any errors from the data object.
+      if @data.respond_to?(:errors) && @data.errors && @data.errors.any?
+        @data.errors.each { |e| add_error(e) }
+      end
+
+      # If it's not valid and we haven't collected any specific errors, add a generic one.
+      if !is_valid && errors.empty?
+        add_error("'#{human_name}' is invalid. Got '#{@input_data}'.")
+      end
+    end
+
+    @validated = true
+  end
+
   def valid?
-    @valid = inclusion && contents && position
-    @valid &&= @data.send(@validator) if @validator && @data
-    @valid &&= @data.errors.nil? || @data.errors.nil? if @data.respond_to?(:errors)
-    @valid
+    validate
+    errors.empty?
   end
 
   def add_error(err_string)
@@ -139,7 +177,7 @@ class Nacha::Field
   end
 
   def to_html
-    tooltip_text = "<span class=\"tooltiptext\" >#{human_name}</span>"
+    tooltip_text = "<span class=\"tooltiptext\" >#{human_name} #{errors.join(' ')}</span>"
     field_classes = ["nacha-field tooltip"]
     field_classes += ['mandatory'] if mandatory?
     field_classes += ['required'] if required?

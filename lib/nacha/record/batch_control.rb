@@ -16,7 +16,7 @@ module Nacha
       nacha_field :total_credit_entry_dollar_amount, inclusion: 'M', contents: '$$$$$$$$$$¢¢', position: 33..44
       nacha_field :company_identification, inclusion: 'R', contents: 'Alphameric', position: 45..54
       nacha_field :message_authentication_code, inclusion: 'O', contents: 'Alphameric', position: 55..73
-      nacha_field :reserved, inclusion: 'M', contents: 'C      ', position: 74..79
+      nacha_field :reserved, inclusion: 'O', contents: 'C      ', position: 74..79
       nacha_field :originating_dfi_identification, inclusion: 'M', contents: 'TTTTAAAA', position: 80..87
       nacha_field :batch_number, inclusion: 'M', contents: 'Numeric', position: 88..94
     end

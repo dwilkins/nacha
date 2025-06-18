@@ -9,6 +9,7 @@ class Nacha::AbaNumber
   include HasErrors
 
   def initialize(routing_number)
+    @errors = []
     self.routing_number = routing_number
   end
 
@@ -23,7 +24,8 @@ class Nacha::AbaNumber
 
   def routing_number=(val)
     @valid = nil
-    @routing_number = val.strip
+    @errors&.clear
+    @routing_number = val.to_s.strip
   end
 
   def add_check_digit
@@ -35,15 +37,25 @@ class Nacha::AbaNumber
   end
 
   def valid?
-    @valid ||= valid_routing_number_length? && valid_check_digit?
+    @valid ||= if valid_routing_number_length?
+               if @routing_number.length == 9
+                 valid_check_digit?
+               else # 8 digits is valid
+                 true
+               end
+             else
+               false
+             end
   end
 
   def valid_routing_number_length?
-    if @routing_number.length != 9
-      add_error("Routing number must be 9 digits long, but was #{@routing_number.length} digits long.")
-      false
-    else
+    actual_length = @routing_number.length
+
+    if [9, 10].include?(actual_length)
       true
+    else
+      add_error("Routing number must be 8 or 9 digits long, but was #{actual_length} digits long.")
+      false
     end
   end
 

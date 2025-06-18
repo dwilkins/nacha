@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2025-06-18
+
+### Fixed
+- Actual reporting of field errors now in the output html.
+- Change Nacha::Record::BatchControl#reserved to optional
+- Change Nacha::Record::BatchHeader#settlement_date_julian to optional
+- bump version to 0.1.5
+
 ## [0.1.4] - 2025-06-14
 
 ### Added
