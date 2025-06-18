@@ -36,10 +36,12 @@ module Nacha
 
     private
 
-    def output_html(file_path, ach_file)
+    def output_html(file_path, ach_records)
       puts html_preamble
       puts "<h1>Successfully parsed #{file_path}</h1>\n"
-      display_child(0, ach_file.first) # Display the first record
+      ach_records.each do |record|
+        display_child(0, record)
+      end
       puts html_postamble
     end
 
@@ -57,13 +59,10 @@ module Nacha
       return unless record
       puts record.to_html
       if record.respond_to?(:children) && record.children.any?
-        if record.children.any?
-          record.children.each_with_index do |child_record, child_index|
-            display_child(level + 1, child_record)
-          end
+        record.children.each do |child_record|
+          display_child(level + 1, child_record)
         end
       end
-      puts "</html>"
     end
   end
 end
