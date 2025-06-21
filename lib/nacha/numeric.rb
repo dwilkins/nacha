@@ -5,6 +5,8 @@ class Nacha::Numeric
   end
 
   def to_i
+    return 0 if @value.nil?
+
     if @value.is_a?(String) && @value.match(/\A *\z/)
       @value # blank strings should return as blank
     else
