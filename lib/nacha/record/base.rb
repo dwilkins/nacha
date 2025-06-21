@@ -3,7 +3,7 @@
 require 'json'
 require 'nacha/field'
 require 'nacha/record/validations/field_validations'
-require 'byebug'
+
 module Nacha
   module Record
     class Base
