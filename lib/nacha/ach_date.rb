@@ -36,7 +36,7 @@ class Nacha::AchDate < Date
     # This works because `Date.new` is designed to be effectively `allocate.initialize`.
     super(year, month, day)
 
-  rescue ArgumentError => e
+  rescue TypeError, ArgumentError => e
     # Catch errors that might arise from strptime or invalid date components
     raise ArgumentError, "Invalid date format for Nacha::AchDate: #{args.inspect}. Original error: #{e.message}"
   end

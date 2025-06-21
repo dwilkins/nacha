@@ -8,6 +8,11 @@ RSpec.describe Nacha::Numeric do
     expect(numeric.to_i).to eq 12345
   end
 
+  it 'initializes with a nil' do
+    numeric = described_class.new(nil)
+    expect(numeric.to_i).to eq 0
+  end
+
   it 'handles string values' do
     numeric = described_class.new("  67890  ")
     expect(numeric.to_i).to eq 67890

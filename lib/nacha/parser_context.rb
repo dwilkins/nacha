@@ -11,7 +11,7 @@ class Nacha::ParserContext
   attr_accessor :previous_record
   attr_reader :validated
 
-  def initialize (opts = {})
+  def initialize(opts = {})
     @file_name = opts[:file_name] || ''
     @line_number = opts[:line_number] || 0
     @line_length = opts[:line_length] || 0

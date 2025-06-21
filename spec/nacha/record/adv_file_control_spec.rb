@@ -33,7 +33,6 @@ RSpec.describe 'Nacha::Record::AdvFileControl', :nacha_record_type do
         block_count: 1,
         entry_addenda_count: 2,
         entry_hash: 0,
-        record_type_code: '9',
         reserved: '',
         total_credit_entry_dollar_amount_in_file: 0.0,
         total_debit_entry_dollar_amount_in_file: 0.0
