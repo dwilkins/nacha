@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7] - 2025-06-23
+
+- Better parsing.  Nacha::Record::FileControl had issues parsing if the reserved
+  part of the record was stripped off.   Since the reserved part of the record is
+  all spaces, it can safely be missing.
+
+
 ## [0.1.6] - 2025-06-20
 
 - Better code coverage
