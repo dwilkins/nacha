@@ -7,16 +7,6 @@ require 'nacha/ach_date'
 require 'nacha/field'
 require 'nacha/numeric'
 
-Gem.find_files('nacha/record/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
-  require File.expand_path(file)
-end
-
-Gem.find_files('nacha/record/**/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
-  require File.expand_path(file)
-end
-
-require 'nacha/parser'
-
 module Nacha
   STANDARD_ENTRY_CLASS_CODES = %w[ACK ADV ARC ATX BOC CCD PPD CIE
                                   COR CTX DNE ENR IAT POP POS SHR
@@ -30,6 +20,16 @@ module Nacha
                                 48 49 55 56 82 84 86 88].freeze
 
   TRANSACTION_CODES = (CREDIT_TRANSACTION_CODES + DEBIT_TRANSACTION_CODES).freeze
+  @@ach_record_types = []
+
+  def self.add_ach_record_type(klass)
+    @@ach_record_types << klass unless @@ach_record_types.include?(klass)
+  end
+
+  def self.ach_record_types
+    @@ach_record_types
+  end
+
   class << self
     def parse(object)
       parser = Nacha::Parser.new
@@ -53,3 +53,14 @@ module Nacha
     end
   end
 end
+
+Gem.find_files('nacha/record/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
+  require File.expand_path(file)
+end
+
+Gem.find_files('nacha/record/**/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
+  require File.expand_path(file)
+end
+
+require 'nacha/parser'
+

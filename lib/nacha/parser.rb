@@ -4,7 +4,8 @@ require 'nacha'
 require 'nacha/parser_context'
 
 class Nacha::Parser
-  DEFAULT_RECORD_TYPES = ['Nacha::Record::FileHeader'].freeze
+  DEFAULT_RECORD_TYPES = ['Nacha::Record::FileHeader',
+                         'Nacha::Record::Filler'].freeze
 
   attr_reader :context
 

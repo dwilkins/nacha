@@ -29,8 +29,6 @@ module Nacha
       end
 
       class << self
-        attr_reader :nacha_record_name
-
         def nacha_field(name, inclusion:, contents:, position:)
           definition[name] = { inclusion: inclusion,
                                contents: contents,
@@ -41,7 +39,9 @@ module Nacha
 
           validations[name] ||= []
           validations[name] << validation_method
+          Nacha.add_ach_record_type(self)
         end
+
         def definition
           @definition ||= {}
         end
@@ -81,8 +81,14 @@ module Nacha
           @matcher ||=
             Regexp.new('\A' + definition.values.reverse.collect do |d|
                          if d[:contents] =~ /\AC(.+)\z/
-                           output_started = true
-                           Regexp.last_match(1)
+                           last_match = Regexp.last_match(1)
+                           if last_match =~ /\A  *\z/
+                             skipped_output = true
+                             ''
+                           else
+                             output_started = true
+                             last_match
+                           end
                          elsif d[:contents] =~ /\ANumeric\z/
                            if output_started
                              '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
