@@ -81,7 +81,7 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
     end
 
     it 'child_record_types' do
-      expect(fhr.child_record_types.count).to eq 3
+      expect(fhr.child_record_types.count).to eq 2
     end
   end
 

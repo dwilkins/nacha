@@ -108,7 +108,9 @@ class Nacha::Field
     add_error("'position' must be present for a field definition.") unless @position
     add_error("'contents' must be present for a field definition.") unless @contents
 
-    if @data_assigned && (mandatory? || required?) && (@input_data.nil? || @input_data.to_s.strip.empty?)
+    if @data_assigned &&
+       (mandatory? || required?) &&
+       ((@input_data.nil? || @input_data.to_s.empty?) && @contents !~ /\AC(  *)\z/)
       add_error("'#{human_name}' is a required field and cannot be blank.")
     end
 

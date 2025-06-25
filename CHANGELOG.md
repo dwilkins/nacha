@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.8] - 2025-06-24
+
+- Now parses filler records correctly (fixed definition)
+
+- Add support for `ack_entry_detail` record type
+
+- Tweaked the child record types for file_control and file_header
+
 ## [0.1.7] - 2025-06-23
 
 - Better parsing.  Nacha::Record::FileControl had issues parsing if the reserved

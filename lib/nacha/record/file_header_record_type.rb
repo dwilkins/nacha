@@ -12,7 +12,6 @@ module Nacha
           [
             'Nacha::Record::BatchHeader',
             'Nacha::Record::FileControl',
-            'Nacha::Record::Filler'
           ]
         end
       end

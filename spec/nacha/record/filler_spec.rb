@@ -17,7 +17,7 @@ RSpec.describe Nacha::Record::Filler, :nacha_record_type do
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::Filler.unpack_str).to eq 'A1a93'
+    expect(Nacha::Record::Filler.unpack_str).to eq 'A1A93'
   end
 
   it 'generates a regexp matcher' do

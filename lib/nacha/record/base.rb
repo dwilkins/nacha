@@ -90,12 +90,8 @@ module Nacha
                              last_match
                            end
                          elsif d[:contents] =~ /\ANumeric\z/
-                           if output_started
-                             '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
-                           else
-                             skipped_output = true
-                             ''
-                           end
+                           output_started = true
+                           '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
                          elsif d[:contents] =~ /\AYYMMDD\z/
                            if output_started
                              '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
