@@ -23,15 +23,21 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.add_dependency 'bigdecimal'
 
-  spec.add_development_dependency "bundler", "~> 2.0"
-  spec.add_development_dependency "byebug"
+  spec.add_development_dependency "bundler"
+  # Conditionally add byebug only for MRI Ruby
+  if RUBY_ENGINE == 'ruby'
+    spec.add_development_dependency "byebug"
+  end
+  if RUBY_ENGINE == 'jruby'
+    spec.add_development_dependency "pry-nav"
+  end
   spec.add_development_dependency "pry"
   spec.add_development_dependency "factory_bot"
   spec.add_development_dependency "gitlab-styles"
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rspec'

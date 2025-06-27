@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 
+# Uncomment to use debugger
+# if RUBY_ENGINE == 'ruby'
+#   require "byebug"
+# end
+#
+# if RUBY_ENGINE == 'jruby'
+#   require "pry-nav"
+# end
+
 require 'yaml'
 require 'nacha/version'
 require 'nacha/aba_number'
@@ -23,6 +32,7 @@ module Nacha
   @@ach_record_types = []
 
   def self.add_ach_record_type(klass)
+    return unless klass
     @@ach_record_types << klass unless @@ach_record_types.include?(klass)
   end
 
@@ -54,6 +64,18 @@ module Nacha
   end
 end
 
+# Load all record types from nacha/record/*.rb and nacha/record/**/*.rb
+# This will ensure that all record classes are loaded before the parser is used
+
+require 'nacha/record/base'
+require 'nacha/record/file_header_record_type'
+require 'nacha/record/file_control_record_type'
+require 'nacha/record/detail_record_type'
+
+# Ensure that the record types are loaded before the parser is used
+# This is necessary because the parser relies on the record types being defined
+# and available in the Nacha module.
+
 Gem.find_files('nacha/record/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
   require File.expand_path(file)
 end
@@ -61,6 +83,8 @@ end
 Gem.find_files('nacha/record/**/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
   require File.expand_path(file)
 end
+
+# Load the parser after the records have been defined
 
 require 'nacha/parser'
 

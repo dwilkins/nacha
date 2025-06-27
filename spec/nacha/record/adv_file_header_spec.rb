@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   let(:example_file_header_record) do
-    '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1'
+    '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BAADV FILE'
   end
 
   it 'exists' do
@@ -77,7 +77,7 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
     end
 
     it 'reference_code' do
-      expect(fhr.reference_code.to_ach).to eq '       1'
+      expect(fhr.reference_code.to_ach).to eq 'ADV FILE'
     end
 
     it 'child_record_types' do

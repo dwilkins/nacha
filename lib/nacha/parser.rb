@@ -4,22 +4,26 @@ require 'nacha'
 require 'nacha/parser_context'
 
 class Nacha::Parser
-  DEFAULT_RECORD_TYPES = ['Nacha::Record::FileHeader',
+  DEFAULT_RECORD_TYPES = ['Nacha::Record::AdvFileHeader',
+                          'Nacha::Record::FileHeader',
                          'Nacha::Record::Filler'].freeze
 
   attr_reader :context
 
   def initialize
     @context = Nacha::ParserContext.new
-    reset!
   end
-
-  def reset!; end
 
   def parse_file(file)
     @context.parser_started_at = Time.now
     @context.file_name = file
     parse_string(file.read)
+  end
+
+  def detect_possible_record_types(line)
+    Nacha.ach_record_types.map do |record_type|
+      record_type if record_type.matcher =~ line
+    end.compact
   end
 
   def parse_string(str)
@@ -39,7 +43,6 @@ class Nacha::Parser
   def process(line, line_num, previous = nil)
     @context.line_errors = []
     parent = previous
-    record = nil
 
     record_types = valid_record_types(parent)
     while record_types

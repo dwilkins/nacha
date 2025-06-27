@@ -30,6 +30,7 @@ module Nacha
 
       class << self
         def nacha_field(name, inclusion:, contents:, position:)
+          Nacha.add_ach_record_type(self)
           definition[name] = { inclusion: inclusion,
                                contents: contents,
                                position: position,
@@ -39,7 +40,6 @@ module Nacha
 
           validations[name] ||= []
           validations[name] << validation_method
-          Nacha.add_ach_record_type(self)
         end
 
         def definition
@@ -120,6 +120,10 @@ module Nacha
           rec.validate
           rec
         end
+
+        def record_type
+          Nacha.record_name(self)
+        end
       end # end class methods
 
       def original_input_line=(line)
@@ -134,7 +138,7 @@ module Nacha
       end
 
       def record_type
-        Nacha.record_name(self.class)
+        self.class.record_type
       end
 
       def human_name
@@ -144,6 +148,7 @@ module Nacha
       def to_h
         { nacha_record_type: record_type,
           metadata: {
+            klass: self.class.name,
             errors: errors,
             line_number: @line_number,
             original_input_line: original_input_line

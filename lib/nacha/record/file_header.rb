@@ -5,9 +5,11 @@ require 'nacha/record/file_header_record_type.rb'
 
 module Nacha
   module Record
+
+    # The FileHeader record is the first record in a
+    # Nacha file and contains information about the file itself.
     class FileHeader < Nacha::Record::Base
       include FileHeaderRecordType
-
       nacha_field :record_type_code, inclusion: 'M', contents: 'C1', position: 1..1
       nacha_field :priority_code, inclusion: 'R', contents: 'Numeric', position: 2..3
       nacha_field :immediate_destination, inclusion: 'M', contents: 'bTTTTAAAAC', position: 4..13

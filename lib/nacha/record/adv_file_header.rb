@@ -20,7 +20,7 @@ module Nacha
       nacha_field :format_code, inclusion: 'M', contents: 'C1', position: 40..40
       nacha_field :immediate_destination_name, inclusion: 'M', contents: 'Alphameric', position: 41..63
       nacha_field :immediate_origin_name, inclusion: 'M', contents: 'Alphameric', position: 64..86
-      nacha_field :reference_code, inclusion: 'M', contents: 'Alphameric', position: 87..94
+      nacha_field :reference_code, inclusion: 'M', contents: 'CADV FILE', position: 87..94
     end
   end
 end

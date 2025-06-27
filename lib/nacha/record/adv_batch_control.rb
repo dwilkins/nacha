@@ -6,6 +6,8 @@ require 'nacha/record/batch_control_record_type.rb'
 
 module Nacha
   module Record
+
+    # The AdvBatchControl record is used to control the batch of adv entry detail records.
     class AdvBatchControl < Nacha::Record::Base
       nacha_field :record_type_code, inclusion: 'M', contents: 'C8', position: 1..1
       nacha_field :service_class_code, inclusion: 'M', contents: 'Numeric', position: 2..4

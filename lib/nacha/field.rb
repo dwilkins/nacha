@@ -187,7 +187,7 @@ class Nacha::Field
     field_classes += ['error'] if errors.any?
 
     ach_string = to_ach.gsub(' ', '&nbsp;')
-    "<span data-field-name=\"#{@name}\" class=\"#{field_classes.join(' ')}\" data-name=\"#{@name}\">#{ach_string}" +
+    "<span data-field-name=\"#{@name}\" contentEditable=true class=\"#{field_classes.join(' ')}\" data-name=\"#{@name}\">#{ach_string}" +
       tooltip_text.to_s +
       "</span>"
   end

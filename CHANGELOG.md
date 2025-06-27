@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.9] - 2025-06-25
+
+- Fixed AdvFileHeaer definition to include constant `ADV FILE` mentioned in the
+  NACHA documentation
+
+- Added automatic debugger gem selection based on ruby version (ruby or jruby)
+
+- Fixed Nacha.ach_record_types to have the correct list of record types by moving
+  the Nacha.add_ach_record_type(...) call above a possible return
+
+- Added contentEditable to the generate HTML
+
+- Added AdvFileHeader as one of the first records that should be found
+
+- Removed a bunch of versions from nacha.gemspec
+
 ## [0.1.8] - 2025-06-24
 
 - Now parses filler records correctly (fixed definition)
