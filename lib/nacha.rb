@@ -16,6 +16,10 @@ require 'nacha/ach_date'
 require 'nacha/field'
 require 'nacha/numeric'
 
+# Nacha is a Ruby gem for parsing, validating, and generating NACHA
+# (National Automated Clearing House Association) files.
+# It provides a structured way to work with ACH (Automated Clearing House) records,
+# including various entry detail, addenda, batch, and file control records.
 module Nacha
   STANDARD_ENTRY_CLASS_CODES = %w[ACK ADV ARC ATX BOC CCD PPD CIE
                                   COR CTX DNE ENR IAT POP POS SHR
@@ -29,18 +33,37 @@ module Nacha
                                 48 49 55 56 82 84 86 88].freeze
 
   TRANSACTION_CODES = (CREDIT_TRANSACTION_CODES + DEBIT_TRANSACTION_CODES).freeze
-  @@ach_record_types = []
-
-  def self.add_ach_record_type(klass)
-    return unless klass
-    @@ach_record_types << klass unless @@ach_record_types.include?(klass)
-  end
-
-  def self.ach_record_types
-    @@ach_record_types
-  end
 
   class << self
+    # Adds a new ACH record type class to the list of defined record types.
+    # This is used internally by the parser to determine which record classes
+    # are available for parsing a NACHA file.  As the `nacha_field` method is
+    # executed for each of the record types, these record types are added to
+    # the Nacha module's class variable `@@ach_record_types`.
+    #
+    # @param klass [Class, String] The record class or its name (as a String) to add.
+    # @return [void]
+    def add_ach_record_type(klass)
+      return unless klass
+
+      klass = klass.to_s
+      @ach_record_types ||= []
+      @ach_record_types << klass unless @ach_record_types.include?(klass)
+    end
+
+    # Returns an array of all currently registered ACH record type class names.
+    #
+    # @return [Array<String>] An array of strings representing the names of ACH record classes.
+    def ach_record_types
+      @ach_record_types || []
+    end
+
+    # Parses a NACHA file or string into a structured object representation.
+    #
+    # @param object [String, File, IO] The input to parse, either a string containing
+    #   NACHA data or an IO object (e.g., a File) representing the NACHA file.
+    # @return [Nacha::Record::Base] The parsed NACHA file object, typically a FileHeader record
+    #   with nested batch and entry detail records.
     def parse(object)
       parser = Nacha::Parser.new
       if object.is_a?(String)
@@ -50,10 +73,21 @@ module Nacha
       end
     end
 
+    # Converts a given string into a underscored, lowercase record name.
+    # This is typically used to derive a human-readable or programmatic
+    # name from a class name or similar string.
+    #
+    # @param str [String] The string to convert.
+    # @return [String] The underscored and lowercased record name.
     def record_name(str)
       underscore(str.to_s).split('/').last
     end
 
+    # Converts a camel-cased string to its underscore equivalent.
+    # This method handles module namespaces (::) by converting them to slashes.
+    #
+    # @param str [String] The string to underscore.
+    # @return [String] The underscored string.
     def underscore(str)
       str.gsub(/::/, '/').
         gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
@@ -87,4 +121,3 @@ end
 # Load the parser after the records have been defined
 
 require 'nacha/parser'
-

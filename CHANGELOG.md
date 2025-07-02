@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.10] - 2025-07-01
+
+- Added ability to get a list of possible record types and
+  the ability parse just 1 record
+
+- Fixed a bug where AdvFileControl did not have the FileControlRecordType
+  included
+
 ## [0.1.9] - 2025-06-25
 
 - Fixed AdvFileHeaer definition to include constant `ADV FILE` mentioned in the

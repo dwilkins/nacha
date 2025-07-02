@@ -3,10 +3,11 @@
 require 'nacha'
 require 'nacha/parser_context'
 
+# Nacha Parser - deal with figuring out what record type a line is
 class Nacha::Parser
   DEFAULT_RECORD_TYPES = ['Nacha::Record::AdvFileHeader',
                           'Nacha::Record::FileHeader',
-                         'Nacha::Record::Filler'].freeze
+                          'Nacha::Record::Filler'].freeze
 
   attr_reader :context
 
@@ -24,6 +25,14 @@ class Nacha::Parser
     Nacha.ach_record_types.map do |record_type|
       record_type if record_type.matcher =~ line
     end.compact
+  end
+
+  def parse_line(line)
+    record_types = detect_possible_record_types(line)
+
+    records = record_types.map do |record_type|
+
+    end
   end
 
   def parse_string(str)
@@ -46,7 +55,7 @@ class Nacha::Parser
 
     record_types = valid_record_types(parent)
     while record_types
-      record = parse_by_types(line, record_types)
+      record = parse_first_by_types(line, record_types)
       break if record || !parent
       record.validate if record
       parent = parent.parent
@@ -70,11 +79,21 @@ class Nacha::Parser
     child.parent = parent
   end
 
-  def parse_by_types(line, record_types)
+  def parse_first_by_types(line, record_types)
     record_types.detect do |rt|
-      record_type = Object.const_get(rt)
+      record_type = rt.is_a?(Class) ? rt : Object.const_get(rt)
+      record = nil
       record = record_type.parse(line) if record_type.matcher =~ line
       return record if record
     end
+  end
+
+  def parse_all_by_types(line, record_types)
+    record_types.map do |rt|
+      record_type = rt.is_a?(Class) ? rt : Object.const_get(rt)
+      record = nil
+      record = record_type.parse(line) if record_type.matcher =~ line
+      record
+    end.compact
   end
 end
