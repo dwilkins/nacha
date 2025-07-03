@@ -9,12 +9,13 @@ module Nacha
     class Base
       include Validations::FieldValidations
 
-      attr_accessor :children, :parent, :fields
-      attr_reader :name, :validations, :errors, :original_input_line
-      attr_accessor :line_number
+      attr_accessor :children, :parent, :line_number
+      attr_reader :name, :validations, :errors
+      attr_reader:fields, :original_input_line
 
       def initialize(opts = {})
         @children = []
+        @parent = nil
         @errors = []
         @original_input_line = nil
         create_fields_from_definition
@@ -34,12 +35,12 @@ module Nacha
           definition[name] = { inclusion: inclusion,
                                contents: contents,
                                position: position,
-                               name: name}
-          validation_method = "valid_#{name}".to_sym
-          return unless respond_to?(validation_method)
-
-          validations[name] ||= []
-          validations[name] << validation_method
+                               name: name }
+          validation_method = :"valid_#{name}"
+          if respond_to?(validation_method)
+            validations[name] ||= []
+            validations[name] << validation_method
+          end
         end
 
         def definition
@@ -56,31 +57,57 @@ module Nacha
           end.join.freeze
         end
 
-        def old_matcher
-          @matcher ||=
-            Regexp.new('\A' + definition.values.collect do |d|
-                         if d[:contents] =~ /\AC(.+)\z/ || d['contents'] =~ /\AC(.+)\z/
-                           Regexp.last_match(1)
-                         else
-                           '.' * (d[:position] || d['position']).size
-                         end
-                       end.join + '\z')
-        end
-
         # A more strict matcher that accounts for numeric and date fields
         # and allows for spaces in those fields, but not alphabetic characters
         # Also matches strings that might not be long enough.
         #
         # Processes the definition in reverse order to allow later fields to be
         # skipped if they are not present in the input string.
+        def old_matcher
+          return @matcher if @matcher
+
+          output_started = false
+          skipped_output = false
+          @matcher ||=
+            Regexp.new('\A' + definition.values.reverse.collect do |field_def|
+              if field_def[:contents] =~ /\AC(.+)\z/
+                last_match = Regexp.last_match(1)
+                if /\A  *\z/.match?(last_match)
+                  skipped_output = true
+                  ''
+                else
+                  output_started = true
+                  last_match
+                end
+              elsif /\ANumeric\z/.match?(field_def[:contents])
+                output_started = true
+                '[0-9 ]' + "{#{(field_def[:position] || field_def['position']).size}}"
+              elsif /\AYYMMDD\z/.match?(field_def[:contents])
+                if output_started
+                  '[0-9 ]' + "{#{(field_def[:position] || field_def['position']).size}}"
+                else
+                  skipped_output = true
+                  ''
+                end
+              elsif output_started
+                '.' + "{#{(field_def[:position] || field_def['position']).size}}"
+              else
+                skipped_output = true
+                ''
+              end
+            end.reverse.join + (skipped_output ? '.*' : '') + '\z')
+        end
+
         def matcher
           return @matcher if @matcher
 
           output_started = false
           skipped_output = false
           @matcher ||=
-            Regexp.new('\A' + definition.values.reverse.collect do |d|
-                         if d[:contents] =~ /\AC(.+)\z/
+            Regexp.new('\A' + definition.values.reverse.collect do |field_def|
+                         contents, position = field_def[:contents], field_def[:position].size
+                         case contents
+                         when /\AC(.+)\z/
                            last_match = Regexp.last_match(1)
                            if last_match =~ /\A  *\z/
                              skipped_output = true
@@ -89,19 +116,16 @@ module Nacha
                              output_started = true
                              last_match
                            end
-                         elsif d[:contents] =~ /\ANumeric\z/
-                           output_started = true
-                           '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
-                         elsif d[:contents] =~ /\AYYMMDD\z/
+                         when /\ANumeric\z/, /\AYYMMDD\z/
                            if output_started
-                             '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
+                             "[0-9 ]{#{position}}"
                            else
                              skipped_output = true
                              ''
                            end
                          else
                            if output_started
-                             '.' + "{#{(d[:position] || d['position']).size}}"
+                             ".{#{position}}"
                            else
                              skipped_output = true
                              ''
@@ -110,13 +134,11 @@ module Nacha
                        end.reverse.join + (skipped_output ? '.*' : '') + '\z')
         end
 
-
         def parse(ach_str)
-          rec = new
+          rec = new(original_input_line: ach_str)
           ach_str.unpack(unpack_str).zip(rec.fields.values) do |input_data, field|
             field.data = input_data
           end
-          rec.original_input_line = ach_str
           rec.validate
           rec
         end
@@ -152,11 +174,10 @@ module Nacha
             errors: errors,
             line_number: @line_number,
             original_input_line: original_input_line
-          }
-        }.merge(
-          @fields.keys.map do |key|
-            [key, @fields[key].to_json_output]
-          end.to_h)
+          } }.merge(
+            @fields.keys.to_h do |key|
+              [key, @fields[key].to_json_output]
+            end)
       end
 
       def to_json(*_args)
@@ -169,7 +190,7 @@ module Nacha
         end.join
       end
 
-      def to_html(opts = {})
+      def to_html(_opts = {})
         record_error_class = nil
 
         field_html = @fields.keys.collect do |key|
@@ -177,7 +198,8 @@ module Nacha
           @fields[key].to_html
         end.join
         "<div class=\"nacha-record tooltip #{record_type} #{record_error_class}\">" +
-          "<span class=\"nacha-field\" data-name=\"record-number\">#{"%05d" % [line_number]}&nbsp;|&nbsp</span>" +
+          "<span class=\"nacha-field\" data-name=\"record-number\">#{format('%05d',
+            line_number)}&nbsp;|&nbsp</span>" +
           field_html +
           "<span class=\"record-type\" data-name=\"record-type\">#{human_name}</span>" +
           "</div>"
@@ -194,16 +216,19 @@ module Nacha
       def validate
         # Run field-level validations first
         @fields.values.each(&:validate)
-
+        klass = self.class
+        klass_def = klass.definition
+        klass_validations = klass.validations
         # Then run record-level validations that might depend on multiple fields
-        self.class.definition.keys.each do |field|
-          next unless self.class.validations[field]
+        klass_def.each_key do |field|
+          fv = klass_validations[field]
+          next unless fv
 
           # rubocop:disable GitlabSecurity/PublicSend
           field_data = send(field)
 
-          self.class.validations[field].map do |validation_method|
-            self.class.send(validation_method, field_data)
+          fv.map do |validation_method|
+            klass.send(validation_method, field_data)
           end
           # rubocop:enable GitlabSecurity/PublicSend
         end
@@ -297,33 +322,26 @@ module Nacha
         (@errors + @fields.values.map { |field| field.errors }).flatten
       end
 
-
       def add_error(err_string)
         @errors << err_string
       end
 
-      def respond_to?(method_name, include_private = false)
+      def respond_to?(method_name, include_private: false)
         field_name = method_name.to_s.gsub(/=$/, '').to_sym
 
         definition[field_name] || super
       end
 
       def method_missing(method_name, *args, &block)
-        field_name = method_name.to_s.gsub(/=$/, '').to_sym
-        is_assignment = (/[^=]*=$/o =~ method_name.to_s)
-        if @fields[field_name]
-          if is_assignment
-            # @fields[field_name].send(:data=,*args)
-            # rubocop:disable GitlabSecurity/PublicSend
-            @fields[field_name].public_send(:data=, *args)
-            # rubocop:enable GitlabSecurity/PublicSend
-            @dirty = true
-          else
-            # @fields[field_name].data
-            @fields[field_name]
-          end
+        method = method_name.to_s
+        field = @fields[method.gsub(/=$/, '').to_sym]
+        if field && (/[^=]*=$/o =~ method)
+          # rubocop:disable GitlabSecurity/PublicSend
+          field.public_send(:data=, *args)
+          # rubocop:enable GitlabSecurity/PublicSend
+          @dirty = true
         else
-          super
+          field || super
         end
       end
     end
