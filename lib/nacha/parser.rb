@@ -27,7 +27,6 @@ class Nacha::Parser
     end
   end
 
-
   def parse_string(str)
     line_num = -1
     records = []
