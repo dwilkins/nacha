@@ -68,7 +68,7 @@ module Nacha
           output_started = false
           skipped_output = false
           @matcher ||=
-            Regexp.new("\\A#{definition.values.reverse.collect { |field_def|
+            Regexp.new("\\A#{definition.values.reverse.collect do |field_def|
               if field_def[:contents] =~ /\AC(.+)\z/
                 last_match = Regexp.last_match(1)
                 if /\A  *\z/.match?(last_match)
@@ -94,7 +94,7 @@ module Nacha
                 skipped_output = true
                 ''
               end
-            }.reverse.join}#{skipped_output ? '.*' : ''}\\z")
+            end.reverse.join}#{skipped_output ? '.*' : ''}\\z")
         end
 
         def matcher
