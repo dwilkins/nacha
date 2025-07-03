@@ -19,7 +19,7 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   end
 
   it 'generates a valid matcher',
-     skip: 'The matcher regexp is complex and subject to change.' do
+    skip: 'The matcher regexp is complex and subject to change.' do
     expected_regexp = Regexp.new(
       '\A1.................................094101' \
         '......................................................\z'
