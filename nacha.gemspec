@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q(Ruby parser for ACH files.)
   spec.homepage      = 'https://github.com/dwilkins/nacha'
   spec.license       = 'MIT'
+  spec.required_ruby_version = '>= 3.4.4'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -23,22 +24,17 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.add_dependency 'bigdecimal'
 
-  spec.add_development_dependency "bundler"
-  # Conditionally add byebug only for MRI Ruby
-  if RUBY_ENGINE == 'ruby'
-    spec.add_development_dependency "byebug"
-  end
-  if RUBY_ENGINE == 'jruby'
-    spec.add_development_dependency "pry-nav"
-  end
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "factory_bot"
-  spec.add_development_dependency "gitlab-styles"
-  spec.add_development_dependency "guard"
-  spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
-  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'byebug' if RUBY_ENGINE == 'ruby'
+  spec.add_development_dependency 'factory_bot'
+  spec.add_development_dependency 'gitlab-styles'
+  spec.add_development_dependency 'guard'
+  spec.add_development_dependency 'guard-rspec'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry-nav' if RUBY_ENGINE == 'jruby'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'simplecov'
