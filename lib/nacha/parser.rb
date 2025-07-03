@@ -6,8 +6,8 @@ require 'nacha/parser_context'
 # Nacha Parser - deal with figuring out what record type a line is
 class Nacha::Parser
   DEFAULT_RECORD_TYPES = ['Nacha::Record::AdvFileHeader',
-                          'Nacha::Record::FileHeader',
-                          'Nacha::Record::Filler'].freeze
+    'Nacha::Record::FileHeader',
+    'Nacha::Record::Filler'].freeze
 
   attr_reader :context
 
@@ -16,29 +16,22 @@ class Nacha::Parser
   end
 
   def parse_file(file)
-    @context.parser_started_at = Time.now
+    @context.parser_started_at = Time.now.utc
     @context.file_name = file
     parse_string(file.read)
   end
 
   def detect_possible_record_types(line)
-    Nacha.ach_record_types.map do |record_type|
-      record_type if record_type.matcher =~ line
-    end.compact
-  end
-
-  def parse_line(line)
-    record_types = detect_possible_record_types(line)
-
-    records = record_types.map do |record_type|
-
+    Nacha.ach_record_types.filter_map do |record_type|
+      record_type if record_type.matcher.match?(line)
     end
   end
+
 
   def parse_string(str)
     line_num = -1
     records = []
-    @context.parser_started_at ||= Time.now
+    @context.parser_started_at ||= Time.now.utc
     str.scan(/(.{94}|(\A[^\n]+))/).each do |line|
       line = line.first.strip
       line_num += 1
@@ -57,6 +50,7 @@ class Nacha::Parser
     while record_types
       record = parse_first_by_types(line, record_types)
       break if record || !parent
+
       record.validate if record
       parent = parent.parent
       record_types = valid_record_types(parent)
@@ -80,20 +74,16 @@ class Nacha::Parser
   end
 
   def parse_first_by_types(line, record_types)
-    record_types.detect do |rt|
+    record_types.lazy.filter_map do |rt|
       record_type = rt.is_a?(Class) ? rt : Object.const_get(rt)
-      record = nil
-      record = record_type.parse(line) if record_type.matcher =~ line
-      return record if record
-    end
+      record_type.parse(line) if record_type.matcher.match?(line)
+    end.first
   end
 
   def parse_all_by_types(line, record_types)
-    record_types.map do |rt|
+    record_types.filter_map do |rt|
       record_type = rt.is_a?(Class) ? rt : Object.const_get(rt)
-      record = nil
-      record = record_type.parse(line) if record_type.matcher =~ line
-      record
-    end.compact
+      record_type.parse(line) if record_type.matcher.match?(line)
+    end
   end
 end
