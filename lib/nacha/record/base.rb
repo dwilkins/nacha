@@ -10,8 +10,7 @@ module Nacha
       include Validations::FieldValidations
 
       attr_accessor :children, :parent, :line_number
-      attr_reader :name, :validations, :original_input_line
-      attr_reader :fields
+      attr_reader :name, :validations, :original_input_line, :fields
 
       def initialize(opts = {})
         @children = []
@@ -69,7 +68,7 @@ module Nacha
           output_started = false
           skipped_output = false
           @matcher ||=
-            Regexp.new('\A' + definition.values.reverse.collect { |field_def|
+            Regexp.new("\\A#{definition.values.reverse.collect { |field_def|
               if field_def[:contents] =~ /\AC(.+)\z/
                 last_match = Regexp.last_match(1)
                 if /\A  *\z/.match?(last_match)
@@ -95,7 +94,7 @@ module Nacha
                 skipped_output = true
                 ''
               end
-            }.reverse.join + (skipped_output ? '.*' : '') + '\z')
+            }.reverse.join}#{skipped_output ? '.*' : ''}\\z")
         end
 
         def matcher
@@ -104,7 +103,7 @@ module Nacha
           output_started = false
           skipped_output = false
           @matcher ||=
-            Regexp.new('\A' + definition.values.reverse.collect do |field_def|
+            Regexp.new("\\A#{definition.values.reverse.collect do |field_def|
               contents = field_def[:contents]
               position = field_def[:position].size
               case contents
@@ -132,7 +131,7 @@ module Nacha
                   ''
                 end
               end
-            end.reverse.join + (skipped_output ? '.*' : '') + '\z')
+            end.reverse.join}#{skipped_output ? '.*' : ''}\\z")
         end
 
         def parse(ach_str)
@@ -216,7 +215,7 @@ module Nacha
 
       def validate
         # Run field-level validations first
-        @fields.values.each(&:validate)
+        @fields.each_value(&:validate)
         klass = self.class
         klass_def = klass.definition
         klass_validations = klass.validations
