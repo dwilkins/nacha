@@ -53,7 +53,7 @@ module Nacha
 
     # Returns an array of all currently registered ACH record type class names.
     #
-    # @return [Array<String>] An array of strings representing the names of ACH record classes.
+    # @return [Array<String>] An array of ACH record class names.
     def ach_record_types
       @ach_record_types || []
     end
@@ -62,8 +62,7 @@ module Nacha
     #
     # @param object [String, File, IO] The input to parse, either a string containing
     #   NACHA data or an IO object (e.g., a File) representing the NACHA file.
-    # @return [Nacha::Record::Base] The parsed NACHA file object, typically a FileHeader record
-    #   with nested batch and entry detail records.
+    # @return [Nacha::Record::Base] The parsed NACHA file object.
     def parse(object)
       parser = Nacha::Parser.new
       if object.is_a?(String)
@@ -89,11 +88,11 @@ module Nacha
     # @param str [String] The string to underscore.
     # @return [String] The underscored string.
     def underscore(str)
-      str.gsub(/::/, '/').
-        gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-        gsub(/([a-z\d])([A-Z])/,'\1_\2').
-        tr('-', '_').
-        downcase
+      str.gsub(/::/, '/')
+         .gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+         .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+         .tr('-', '_')
+         .downcase
     end
   end
 end
@@ -110,11 +109,11 @@ require 'nacha/record/detail_record_type'
 # This is necessary because the parser relies on the record types being defined
 # and available in the Nacha module.
 
-Gem.find_files('nacha/record/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
+Gem.find_files('nacha/record/*.rb').reject { |f| f.include?('/spec/') }.each do |file|
   require File.expand_path(file)
 end
 
-Gem.find_files('nacha/record/**/*.rb').reject{|f| f =~ /\/spec\//}.each do |file|
+Gem.find_files('nacha/record/**/*.rb').reject { |f| f.include?('/spec/') }.each do |file|
   require File.expand_path(file)
 end
 
