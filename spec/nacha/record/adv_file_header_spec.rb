@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   let(:example_file_header_record) do
-    '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS' \
-    ' FIRST NATIONAL BAADV FILE'
+    '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS ' \
+      'FIRST NATIONAL BAADV FILE'
   end
 
   it 'exists' do
@@ -18,10 +18,11 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
     expect(Nacha::Record::AdvFileHeader.matcher).to be_a Regexp
   end
 
-  xit 'generates a valid matcher' do # The matcher regexp is complex and subject to change.
+  xit 'generates a valid matcher',
+      'The matcher regexp is complex and subject to change.' do
     expected_regexp = Regexp.new(
       '\A1.................................094101' \
-      '......................................................\z'
+        '......................................................\z'
     )
     expect(Nacha::Record::AdvFileHeader.matcher).to eq(expected_regexp)
   end
