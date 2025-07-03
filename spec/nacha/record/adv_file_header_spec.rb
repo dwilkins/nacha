@@ -2,7 +2,8 @@ require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   let(:example_file_header_record) do
-    '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BAADV FILE'
+    '101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS' \
+    ' FIRST NATIONAL BAADV FILE'
   end
 
   it 'exists' do
@@ -17,8 +18,12 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
     expect(Nacha::Record::AdvFileHeader.matcher).to be_a Regexp
   end
 
-  xit 'generates a valid matcher' do
-    expect(Nacha::Record::AdvFileHeader.matcher).to eq /\A1.................................094101......................................................\z/
+  xit 'generates a valid matcher' do # The matcher regexp is complex and subject to change.
+    expected_regexp = Regexp.new(
+      '\A1.................................094101' \
+      '......................................................\z'
+    )
+    expect(Nacha::Record::AdvFileHeader.matcher).to eq(expected_regexp)
   end
 
   it 'recognizes input' do
@@ -86,26 +91,30 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   end
 
   describe 'generates json' do
-    let(:fhr_json) { Nacha::Record::AdvFileHeader.parse(example_file_header_record).to_json }
+    let(:fhr_json) do
+      Nacha::Record::AdvFileHeader.parse(example_file_header_record).to_json
+    end
 
     it 'is well formed' do
       expect(JSON.parse(fhr_json)).to be_a Hash
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(fhr_json).keys).to include('record_type_code',
-                                                   'priority_code',
-                                                   'immediate_destination',
-                                                   'immediate_origin',
-                                                   'file_creation_date',
-                                                   'file_creation_time',
-                                                   'file_id_modifier',
-                                                   'record_size',
-                                                   'blocking_factor',
-                                                   'format_code',
-                                                   'immediate_destination_name',
-                                                   'immediate_origin_name',
-                                                   'reference_code')
+      expect(JSON.parse(fhr_json).keys).to include(
+        'record_type_code',
+        'priority_code',
+        'immediate_destination',
+        'immediate_origin',
+        'file_creation_date',
+        'file_creation_time',
+        'file_id_modifier',
+        'record_size',
+        'blocking_factor',
+        'format_code',
+        'immediate_destination_name',
+        'immediate_origin_name',
+        'reference_code'
+      )
     end
   end
 end
