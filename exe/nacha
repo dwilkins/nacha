@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+
 require 'thor'
 require 'nacha' # Assuming this loads the Nacha gem
 
 module Nacha
   class CLI < Thor
     TEMPLATES_DIR = File.join(Gem::Specification.find_by_name("nacha").gem_dir,
-                              "templates").freeze
+                            "templates").freeze
 
     HTML_PREAMBLE_FILE = File.join(TEMPLATES_DIR, "html_preamble.html")
     HTML_POSTAMBLE_FILE = File.join(TEMPLATES_DIR, "html_postamble.html")
@@ -56,11 +57,12 @@ module Nacha
       # Attempt to call a summary or to_s method if it exists,
       # otherwise inspect the record.
       return unless record
+
       puts record.to_html
-      if record.respond_to?(:children) && record.children.any?
-        record.children.each do |child_record|
-          display_child(level + 1, child_record)
-        end
+      return unless record.respond_to?(:children) && record.children.any?
+
+      record.children.each do |child_record|
+        display_child(level + 1, child_record)
       end
     end
   end
