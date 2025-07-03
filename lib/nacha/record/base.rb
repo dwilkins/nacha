@@ -10,8 +10,8 @@ module Nacha
       include Validations::FieldValidations
 
       attr_accessor :children, :parent, :line_number
-      attr_reader :name, :validations, :errors
-      attr_reader:fields, :original_input_line
+      attr_reader :name, :validations, :original_input_line
+      attr_reader :fields
 
       def initialize(opts = {})
         @children = []
@@ -37,10 +37,10 @@ module Nacha
                                position: position,
                                name: name }
           validation_method = :"valid_#{name}"
-          if respond_to?(validation_method)
-            validations[name] ||= []
-            validations[name] << validation_method
-          end
+          return unless respond_to?(validation_method)
+
+          validations[name] ||= []
+          validations[name] << validation_method
         end
 
         def definition
@@ -69,7 +69,7 @@ module Nacha
           output_started = false
           skipped_output = false
           @matcher ||=
-            Regexp.new('\A' + definition.values.reverse.collect do |field_def|
+            Regexp.new('\A' + definition.values.reverse.collect { |field_def|
               if field_def[:contents] =~ /\AC(.+)\z/
                 last_match = Regexp.last_match(1)
                 if /\A  *\z/.match?(last_match)
@@ -81,21 +81,21 @@ module Nacha
                 end
               elsif /\ANumeric\z/.match?(field_def[:contents])
                 output_started = true
-                '[0-9 ]' + "{#{(field_def[:position] || field_def['position']).size}}"
+                "[0-9 ]{#{field_def[:position].size}}"
               elsif /\AYYMMDD\z/.match?(field_def[:contents])
                 if output_started
-                  '[0-9 ]' + "{#{(field_def[:position] || field_def['position']).size}}"
+                  "[0-9 ]{#{field_def[:position].size}}"
                 else
                   skipped_output = true
                   ''
                 end
               elsif output_started
-                '.' + "{#{(field_def[:position] || field_def['position']).size}}"
+                ".{#{field_def[:position].size}}"
               else
                 skipped_output = true
                 ''
               end
-            end.reverse.join + (skipped_output ? '.*' : '') + '\z')
+            }.reverse.join + (skipped_output ? '.*' : '') + '\z')
         end
 
         def matcher
@@ -105,33 +105,34 @@ module Nacha
           skipped_output = false
           @matcher ||=
             Regexp.new('\A' + definition.values.reverse.collect do |field_def|
-                         contents, position = field_def[:contents], field_def[:position].size
-                         case contents
-                         when /\AC(.+)\z/
-                           last_match = Regexp.last_match(1)
-                           if last_match =~ /\A  *\z/
-                             skipped_output = true
-                             ''
-                           else
-                             output_started = true
-                             last_match
-                           end
-                         when /\ANumeric\z/, /\AYYMMDD\z/
-                           if output_started
-                             "[0-9 ]{#{position}}"
-                           else
-                             skipped_output = true
-                             ''
-                           end
-                         else
-                           if output_started
-                             ".{#{position}}"
-                           else
-                             skipped_output = true
-                             ''
-                           end
-                         end
-                       end.reverse.join + (skipped_output ? '.*' : '') + '\z')
+              contents = field_def[:contents]
+              position = field_def[:position].size
+              case contents
+              when /\AC(.+)\z/
+                last_match = Regexp.last_match(1)
+                if last_match.match?(/\A  *\z/)
+                  skipped_output = true
+                  ''
+                else
+                  output_started = true
+                  last_match
+                end
+              when /\ANumeric\z/, /\AYYMMDD\z/
+                if output_started
+                  "[0-9 ]{#{position}}"
+                else
+                  skipped_output = true
+                  ''
+                end
+              else
+                if output_started
+                  ".{#{position}}"
+                else
+                  skipped_output = true
+                  ''
+                end
+              end
+            end.reverse.join + (skipped_output ? '.*' : '') + '\z')
         end
 
         def parse(ach_str)
@@ -146,7 +147,7 @@ module Nacha
         def record_type
           Nacha.record_name(self)
         end
-      end # end class methods
+      end
 
       def original_input_line=(line)
         @original_input_line = line.dup if line.is_a?(String)
@@ -197,11 +198,11 @@ module Nacha
           record_error_class ||= 'error' if @fields[key].errors.any?
           @fields[key].to_html
         end.join
-        "<div class=\"nacha-record tooltip #{record_type} #{record_error_class}\">" +
+        "<div class=\"nacha-record tooltip #{record_type} #{record_error_class}\">" \
           "<span class=\"nacha-field\" data-name=\"record-number\">#{format('%05d',
-            line_number)}&nbsp;|&nbsp</span>" +
-          field_html +
-          "<span class=\"record-type\" data-name=\"record-type\">#{human_name}</span>" +
+            line_number)}&nbsp;|&nbsp</span>" \
+          "#{field_html}" \
+          "<span class=\"record-type\" data-name=\"record-type\">#{human_name}</span>" \
           "</div>"
       end
 
@@ -254,7 +255,8 @@ module Nacha
       #   # Assuming transaction_code is "201" and DEBIT_TRANSACTION_CODES includes "201"
       #   debit? #=> true
       #
-      #   # Assuming transaction_code is "100" and DEBIT_TRANSACTION_CODES does not include "100"
+      #   # Assuming transaction_code is "100" and DEBIT_TRANSACTION_CODES
+      #   # does not include "100"
       #   debit? #=> false
       #
       #   # Assuming transaction_code is nil
@@ -293,7 +295,8 @@ module Nacha
       #   # Assuming transaction_code is "101" and CREDIT_TRANSACTION_CODES includes "101"
       #   credit? #=> true
       #
-      #   # Assuming transaction_code is "200" and CREDIT_TRANSACTION_CODES does not include "200"
+      #   # Assuming transaction_code is "200" and CREDIT_TRANSACTION_CODES
+      #   # does not include "200"
       #   credit? #=> false
       #
       #   # Assuming transaction_code is nil
@@ -319,30 +322,33 @@ module Nacha
       end
 
       def errors
-        (@errors + @fields.values.map { |field| field.errors }).flatten
+        (@errors + @fields.values.map(&:errors)).flatten
       end
 
       def add_error(err_string)
         @errors << err_string
       end
 
-      def respond_to?(method_name, include_private: false)
-        field_name = method_name.to_s.gsub(/=$/, '').to_sym
-
-        definition[field_name] || super
-      end
-
       def method_missing(method_name, *args, &block)
         method = method_name.to_s
-        field = @fields[method.gsub(/=$/, '').to_sym]
-        if field && (/[^=]*=$/o =~ method)
+        field_name = method.gsub(/=$/, '').to_sym
+        field = @fields[field_name]
+
+        if field && method.end_with?('=')
           # rubocop:disable GitlabSecurity/PublicSend
           field.public_send(:data=, *args)
           # rubocop:enable GitlabSecurity/PublicSend
           @dirty = true
+        elsif field
+          field
         else
-          field || super
+          super
         end
+      end
+
+      def respond_to_missing?(method_name, include_private = false)
+        field_name = method_name.to_s.gsub(/=$/, '').to_sym
+        definition[field_name] || super
       end
     end
   end
