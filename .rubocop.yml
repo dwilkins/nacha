@@ -25,7 +25,7 @@ Style/FrozenStringLiteralComment:
     - 'Rakefile'
     - 'spec/**/*'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 92
 
 Naming/FileName:

@@ -7,7 +7,7 @@ require 'nacha' # Assuming this loads the Nacha gem
 module Nacha
   class CLI < Thor
     TEMPLATES_DIR = File.join(Gem::Specification.find_by_name("nacha").gem_dir,
-                            "templates").freeze
+      "templates").freeze
 
     HTML_PREAMBLE_FILE = File.join(TEMPLATES_DIR, "html_preamble.html")
     HTML_POSTAMBLE_FILE = File.join(TEMPLATES_DIR, "html_postamble.html")
