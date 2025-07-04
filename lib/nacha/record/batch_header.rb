@@ -21,7 +21,8 @@ module Nacha
         inclusion: 'M', contents: 'Alphameric', position: 54..63
       nacha_field :company_descriptive_date,
         inclusion: 'O', contents: 'Alphameric', position: 64..69
-      nacha_field :effective_entry_date, inclusion: 'R', contents: 'YYMMDD', position: 70..75
+      nacha_field :effective_entry_date,
+        inclusion: 'R', contents: 'YYMMDD', position: 70..75
       nacha_field :settlement_date_julian,
         inclusion: 'O', contents: 'Numeric', position: 76..78
       nacha_field :originator_status_code,
