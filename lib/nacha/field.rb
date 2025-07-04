@@ -9,7 +9,7 @@ require 'nacha/ach_date'
 class Nacha::Field
   attr_accessor :inclusion, :position, :name, :errors
   attr_reader :contents, :data, :input_data, :data_type, :validator,
-              :justification, :fill_character, :output_conversion, :json_output
+    :justification, :fill_character, :output_conversion, :json_output
 
   def self.unpack_str(definition = {})
     if definition[:contents].match?(/(Numeric|\$+\u00a2\u00a2)/)
@@ -31,7 +31,9 @@ class Nacha::Field
     @data_assigned = false
     opts.each do |k, v|
       setter = "#{k}="
+      # rubocop:disable GitlabSecurity/PublicSend
       public_send(setter, v) if respond_to?(setter) && !v.nil?
+      # rubocop:enable GitlabSecurity/PublicSend
     end
   end
 
@@ -126,13 +128,17 @@ class Nacha::Field
     fill_char = @fill_character
     fill_char = ' ' unless str
     str ||= ''
+    # rubocop:disable GitlabSecurity/PublicSend
     str.public_send(justification, position.count, fill_char)
+    # rubocop:enable GitlabSecurity/PublicSend
   end
 
   def to_json_output
     if @json_output
       @json_output.reduce(@data) do |memo, operation|
+        # rubocop:disable GitlabSecurity/PublicSend
         memo&.public_send(*operation)
+        # rubocop:enable GitlabSecurity/PublicSend
       end
     else
       to_s
@@ -159,7 +165,9 @@ class Nacha::Field
   end
 
   def to_s
+    # rubocop:disable GitlabSecurity/PublicSend
     @data.public_send(*output_conversion).to_s
+    # rubocop:enable GitlabSecurity/PublicSend
   end
 
   def raw
@@ -186,15 +194,19 @@ class Nacha::Field
     return unless @data_type == Nacha::Numeric && @input_data.to_s.strip.match(/\D/)
 
     add_error("Invalid characters in numeric field '#{human_name}'. " \
-              "Got '#{@input_data}'.")
+      "Got '#{@input_data}'.")
   end
 
   def run_custom_validator
     return unless @validator && @data.is_a?(@data_type)
 
+    # rubocop:disable GitlabSecurity/PublicSend
     is_valid = @data.public_send(@validator)
+    # rubocop:enable GitlabSecurity/PublicSend
 
-    @data.errors.each { |e| add_error(e) } if @data.respond_to?(:errors) && @data.errors&.any?
+    if @data.respond_to?(:errors) && @data.errors&.any?
+      @data.errors.each { |e| add_error(e) }
+    end
 
     return if is_valid || errors.any?
 
