@@ -2,9 +2,8 @@ require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::AdvFileControl', :nacha_record_type do
   let(:example_file_control_record) do
-    #         1         2         3         4         5         6         7         8         9
-    # 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    '9000001000001000000020000000000000000000000000000000000                                       '
+    '9000001000001000000020000000000000000000000000000000000' \
+    '                                       '
   end
 
   it 'exists' do
@@ -60,11 +59,13 @@ RSpec.describe 'Nacha::Record::AdvFileControl', :nacha_record_type do
     end
 
     it 'total_debit_entry_dollar_amount_in_file' do
-      expect(fcr.total_debit_entry_dollar_amount_in_file.to_ach).to eq '00000000000000000000'
+      expect(fcr.total_debit_entry_dollar_amount_in_file.to_ach)
+        .to eq '00000000000000000000'
     end
 
     it 'total_credit_entry_dollar_amount_in_file' do
-      expect(fcr.total_credit_entry_dollar_amount_in_file.to_ach).to eq '00000000000000000000'
+      expect(fcr.total_credit_entry_dollar_amount_in_file.to_ach)
+        .to eq '00000000000000000000'
     end
 
     it 'converts to a hash' do
