@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Nacha::Record::PpdEntryDetail, :nacha_record_type do
   it 'exists' do
-    expect { Nacha::Record::PpdEntryDetail }.not_to raise_error
+    expect { described_class }.not_to raise_error
   end
 
   describe 'transaction' do
