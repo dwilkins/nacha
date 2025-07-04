@@ -27,7 +27,7 @@ RSpec.describe Nacha::Record::Filler, :nacha_record_type do
 
   it 'is invalid with an invalid filler record' do
     invalid_filler_record = '92345678901234567890123456789012345678901234567890' \
-                            '12345678901234567890123456789012345678901234'
+      '12345678901234567890123456789012345678901234'
     filler_record = record_class.parse(invalid_filler_record)
     expect(filler_record).not_to be_valid, filler_record.errors&.join(', ').to_s
     expect(filler_record.class).to eq described_class
