@@ -7,15 +7,9 @@ require 'nacha/aba_number'
 require 'nacha/ach_date'
 
 class Nacha::Field
-  attr_accessor :inclusion, :position
-  attr_accessor :name, :errors
-  attr_reader :contents, :data, :input_data
-  attr_reader :data_type
-  attr_reader :validator
-  attr_reader :justification
-  attr_reader :fill_character
-  attr_reader :output_conversion
-  attr_reader :json_output
+  attr_accessor :inclusion, :position, :name, :errors
+  attr_reader :contents, :data, :input_data, :data_type, :validator,
+              :justification, :fill_character, :output_conversion, :json_output
 
   def initialize(opts = {})
     @data_type = String
@@ -29,9 +23,7 @@ class Nacha::Field
     @data_assigned = false
     opts.each do |k, v|
       setter = "#{k}="
-      if respond_to?(setter)
-        send(setter, v) unless v.nil?
-      end
+      public_send(setter, v) if respond_to?(setter) && !v.nil?
     end
   end
 
@@ -43,7 +35,7 @@ class Nacha::Field
     when /\$.*¢*/
       @data_type = Nacha::Numeric
       @justification = :rjust
-      cents = 10 ** (@contents.count('¢'))
+      cents = 10**@contents.count('¢')
       @json_output = [[:to_i], [:/, cents]]
       @output_conversion = [:to_i]
       @fill_character = '0'
@@ -104,36 +96,10 @@ class Nacha::Field
   def validate
     return if @validated
 
-    add_error("'inclusion' must be present for a field definition.") unless @inclusion
-    add_error("'position' must be present for a field definition.") unless @position
-    add_error("'contents' must be present for a field definition.") unless @contents
-
-    if @data_assigned &&
-       (mandatory? || required?) &&
-       ((@input_data.nil? || @input_data.to_s.empty?) && @contents !~ /\AC(  *)\z/)
-      add_error("'#{human_name}' is a required field and cannot be blank.")
-    end
-
-    # Type-specific validations
-    if @data_type == Nacha::Numeric && @input_data.to_s.strip.match(/\D/)
-      add_error("Invalid characters in numeric field '#{human_name}'. Got '#{@input_data}'.")
-    end
-
-    # If data object has its own validation, run it.
-    if @validator && @data.is_a?(@data_type)
-      # The call to the validator might populate errors on the data object.
-      is_valid = @data.send(@validator)
-
-      # Collect any errors from the data object.
-      if @data.respond_to?(:errors) && @data.errors && @data.errors.any?
-        @data.errors.each { |e| add_error(e) }
-      end
-
-      # If it's not valid and we haven't collected any specific errors, add a generic one.
-      if !is_valid && errors.empty?
-        add_error("'#{human_name}' is invalid. Got '#{@input_data}'.")
-      end
-    end
+    validate_definition_attributes
+    validate_data_presence
+    validate_numeric_format
+    run_custom_validator
 
     @validated = true
   end
@@ -147,26 +113,18 @@ class Nacha::Field
     errors << err_string
   end
 
-  def self.unpack_str(definition = {})
-    if definition[:contents] =~ /(Numeric|\$+\u00a2\u00a2)/
-      'a'
-    else
-      'A'
-    end + definition[:position].size.to_s
-  end
-
   def to_ach
     str = to_s
     fill_char = @fill_character
     fill_char = ' ' unless str
     str ||= ''
-    str.send(justification, position.count, fill_char)
+    str.public_send(justification, position.count, fill_char)
   end
 
   def to_json_output
     if @json_output
-      @json_output.reduce(@data) do |output, operation|
-        output = output.send(*operation) if output
+      @json_output.reduce(@data) do |memo, operation|
+        memo&.public_send(*operation)
       end
     else
       to_s
@@ -187,16 +145,51 @@ class Nacha::Field
     field_classes += ['error'] if errors.any?
 
     ach_string = to_ach.gsub(' ', '&nbsp;')
-    "<span data-field-name=\"#{@name}\" contentEditable=true class=\"#{field_classes.join(' ')}\" data-name=\"#{@name}\">#{ach_string}" +
-      tooltip_text.to_s +
-      "</span>"
+    "<span data-field-name=\"#{@name}\" contentEditable=true " \
+      "class=\"#{field_classes.join(' ')}\" data-name=\"#{@name}\">" \
+      "#{ach_string}#{tooltip_text}</span>"
   end
 
   def to_s
-    @data.send(*output_conversion).to_s
+    @data.public_send(*output_conversion).to_s
   end
 
   def raw
     @data
+  end
+
+  private
+
+  def validate_definition_attributes
+    add_error("'inclusion' must be present for a field definition.") unless @inclusion
+    add_error("'position' must be present for a field definition.") unless @position
+    add_error("'contents' must be present for a field definition.") unless @contents
+  end
+
+  def validate_data_presence
+    return unless @data_assigned && (mandatory? || required?)
+    return unless @input_data.nil? || @input_data.to_s.empty?
+    return if @contents.match?(/\AC(  *)\z/)
+
+    add_error("'#{human_name}' is a required field and cannot be blank.")
+  end
+
+  def validate_numeric_format
+    return unless @data_type == Nacha::Numeric && @input_data.to_s.strip.match(/\D/)
+
+    add_error("Invalid characters in numeric field '#{human_name}'. " \
+              "Got '#{@input_data}'.")
+  end
+
+  def run_custom_validator
+    return unless @validator && @data.is_a?(@data_type)
+
+    is_valid = @data.public_send(@validator)
+
+    @data.errors.each { |e| add_error(e) } if @data.respond_to?(:errors) && @data.errors&.any?
+
+    return if is_valid || errors.any?
+
+    add_error("'#{human_name}' is invalid. Got '#{@input_data}'.")
   end
 end
