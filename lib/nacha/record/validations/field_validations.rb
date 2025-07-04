@@ -28,7 +28,7 @@ module Nacha
             check_field_error(
               field,
               "'#{field.name}' '#{field}' should be one of " \
-              "#{STANDARD_ENTRY_CLASS_CODES.join(', ')}"
+                "#{STANDARD_ENTRY_CLASS_CODES.join(', ')}"
             ) do
               STANDARD_ENTRY_CLASS_CODES.include? field.data
             end
