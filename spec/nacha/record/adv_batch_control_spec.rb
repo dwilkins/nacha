@@ -53,4 +53,3 @@ RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
     end
   end
 end
-
