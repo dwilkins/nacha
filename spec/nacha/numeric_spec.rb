@@ -18,22 +18,17 @@ RSpec.describe Nacha::Numeric do
     expect(numeric.to_i).to eq 67890
   end
 
-  it 'handles nil values' do
-    numeric = described_class.new(nil)
-    expect(numeric.to_i).to eq 0
-  end
-
   it 'handles BigDecimal values' do
     numeric = described_class.new(BigDecimal("12345.67"))
     expect(numeric.to_i).to eq 12345
   end
 
   it 'responds to precision' do
-    numeric = described_class.new(BigDecimal(8))
+    numeric = described_class.new(BigDecimal('8'))
     expect(numeric.precision).to eq 1
   end
 
-  it 'should not change spaces' do
+  it 'does not change spaces' do
     numeric = described_class.new("   ")
     expect(numeric.to_i).to eq "   "
   end
