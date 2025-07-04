@@ -204,9 +204,7 @@ class Nacha::Field
     is_valid = @data.public_send(@validator)
     # rubocop:enable GitlabSecurity/PublicSend
 
-    if @data.respond_to?(:errors) && @data.errors&.any?
-      @data.errors.each { |e| add_error(e) }
-    end
+    @data.errors.each { |e| add_error(e) } if @data.respond_to?(:errors) && @data.errors&.any?
 
     return if is_valid || errors.any?
 
