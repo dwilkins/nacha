@@ -32,9 +32,9 @@ class Nacha::AbaNumber
   end
 
   def check_digit
-    if @routing_number.length == 9 && compute_check_digit == @routing_number[8]
-      @routing_number[8]
-    end
+    return unless @routing_number.length == 9 && compute_check_digit == @routing_number[8]
+
+    @routing_number[8]
   end
 
   def valid?
@@ -56,7 +56,7 @@ class Nacha::AbaNumber
       true
     else
       add_error("Routing number must be 8 or 9 digits long, but was " \
-                "#{actual_length} digits long.")
+        "#{actual_length} digits long.")
       false
     end
   end
@@ -64,7 +64,7 @@ class Nacha::AbaNumber
   def valid_check_digit?
     if compute_check_digit != @routing_number[8]
       add_error("Incorrect Check Digit \"#{@routing_number[8]}\" should be " \
-                "\"#{compute_check_digit}\"")
+        "\"#{compute_check_digit}\"")
       false
     else
       true
