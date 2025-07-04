@@ -3,8 +3,8 @@
 
 class Nacha::ParserContext
   attr_accessor :file_name, :line_number, :line_length, :line_errors,
-                :parser_started_at, :previous_record
-  attr_accessor :parser_ended_at # nil 'till the end of parsing
+    :parser_started_at, :previous_record,
+    :parser_ended_at # nil 'till the end of parsing
   attr_reader :validated
 
   def initialize(opts = {})
