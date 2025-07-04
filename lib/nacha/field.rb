@@ -11,6 +11,14 @@ class Nacha::Field
   attr_reader :contents, :data, :input_data, :data_type, :validator,
               :justification, :fill_character, :output_conversion, :json_output
 
+  def self.unpack_str(definition = {})
+    if definition[:contents].match?(/(Numeric|\$+\u00a2\u00a2)/)
+      'a'
+    else
+      'A'
+    end + definition[:position].size.to_s
+  end
+
   def initialize(opts = {})
     @data_type = String
     @errors = []
