@@ -26,7 +26,7 @@ Style/FrozenStringLiteralComment:
     - 'spec/**/*'
 
 Layout/LineLength:
-  Max: 92
+  Max: 108
 
 Naming/FileName:
   ExpectMatchingDefinition: true
