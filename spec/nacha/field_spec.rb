@@ -105,6 +105,7 @@ RSpec.describe Nacha::Field do
         field.data = ' 051009296'
         expect(field).to be_valid
       end
+
       it 'output correctly' do
         field = described_class.new(valid_params)
         field.data = aba_number
