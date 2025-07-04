@@ -3,8 +3,7 @@
 require "nacha/has_errors"
 
 class Nacha::AbaNumber
-  attr_reader :routing_number
-  attr_reader :aba_number
+  attr_reader :routing_number, :aba_number
 
   include HasErrors
 
@@ -33,19 +32,21 @@ class Nacha::AbaNumber
   end
 
   def check_digit
-    @routing_number.chars[8] if @routing_number.length == 9 && compute_check_digit == @routing_number.chars[8]
+    if @routing_number.length == 9 && compute_check_digit == @routing_number[8]
+      @routing_number[8]
+    end
   end
 
   def valid?
     @valid ||= if valid_routing_number_length?
-               if @routing_number.length == 9
-                 valid_check_digit?
-               else # 8 digits is valid
-                 true
+                 if @routing_number.length == 9
+                   valid_check_digit?
+                 else # 8 digits is valid
+                   true
+                 end
+               else
+                 false
                end
-             else
-               false
-             end
   end
 
   def valid_routing_number_length?
@@ -54,14 +55,16 @@ class Nacha::AbaNumber
     if [9, 10].include?(actual_length)
       true
     else
-      add_error("Routing number must be 8 or 9 digits long, but was #{actual_length} digits long.")
+      add_error("Routing number must be 8 or 9 digits long, but was " \
+                "#{actual_length} digits long.")
       false
     end
   end
 
   def valid_check_digit?
-    if compute_check_digit != @routing_number.chars[8]
-      add_error("Incorrect Check Digit \"#{@routing_number.chars[8]}\" should be \"#{ compute_check_digit }\" ")
+    if compute_check_digit != @routing_number[8]
+      add_error("Incorrect Check Digit \"#{@routing_number[8]}\" should be " \
+                "\"#{compute_check_digit}\"")
       false
     else
       true
