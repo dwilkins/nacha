@@ -5,7 +5,7 @@ RSpec.describe Nacha::AchDate do
     expect(described_class.new('170102')).to be_a described_class
   end
 
-  it 'Does Date-like things' do
+  it 'does Date-like things' do
     ach_date = described_class.new('170102')
     ach_date += 1
     expect(ach_date.to_s).to eq '170103'
@@ -13,14 +13,14 @@ RSpec.describe Nacha::AchDate do
   end
 
   it "accepts year, month, day" do
-    expect(described_class.new(2025,06,20).to_s).to eq '250620'
+    expect(described_class.new(2025, 6, 20).to_s).to eq '250620'
   end
 
   it "accepts year, month, day(float)" do
-    expect(described_class.new(2025,06,20.1).to_s).to eq '250620'
+    expect(described_class.new(2025, 6, 20.1).to_s).to eq '250620'
   end
 
   it "throws argument errors for bad arguments" do
-    expect{ described_class.new(0..2) }.to raise_error(ArgumentError)
+    expect { described_class.new(0..2) }.to raise_error(ArgumentError)
   end
 end
