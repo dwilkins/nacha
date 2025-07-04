@@ -125,13 +125,15 @@ RSpec.describe Nacha::Record::Validations::FieldValidations do
 
     it 'recognizes valid receiving_identification' do
       valid_fields.each do |valid_field|
-        expect(dummy_class.valid_receiving_dfi_identification(valid_field)).to be_truthy, valid_field.inspect
+        expect(dummy_class.valid_receiving_dfi_identification(valid_field))
+          .to(be_truthy, valid_field.inspect)
       end
     end
 
     it 'recognizes invalid receiving_identification' do
       invalid_fields.each do |valid_field|
-        expect(dummy_class.valid_receiving_dfi_identification(valid_field)).to be_falsey, valid_field.inspect
+        expect(dummy_class.valid_receiving_dfi_identification(valid_field))
+          .to(be_falsey, valid_field.inspect)
       end
     end
   end
