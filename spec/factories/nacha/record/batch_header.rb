@@ -21,7 +21,7 @@ FactoryBot.define do
       trait sec.downcase.to_sym do
         standard_entry_class_code { sec }
       end
-      factory (sec + '_batch_header').downcase.to_sym, traits: [sec.downcase.to_sym]
+      factory ("#{sec}_batch_header").downcase.to_sym, traits: [sec.downcase.to_sym]
     end
   end
 end
