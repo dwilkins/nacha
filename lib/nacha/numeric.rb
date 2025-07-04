@@ -61,6 +61,7 @@ class Nacha::Numeric
         @value = return_value
         @op_value = return_value
       end
+
       @value
     else
       super
