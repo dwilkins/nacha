@@ -98,6 +98,7 @@ RSpec.describe Nacha::Field do
           position: 14..23
         }
       end
+
       let(:aba_number) { ' 051009296' }
 
       it 'can be created' do
@@ -122,6 +123,7 @@ RSpec.describe Nacha::Field do
           position: 24..29
         }
       end
+
       let(:ambiguous_date) { '170102' }
 
       it 'can be created' do
