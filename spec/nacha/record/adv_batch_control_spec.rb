@@ -2,6 +2,7 @@ require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
   subject(:record_class) { Nacha::Record::AdvBatchControl }
+
   let(:example_adv_batch_control_record) do
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
