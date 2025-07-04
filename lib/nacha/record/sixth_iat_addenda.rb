@@ -1,8 +1,8 @@
 # coding: utf-8
 # frozen_string_literal: true
 
-require 'nacha/record/base.rb'
-require 'nacha/record/addenda_record_type.rb'
+require 'nacha/record/base'
+require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
@@ -13,7 +13,8 @@ module Nacha
       nacha_field :addenda_type_code, inclusion: 'M', contents: 'C15', position: 2..3
       nacha_field :receiver_identification_number, inclusion: 'O', contents: 'Alphameric', position: 4..18
       nacha_field :receiver_street_address, inclusion: 'M', contents: 'Alphameric', position: 19..53
-      nacha_field :reserved, inclusion: 'M', contents: 'C                                  ', position: 54..87
+      nacha_field :reserved, inclusion: 'M', contents: 'C                                  ',
+        position: 54..87
       nacha_field :entry_detail_sequence_number, inclusion: 'M', contents: 'Numeric', position: 88..94
     end
   end

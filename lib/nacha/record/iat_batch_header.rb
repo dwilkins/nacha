@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'nacha/record/base.rb'
-require 'nacha/record/batch_header_record_type.rb'
+require 'nacha/record/base'
+require 'nacha/record/batch_header_record_type'
 
 module Nacha
   module Record
@@ -12,7 +12,8 @@ module Nacha
       nacha_field :service_class_code, inclusion: 'M', contents: 'Numeric', position: 2..4
       nacha_field :iat_indicator, inclusion: 'O', contents: 'Alphameric', position: 5..20
       nacha_field :foreign_exchange_indicator, inclusion: 'M', contents: 'Alphameric', position: 21..22
-      nacha_field :foreign_exchange_reference_indicator, inclusion: 'R', contents: 'Numeric', position: 23..23
+      nacha_field :foreign_exchange_reference_indicator, inclusion: 'R', contents: 'Numeric',
+        position: 23..23
       nacha_field :foreign_exchange_reference, inclusion: 'R', contents: 'Alphameric', position: 24..38
       nacha_field :iso_destination_country_code, inclusion: 'M', contents: 'Alphameric', position: 39..40
       nacha_field :originator_identification, inclusion: 'M', contents: 'Alphameric', position: 41..50

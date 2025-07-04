@@ -1,8 +1,8 @@
 # coding: utf-8
 # frozen_string_literal: true
 
-require 'nacha/record/base.rb'
-require 'nacha/record/addenda_record_type.rb'
+require 'nacha/record/base'
+require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record

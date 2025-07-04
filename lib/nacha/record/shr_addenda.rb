@@ -1,8 +1,8 @@
 # coding: utf-8
 # frozen_string_literal: true
 
-require 'nacha/record/base.rb'
-require 'nacha/record/addenda_record_type.rb'
+require 'nacha/record/base'
+require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
@@ -16,7 +16,8 @@ module Nacha
       nacha_field :terminal_identification_code, inclusion: 'R', contents: 'Alphameric', position: 14..19
       nacha_field :transaction_serial_number, inclusion: 'R', contents: 'Alphameric', position: 20..25
       nacha_field :transaction_date, inclusion: 'O', contents: 'Alphameric', position: 26..29
-      nacha_field :authorization_code_or_card_expiration_date, inclusion: 'O', contents: 'Alphameric', position: 30..35
+      nacha_field :authorization_code_or_card_expiration_date, inclusion: 'O', contents: 'Alphameric',
+        position: 30..35
       nacha_field :terminal_location, inclusion: 'R', contents: 'Alphameric', position: 36..62
       nacha_field :terminal_city, inclusion: 'R', contents: 'Alphameric', position: 63..77
       nacha_field :terminal_state, inclusion: 'M', contents: 'Numeric', position: 78..79

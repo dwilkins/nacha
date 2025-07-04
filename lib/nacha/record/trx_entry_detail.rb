@@ -1,8 +1,8 @@
 # coding: utf-8
 # frozen_string_literal: true
 
-require 'nacha/record/base.rb'
-require 'nacha/record/detail_record_type.rb'
+require 'nacha/record/base'
+require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
@@ -16,7 +16,8 @@ module Nacha
       nacha_field :total_amount, inclusion: 'M', contents: '$$$$$$$$¢¢', position: 30..39
       nacha_field :identification_number, inclusion: 'O', contents: 'Alphameric', position: 40..54
       nacha_field :number_of_addenda_records, inclusion: 'M', contents: 'Numeric', position: 55..58
-      nacha_field :receiving_company_name_id_number, inclusion: 'R', contents: 'Alphameric', position: 59..74
+      nacha_field :receiving_company_name_id_number, inclusion: 'R', contents: 'Alphameric',
+        position: 59..74
       nacha_field :reserved, inclusion: 'M', contents: 'C  ', position: 75..76
       nacha_field :item_type_indicator, inclusion: 'O', contents: 'Alphameric', position: 77..78
       nacha_field :addenda_record_indicator, inclusion: 'M', contents: 'Numeric', position: 79..79
