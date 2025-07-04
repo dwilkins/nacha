@@ -11,7 +11,7 @@ module Nacha
         def child_record_types
           [
             'Nacha::Record::BatchHeader',
-            'Nacha::Record::FileControl',
+            'Nacha::Record::FileControl'
           ]
         end
       end
