@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::AdvFileControl', :nacha_record_type do
   let(:example_file_control_record) do
-    '9000001000001000000020000000000000000000000000000000000' \
-    '                                       '
+    '90000010000010000000200000000000000000000000000' \
+      '00000000                                       '
   end
 
   it 'exists' do
