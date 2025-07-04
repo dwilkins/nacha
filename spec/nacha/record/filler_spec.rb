@@ -4,37 +4,33 @@
 require 'spec_helper'
 
 RSpec.describe Nacha::Record::Filler, :nacha_record_type do
-  let(:subject) { Nacha::Record::Filler }
-  let(:example_filler_record) do
-    #         1         2         3         4         5         6         7         8         9
-    #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    '9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999'
-  end
+  subject(:record_class) { described_class }
 
+  let(:example_filler_record) { '9' * 94 }
 
   it 'exists' do
-    expect { Nacha::Record::Filler }.not_to raise_error
+    expect { described_class }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::Filler.unpack_str).to eq 'A1A93'
+    expect(described_class.unpack_str).to eq 'A1A93'
   end
 
   it 'generates a regexp matcher' do
-    expect(Nacha::Record::Filler.matcher).to be_a Regexp
+    expect(described_class.matcher).to be_a Regexp
   end
 
   it 'is valid with a valid filler record' do
-    filler_record = subject.parse(example_filler_record)
+    filler_record = record_class.parse(example_filler_record)
     expect(filler_record).to be_valid
   end
 
   it 'is invalid with an invalid filler record' do
-    invalid_filler_record = '9234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234'
-    filler_record = subject.parse(invalid_filler_record)
-    expect(filler_record).to_not be_valid, filler_record.errors&.join(', ').to_s
-    expect(filler_record.class).to eq Nacha::Record::Filler
-    expect(filler_record.errors).to_not be_empty
+    invalid_filler_record = '92345678901234567890123456789012345678901234567890' \
+                            '12345678901234567890123456789012345678901234'
+    filler_record = record_class.parse(invalid_filler_record)
+    expect(filler_record).not_to be_valid, filler_record.errors&.join(', ').to_s
+    expect(filler_record.class).to eq described_class
+    expect(filler_record.errors).not_to be_empty
   end
-
 end
