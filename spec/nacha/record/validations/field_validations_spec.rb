@@ -5,7 +5,7 @@ class DummyRecord
 end
 
 RSpec.describe Nacha::Record::Validations::FieldValidations do
-  let(:subject) { DummyRecord }
+  subject(:dummy_class) { DummyRecord }
 
   describe 'valid_standard_entry_class_code' do
     let(:valid_fields) do
@@ -13,6 +13,7 @@ RSpec.describe Nacha::Record::Validations::FieldValidations do
         build(:standard_entry_class_code, data: sec)
       end
     end
+
     let(:invalid_fields) do
       %w[XXX WWW].map do |sec|
         build(:standard_entry_class_code, data: sec)
@@ -21,13 +22,14 @@ RSpec.describe Nacha::Record::Validations::FieldValidations do
 
     it 'recognizes valid standard_entry_class_codes' do
       valid_fields.each do |valid_field|
-        expect(subject.valid_standard_entry_class_code(valid_field)).to be_truthy
+        expect(dummy_class.valid_standard_entry_class_code(valid_field)).to be_truthy
         expect(valid_field.errors).to be_empty
       end
     end
+
     it 'recognizes invalid standard_entry_class_codes' do
       invalid_fields.each do |invalid_field|
-        expect(subject.valid_standard_entry_class_code(invalid_field)).to be_falsy
+        expect(dummy_class.valid_standard_entry_class_code(invalid_field)).to be_falsy
         expect(invalid_field.errors.first).to match(/#{invalid_field}/)
         expect(invalid_field.errors.first).to match(/is invalid/)
       end
@@ -49,14 +51,14 @@ RSpec.describe Nacha::Record::Validations::FieldValidations do
 
     it 'recognizes valid service_class_codes' do
       valid_fields.each do |valid_field|
-        expect(subject.valid_service_class_code(valid_field)).to be_truthy, valid_field.inspect
+        expect(dummy_class.valid_service_class_code(valid_field)).to be_truthy, valid_field.inspect
         expect(valid_field.errors).to be_empty
       end
     end
 
     it 'recognizes invalid service_class_codes' do
       invalid_fields.each do |invalid_field|
-        expect(subject.valid_service_class_code(invalid_field)).to be_falsy, invalid_field.inspect
+        expect(dummy_class.valid_service_class_code(invalid_field)).to be_falsy, invalid_field.inspect
         expect(invalid_field.errors.first).to match(/#{invalid_field}/)
         expect(invalid_field.errors.first).to match(/is invalid/)
       end
@@ -78,14 +80,14 @@ RSpec.describe Nacha::Record::Validations::FieldValidations do
 
     it 'recognizes valid transaction_codes' do
       valid_fields.each do |valid_field|
-        expect(subject.valid_transaction_code(valid_field)).to be_truthy, valid_field.inspect
+        expect(dummy_class.valid_transaction_code(valid_field)).to be_truthy, valid_field.inspect
         expect(valid_field.errors).to be_empty
       end
     end
 
     it 'recognizes invalid transaction_codes' do
       invalid_fields.each do |invalid_field|
-        expect(subject.valid_transaction_code(invalid_field)).to be_falsy, invalid_field.inspect
+        expect(dummy_class.valid_transaction_code(invalid_field)).to be_falsy, invalid_field.inspect
         expect(invalid_field.errors.first).to match(/#{invalid_field}/)
         expect(invalid_field.errors.first).to match(/is invalid/)
       end
@@ -106,6 +108,7 @@ RSpec.describe Nacha::Record::Validations::FieldValidations do
         ['9' * 8, 2].join
       ]
     end
+
     let(:valid_fields) do
       dfi_identification_numbers.map do |din|
         build(:receiving_dfi_identification, data: din)
@@ -122,13 +125,13 @@ RSpec.describe Nacha::Record::Validations::FieldValidations do
 
     it 'recognizes valid receiving_identification' do
       valid_fields.each do |valid_field|
-        expect(subject.valid_receiving_dfi_identification(valid_field)).to be_truthy, valid_field.inspect
+        expect(dummy_class.valid_receiving_dfi_identification(valid_field)).to be_truthy, valid_field.inspect
       end
     end
 
     it 'recognizes invalid receiving_identification' do
       invalid_fields.each do |valid_field|
-        expect(subject.valid_receiving_dfi_identification(valid_field)).to be_falsey, valid_field.inspect
+        expect(dummy_class.valid_receiving_dfi_identification(valid_field)).to be_falsey, valid_field.inspect
       end
     end
   end
