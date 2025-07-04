@@ -1,12 +1,16 @@
-module HasErrors
-  attr_reader :errors
+# frozen_string_literal: true
 
-  def add_error(message)
-    @errors ||= []
-    @errors << message
-  end
+module Nacha
+  module HasErrors
+    attr_reader :errors
 
-  def has_errors?
-    !@errors.nil? && !@errors.empty?
+    def add_error(message)
+      @errors ||= []
+      @errors << message
+    end
+
+    def has_errors?
+      !@errors.nil? && !@errors.empty?
+    end
   end
 end

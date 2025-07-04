@@ -5,7 +5,7 @@ require "nacha/has_errors"
 class Nacha::AbaNumber
   attr_reader :routing_number, :aba_number
 
-  include HasErrors
+  include Nacha::HasErrors
 
   def initialize(routing_number)
     @errors = []
