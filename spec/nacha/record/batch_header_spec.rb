@@ -2,15 +2,13 @@ require 'spec_helper'
 
 RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
   let(:example_batch_header_record) do
-    #         1         2         3         4         5         6         7         8         9
-    #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL090702081205   1124000050000001'
+    '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL' \
+      '090702081205   1124000050000001'
   end
 
   let(:example_batch_header_record_settlement_date) do
-    #         1         2         3         4         5         6         7         8         9
-    #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL0907020812051001124000050000001'
+    '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL' \
+      '0907020812051001124000050000001'
   end
 
   it 'has a factory' do
@@ -34,7 +32,7 @@ RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
     expect(Nacha::Record::BatchHeader.matcher).to be_a Regexp
   end
 
-  xit 'recognizes input' do
+  it 'recognizes input', skip: 'Matcher logic is complex and may change' do
     expect(Nacha::Record::BatchHeader.matcher).to match example_batch_header_record
   end
 
