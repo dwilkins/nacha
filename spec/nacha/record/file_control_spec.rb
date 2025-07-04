@@ -2,29 +2,28 @@ require 'spec_helper'
 
 RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
   let(:example_file_control_record) do
-    #         1         2         3         4         5         6         7         8         9
-    #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
-    '9000001000001000000020024860204000000000000000000200100                                       '
+    '9000001000001000000020024860204000000000000000000200100' \
+      '                                       '
   end
 
   it 'exists' do
-    expect { Nacha::Record::FileControl }.not_to raise_error
+    expect { described_class }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::FileControl.unpack_str).to eq 'A1a6a6a8a10a12a12A39'
+    expect(described_class.unpack_str).to eq 'A1a6a6a8a10a12a12A39'
   end
 
   it 'generates a regexp matcher' do
-    expect(Nacha::Record::FileControl.matcher).to be_a Regexp
+    expect(described_class.matcher).to be_a Regexp
   end
 
   it 'recognizes input' do
-    expect(Nacha::Record::FileControl.matcher).to match example_file_control_record
+    expect(described_class.matcher).to match example_file_control_record
   end
 
   describe 'parses a record' do
-    let(:fcr) { Nacha::Record::FileControl.parse(example_file_control_record) }
+    let(:fcr) { described_class.parse(example_file_control_record) }
     let(:fcr_hash) do
       {
         nacha_record_type: 'file_control',
