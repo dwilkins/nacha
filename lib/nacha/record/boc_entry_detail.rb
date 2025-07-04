@@ -1,13 +1,14 @@
 # coding: utf-8
 # frozen_string_literal: true
 
-require 'nacha/record/base.rb'
-require 'nacha/record/detail_record_type.rb'
+require 'nacha/record/base'
+require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
     class BocEntryDetail < Nacha::Record::Base
       include DetailRecordType
+
       nacha_field :record_type_code, inclusion: 'M', contents: 'C6', position: 1..1
       nacha_field :transaction_code, inclusion: 'M', contents: 'Numeric', position: 2..3
       nacha_field :receiving_dfi_identification, inclusion: 'M', contents: 'TTTTAAAAC', position: 4..12
