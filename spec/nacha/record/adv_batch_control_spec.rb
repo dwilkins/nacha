@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-
 RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
-  let(:subject) { Nacha::Record::AdvBatchControl }
+  subject(:record_class) { Nacha::Record::AdvBatchControl }
   let(:example_adv_batch_control_record) do
     #         1         2         3         4         5         6         7         8         9
     #1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
@@ -10,19 +9,19 @@ RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
   end
 
   it 'exists' do
-    expect { subject }.not_to raise_error
+    expect { record_class }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do
-    expect(subject.unpack_str).to eq 'A1a3a6a10a20a20A19A8a7'
+    expect(record_class.unpack_str).to eq 'A1a3a6a10a20a20A19A8a7'
   end
 
   it 'generates a regexp matcher' do
-    expect(subject.matcher).to be_a Regexp
+    expect(record_class.matcher).to be_a Regexp
   end
 
   describe 'valid record' do
-    let(:abcr) { subject.parse(example_adv_batch_control_record) }
+    let(:abcr) { record_class.parse(example_adv_batch_control_record) }
 
     it 'has a record_type_code' do
       expect(abcr.record_type_code.to_ach).to eq '8'
@@ -47,9 +46,9 @@ RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
     end
 
     it 'is valid' do
-      expect(abcr).to_not be_valid, abcr.errors&.join(', ').to_s
+      expect(abcr).not_to be_valid, abcr.errors&.join(', ').to_s
       expect(abcr.class).to eq Nacha::Record::AdvBatchControl
-      expect(abcr.errors).to_not be_empty
+      expect(abcr.errors).not_to be_empty
     end
   end
 end
