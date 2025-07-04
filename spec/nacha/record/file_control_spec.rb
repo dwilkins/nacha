@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
   let(:example_file_control_record) do
-    '9000001000001000000020024860204000000000000000000200100' \
-      '                                       '
+    '90000010000010000000200248602040000000000000000' \
+      '00200100                                       '
   end
 
   it 'exists' do
