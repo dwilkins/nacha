@@ -4,32 +4,36 @@ require 'json'
 require 'nacha/field'
 require 'nacha/record/validations/field_validations'
 
+# :reek:TooManyInstanceVariables
+# :reek:TooManyMethods
 module Nacha
   module Record
     # Base class for all Nacha records.
     class Base
       include Validations::FieldValidations
 
-      attr_accessor :children, :parent, :line_number
-      attr_reader :name, :validations, :original_input_line, :fields
+      attr_reader :children, :name, :validations, :original_input_line, :fields
+      attr_accessor :parent, :line_number
 
       def initialize(opts = {})
         @children = []
         @parent = nil
         @errors = []
         @original_input_line = nil
+        @line_number = nil
+        @dirty = false
+        @fields = {}
         create_fields_from_definition
         opts.each do |key, value|
           setter = "#{key}="
-          next unless respond_to? setter
 
-          # rubocop:disable GitlabSecurity/PublicSend
-          send(setter, value) unless value.nil?
-          # rubocop:enable GitlabSecurity/PublicSend
+          # :reek:ManualDispatch
+          public_send(setter, value) if value && respond_to?(setter)
         end
       end
 
       class << self
+        # :reek:LongParameterList
         def nacha_field(name, inclusion:, contents:, position:)
           Nacha.add_ach_record_type(self)
           definition[name] = { inclusion: inclusion,
@@ -37,6 +41,7 @@ module Nacha
                                position: position,
                                name: name }
           validation_method = :"valid_#{name}"
+          # :reek:ManualDispatch
           return unless respond_to?(validation_method)
 
           (validations[name] ||= []) << validation_method
@@ -56,44 +61,7 @@ module Nacha
           end.join.freeze
         end
 
-        # A more strict matcher that accounts for numeric and date fields
-        # and allows for spaces in those fields, but not alphabetic characters
-        # Also matches strings that might not be long enough.
-        #
-        # Processes the definition in reverse order to allow later fields to be
-        # skipped if they are not present in the input string.
-        def old_matcher
-          return @matcher if @matcher
-
-          output_started = false
-          skipped_output = false
-          @matcher ||=
-            Regexp.new("\\A#{definition.values.reverse.collect do |field_def|
-              contents = field_def[:contents]
-              position = field_def[:position].size
-              if contents =~ /\AC(.+)\z/
-                last_match = Regexp.last_match(1)
-                if last_match.match?(/\A  *\z/)
-                  skipped_output = true
-                  ''
-                else
-                  output_started = true
-                  last_match
-                end
-              elsif output_started
-                case contents
-                when /\ANumeric\z/, /\AYYMMDD\z/
-                  "[0-9 ]{#{position}}"
-                else
-                  ".{#{position}}"
-                end
-              else
-                skipped_output = true
-                ''
-              end
-            end.reverse.join}#{skipped_output ? '.*' : ''}\\z")
-        end
-
+        # :reek:TooManyStatements
         def matcher
           return @matcher if @matcher
 
@@ -148,6 +116,7 @@ module Nacha
             }
           end
 
+          # :reek:ManualDispatch
           fields[:child_record_types] = child_record_types if respond_to?(:child_record_types)
 
           { record_type.to_sym => fields }
@@ -158,12 +127,12 @@ module Nacha
         end
       end
 
+      # :reek:FeatureEnvy
       def original_input_line=(line)
         @original_input_line = line.dup if line.is_a?(String)
       end
 
       def create_fields_from_definition
-        @fields ||= {}
         definition.each_pair do |field_name, field_def|
           @fields[field_name.to_sym] = Nacha::Field.new(field_def)
         end
@@ -326,40 +295,44 @@ module Nacha
         @errors << err_string
       end
 
+      # :reek:TooManyStatements
       def method_missing(method_name, *args, &block)
         method = method_name.to_s
         field_name = method.gsub(/=$/, '').to_sym
         field = @fields[field_name]
+        return super unless field
 
-        if field && method.end_with?('=')
-          # rubocop:disable GitlabSecurity/PublicSend
-          field.public_send(:data=, *args)
-          # rubocop:enable GitlabSecurity/PublicSend
-          @dirty = true
-        elsif field
-          field
+        if method.end_with?('=')
+          assign_field_data(field, args)
         else
-          super
+          field
         end
       end
 
-      def respond_to_missing?(method_name, _include_private = false)
+      def respond_to_missing?(method_name, *)
         field_name = method_name.to_s.gsub(/=$/, '').to_sym
         definition[field_name] || super
       end
 
       private
 
+      def assign_field_data(field, args)
+        # rubocop:disable GitlabSecurity/PublicSend
+        field.public_send(:data=, *args)
+        # rubocop:enable GitlabSecurity/PublicSend
+        @dirty = true
+      end
+
+      # :reek:TooManyStatements
       def run_record_level_validations_for(field)
         klass = self.class
-        klass_validations = klass.validations
-        fv = klass_validations[field]
-        return unless fv
+        validations = klass.validations[field]
+        return unless validations
 
         # rubocop:disable GitlabSecurity/PublicSend
         field_data = send(field)
 
-        fv.map do |validation_method|
+        validations.each do |validation_method|
           klass.send(validation_method, field_data)
         end
         # rubocop:enable GitlabSecurity/PublicSend
