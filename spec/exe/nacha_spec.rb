@@ -25,7 +25,9 @@ RSpec.describe 'exe/nacha' do
   it 'parses a file and writes output to a file specified with --output-file' do
     Dir.mktmpdir do |dir|
       output_path = File.join(dir, 'output.html')
-      _stdout, stderr, status = Open3.capture3(executable_path, 'parse', fixture_path, '--output-file', output_path)
+      _stdout, stderr, status = Open3.capture3(
+        executable_path, 'parse', fixture_path, '--output-file', output_path
+      )
 
       expect(status.success?).to be(true), "Command failed. STDERR:\n#{stderr}"
       expect(stderr).to be_empty
