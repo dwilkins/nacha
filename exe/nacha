@@ -3,6 +3,7 @@
 
 $LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
 require 'thor'
+require 'json'
 require 'nacha' # Assuming this loads the Nacha gem
 
 module Nacha
@@ -15,6 +16,8 @@ module Nacha
 
     desc "parse FILE", "Parse an ACH file"
     option :output_file, aliases: "-o"
+    option :format, aliases: "-f", default: "html",
+      desc: "Output format (html, json, or ach)", enum: %w[html json ach]
     def parse(file_path)
       unless File.exist?(file_path)
         puts "Error: File not found at #{file_path}"
@@ -28,10 +31,10 @@ module Nacha
       if ach_file && ach_file.is_a?(Array) && !ach_file.empty?
         if options[:output_file]
           File.open(options[:output_file], "w") do |file|
-            output_html(file_path, ach_file, file)
+            write_output(file_path, ach_file, file)
           end
         else
-          output_html(file_path, ach_file, $stdout)
+          write_output(file_path, ach_file, $stdout)
         end
       else
         puts "Could not parse the file or the file was empty."
@@ -43,6 +46,38 @@ module Nacha
     end
 
     private
+
+    def write_output(file_path, ach_records, io)
+      case options[:format]
+      when 'html'
+        output_html(file_path, ach_records, io)
+      when 'json'
+        output_json(ach_records, io)
+      when 'ach'
+        output_ach(ach_records, io)
+      end
+    end
+
+    def output_json(ach_records, io)
+      json_output = ach_records.map { |record| record_to_h(record) }
+      io.puts JSON.pretty_generate(json_output)
+    end
+
+    def record_to_h(record)
+      {
+        record.class.name.split('::').last => {
+          fields: record.fields.transform_values(&:to_s),
+          children: record.children.map { |child| record_to_h(child) }
+        }
+      }
+    end
+
+    def output_ach(ach_records, io)
+      ach_records.each do |record|
+        io.puts record.original_input_line
+        output_ach(record.children, io) if record.children.any?
+      end
+    end
 
     def output_html(file_path, ach_records, io)
       io.puts html_preamble
