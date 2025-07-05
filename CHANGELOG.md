@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.11] - 2025-07-05
+
+### Output formatting options
+- use -f [html|json|ach] or --format [html|json|ach] to change
+
+- use -o filename or --output filename to specify a file to output
+
+- Aider and I fixed a bunch of rubocop offenses and refactored some code
+
 ## [0.1.10] - 2025-07-01
 
 - Added ability to get a list of possible record types and
