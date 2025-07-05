@@ -24,7 +24,7 @@ module Nacha
         exit 1
       end
 
-      ach_file = [Nacha.parse(File.open(file_path)).first] # Use Nacha.parse
+      ach_file = Nacha.parse(File.open(file_path))
 
       # TODO: Determine a user-friendly way to output the parsed data.
       # For now, let's print the records.
@@ -50,7 +50,7 @@ module Nacha
     def write_output(file_path, ach_records, io)
       case options[:format]
       when 'html'
-        output_html(file_path, ach_records, io)
+        output_html(ach_records, io)
       when 'json'
         output_json(ach_records, io)
       when 'ach'
@@ -59,8 +59,8 @@ module Nacha
     end
 
     def output_json(ach_records, io)
-      json_output = ach_records.map { |record| record_to_h(record) }
-      io.puts JSON.pretty_generate(json_output)
+      io.puts JSON.pretty_generate(ach_records.map { |record| record.to_h })
+      # io.puts JSON.pretty_generate(json_output)
     end
 
     def record_to_h(record)
@@ -74,16 +74,14 @@ module Nacha
 
     def output_ach(ach_records, io)
       ach_records.each do |record|
-        io.puts record.original_input_line
-        output_ach(record.children, io) if record.children.any?
+        io.puts record.to_ach
       end
     end
 
-    def output_html(file_path, ach_records, io)
+    def output_html(ach_records, io)
       io.puts html_preamble
-      io.puts "<h1>Successfully parsed #{file_path}</h1>\n"
       ach_records.each do |record|
-        display_child(0, record, io)
+        io.puts record.to_html
       end
       io.puts html_postamble
     end
@@ -94,19 +92,6 @@ module Nacha
 
     def html_postamble
       @html_postamble ||= File.read(HTML_POSTAMBLE_FILE)
-    end
-
-    def display_child(level, record, io)
-      # Attempt to call a summary or to_s method if it exists,
-      # otherwise inspect the record.
-      return unless record
-
-      io.puts record.to_html
-      return unless record.respond_to?(:children) && record.children.any?
-
-      record.children.each do |child_record|
-        display_child(level + 1, child_record, io)
-      end
     end
   end
 end

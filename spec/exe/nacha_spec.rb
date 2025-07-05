@@ -16,7 +16,6 @@ RSpec.describe 'Nacha CLI' do
 
         expect(status.success?).to be(true), "Command failed. STDERR:\n#{stderr}"
         expect(stderr).to be_empty
-        expect(stdout).to include("<h1>Successfully parsed #{fixture_path}</h1>")
         expect(stdout).to include('data-name="record-number"')
       end
     end
@@ -31,8 +30,6 @@ RSpec.describe 'Nacha CLI' do
           expect(stderr).to be_empty
 
           expect(File.exist?(output_path)).to be true
-          content = File.read(output_path)
-          expect(content).to include("<h1>Successfully parsed #{fixture_path}</h1>")
         end
       end
 
@@ -47,8 +44,6 @@ RSpec.describe 'Nacha CLI' do
           expect(stderr).to be_empty
 
           expect(File.exist?(output_path)).to be true
-          content = File.read(output_path)
-          expect(content).to include("<h1>Successfully parsed #{fixture_path}</h1>")
         end
       end
     end
