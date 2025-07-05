@@ -6,6 +6,7 @@ require 'nacha/record/validations/field_validations'
 
 module Nacha
   module Record
+    # Base class for all Nacha records.
     class Base
       include Validations::FieldValidations
 
@@ -18,12 +19,12 @@ module Nacha
         @errors = []
         @original_input_line = nil
         create_fields_from_definition
-        opts.each do |k, v|
-          setter = "#{k}="
+        opts.each do |key, value|
+          setter = "#{key}="
           next unless respond_to? setter
 
           # rubocop:disable GitlabSecurity/PublicSend
-          send(setter, v) unless v.nil?
+          send(setter, value) unless value.nil?
           # rubocop:enable GitlabSecurity/PublicSend
         end
       end
@@ -38,8 +39,7 @@ module Nacha
           validation_method = :"valid_#{name}"
           return unless respond_to?(validation_method)
 
-          validations[name] ||= []
-          validations[name] << validation_method
+          (validations[name] ||= []) << validation_method
         end
 
         def definition
@@ -51,8 +51,8 @@ module Nacha
         end
 
         def unpack_str
-          @unpack_str ||= definition.values.collect do |d|
-            Nacha::Field.unpack_str(d)
+          @unpack_str ||= definition.values.collect do |field_def|
+            Nacha::Field.unpack_str(field_def)
           end.join.freeze
         end
 
@@ -69,27 +69,24 @@ module Nacha
           skipped_output = false
           @matcher ||=
             Regexp.new("\\A#{definition.values.reverse.collect do |field_def|
-              if field_def[:contents] =~ /\AC(.+)\z/
+              contents = field_def[:contents]
+              position = field_def[:position].size
+              if contents =~ /\AC(.+)\z/
                 last_match = Regexp.last_match(1)
-                if /\A  *\z/.match?(last_match)
+                if last_match.match?(/\A  *\z/)
                   skipped_output = true
                   ''
                 else
                   output_started = true
                   last_match
                 end
-              elsif /\ANumeric\z/.match?(field_def[:contents])
-                output_started = true
-                "[0-9 ]{#{field_def[:position].size}}"
-              elsif /\AYYMMDD\z/.match?(field_def[:contents])
-                if output_started
-                  "[0-9 ]{#{field_def[:position].size}}"
-                else
-                  skipped_output = true
-                  ''
-                end
               elsif output_started
-                ".{#{field_def[:position].size}}"
+                case contents
+                when /\ANumeric\z/, /\AYYMMDD\z/
+                  "[0-9 ]{#{position}}"
+                else
+                  ".{#{position}}"
+                end
               else
                 skipped_output = true
                 ''
@@ -106,8 +103,7 @@ module Nacha
             Regexp.new("\\A#{definition.values.reverse.collect do |field_def|
               contents = field_def[:contents]
               position = field_def[:position].size
-              case contents
-              when /\AC(.+)\z/
+              if contents =~ /\AC(.+)\z/
                 last_match = Regexp.last_match(1)
                 if last_match.match?(/\A  *\z/)
                   skipped_output = true
@@ -116,20 +112,16 @@ module Nacha
                   output_started = true
                   last_match
                 end
-              when /\ANumeric\z/, /\AYYMMDD\z/
-                if output_started
+              elsif output_started
+                case contents
+                when /\ANumeric\z/, /\AYYMMDD\z/
                   "[0-9 ]{#{position}}"
                 else
-                  skipped_output = true
-                  ''
+                  ".{#{position}}"
                 end
               else
-                if output_started
-                  ".{#{position}}"
-                else
-                  skipped_output = true
-                  ''
-                end
+                skipped_output = true
+                ''
               end
             end.reverse.join}#{skipped_output ? '.*' : ''}\\z")
         end
@@ -211,9 +203,9 @@ module Nacha
       def to_html(_opts = {})
         record_error_class = nil
 
-        field_html = @fields.keys.collect do |key|
-          record_error_class ||= 'error' if @fields[key].errors.any?
-          @fields[key].to_html
+        field_html = @fields.values.collect do |field|
+          record_error_class ||= 'error' if field.errors.any?
+          field.to_html
         end.join
         "<div class=\"nacha-record tooltip #{record_type} #{record_error_class}\">" \
           "<span class=\"nacha-field\" data-name=\"record-number\">#{format('%05d',
@@ -234,21 +226,9 @@ module Nacha
       def validate
         # Run field-level validations first
         @fields.each_value(&:validate)
-        klass = self.class
-        klass_def = klass.definition
-        klass_validations = klass.validations
         # Then run record-level validations that might depend on multiple fields
-        klass_def.each_key do |field|
-          fv = klass_validations[field]
-          next unless fv
-
-          # rubocop:disable GitlabSecurity/PublicSend
-          field_data = send(field)
-
-          fv.map do |validation_method|
-            klass.send(validation_method, field_data)
-          end
-          # rubocop:enable GitlabSecurity/PublicSend
+        self.class.definition.each_key do |field|
+          run_record_level_validations_for(field)
         end
       end
 
@@ -363,9 +343,26 @@ module Nacha
         end
       end
 
-      def respond_to_missing?(method_name, include_private = false)
+      def respond_to_missing?(method_name, _include_private = false)
         field_name = method_name.to_s.gsub(/=$/, '').to_sym
         definition[field_name] || super
+      end
+
+      private
+
+      def run_record_level_validations_for(field)
+        klass = self.class
+        klass_validations = klass.validations
+        fv = klass_validations[field]
+        return unless fv
+
+        # rubocop:disable GitlabSecurity/PublicSend
+        field_data = send(field)
+
+        fv.map do |validation_method|
+          klass.send(validation_method, field_data)
+        end
+        # rubocop:enable GitlabSecurity/PublicSend
       end
     end
   end
