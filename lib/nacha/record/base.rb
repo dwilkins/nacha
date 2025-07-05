@@ -13,8 +13,10 @@ module Nacha
       include Validations::FieldValidations
 
       attr_reader :children, :name, :validations, :original_input_line, :fields
+      # :reek:Attribute
       attr_accessor :parent, :line_number
 
+      # :reek:ManualDispatch
       def initialize(opts = {})
         @children = []
         @parent = nil
@@ -27,13 +29,13 @@ module Nacha
         opts.each do |key, value|
           setter = "#{key}="
 
-          # :reek:ManualDispatch
           public_send(setter, value) if value && respond_to?(setter)
         end
       end
 
       class << self
         # :reek:LongParameterList
+        # :reek:ManualDispatch
         def nacha_field(name, inclusion:, contents:, position:)
           Nacha.add_ach_record_type(self)
           definition[name] = { inclusion: inclusion,
@@ -41,7 +43,6 @@ module Nacha
                                position: position,
                                name: name }
           validation_method = :"valid_#{name}"
-          # :reek:ManualDispatch
           return unless respond_to?(validation_method)
 
           (validations[name] ||= []) << validation_method
@@ -63,11 +64,9 @@ module Nacha
 
         # :reek:TooManyStatements
         def matcher
-          return @matcher if @matcher
-
-          output_started = false
-          skipped_output = false
-          @matcher ||=
+          @matcher ||= begin
+            output_started = false
+            skipped_output = false
             Regexp.new("\\A#{definition.values.reverse.collect do |field_def|
               contents = field_def[:contents]
               position = field_def[:position].size
@@ -92,6 +91,7 @@ module Nacha
                 ''
               end
             end.reverse.join}#{skipped_output ? '.*' : ''}\\z")
+          end
         end
 
         def parse(ach_str)
@@ -107,6 +107,7 @@ module Nacha
           Nacha.record_name(self)
         end
 
+        # :reek:ManualDispatch
         def to_h
           fields = definition.transform_values do |field_def|
             {
@@ -116,7 +117,6 @@ module Nacha
             }
           end
 
-          # :reek:ManualDispatch
           fields[:child_record_types] = child_record_types if respond_to?(:child_record_types)
 
           { record_type.to_sym => fields }
