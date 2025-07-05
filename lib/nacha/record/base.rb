@@ -146,6 +146,26 @@ module Nacha
         def record_type
           Nacha.record_name(self)
         end
+
+        def to_h
+          fields = definition.map do |name, field_def|
+            [name, {
+              inclusion: field_def[:inclusion],
+              contents: field_def[:contents],
+              position: field_def[:position].to_s
+            }]
+          end.to_h
+
+          if respond_to?(:child_record_types)
+            fields[:child_record_types] = child_record_types
+          end
+
+          { record_type.to_sym => fields }
+        end
+
+        def to_json(*_args)
+          JSON.pretty_generate(to_h)
+        end
       end
 
       def original_input_line=(line)
