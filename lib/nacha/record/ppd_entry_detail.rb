@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Describes a PPD (Prearranged Payment and Deposit) Entry Detail record.
     class PpdEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
