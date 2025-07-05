@@ -13,6 +13,7 @@ module Nacha
     HTML_POSTAMBLE_FILE = File.join(TEMPLATES_DIR, "html_postamble.html")
 
     desc "parse FILE", "Parse an ACH file"
+    option :output_file, aliases: "-o"
     def parse(file_path)
       unless File.exist?(file_path)
         puts "Error: File not found at #{file_path}"
@@ -24,7 +25,13 @@ module Nacha
       # TODO: Determine a user-friendly way to output the parsed data.
       # For now, let's print the records.
       if ach_file && ach_file.is_a?(Array) && !ach_file.empty?
-        output_html(file_path, ach_file)
+        if options[:output_file]
+          File.open(options[:output_file], "w") do |file|
+            output_html(file_path, ach_file, file)
+          end
+        else
+          output_html(file_path, ach_file, $stdout)
+        end
       else
         puts "Could not parse the file or the file was empty."
       end
@@ -36,13 +43,13 @@ module Nacha
 
     private
 
-    def output_html(file_path, ach_records)
-      puts html_preamble
-      puts "<h1>Successfully parsed #{file_path}</h1>\n"
+    def output_html(file_path, ach_records, io)
+      io.puts html_preamble
+      io.puts "<h1>Successfully parsed #{file_path}</h1>\n"
       ach_records.each do |record|
-        display_child(0, record)
+        display_child(0, record, io)
       end
-      puts html_postamble
+      io.puts html_postamble
     end
 
     def html_preamble
@@ -53,16 +60,16 @@ module Nacha
       @html_postamble ||= File.read(HTML_POSTAMBLE_FILE)
     end
 
-    def display_child(level, record)
+    def display_child(level, record, io)
       # Attempt to call a summary or to_s method if it exists,
       # otherwise inspect the record.
       return unless record
 
-      puts record.to_html
+      io.puts record.to_html
       return unless record.respond_to?(:children) && record.children.any?
 
       record.children.each do |child_record|
-        display_child(level + 1, child_record)
+        display_child(level + 1, child_record, io)
       end
     end
   end
