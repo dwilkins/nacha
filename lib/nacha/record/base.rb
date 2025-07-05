@@ -148,17 +148,15 @@ module Nacha
         end
 
         def to_h
-          fields = definition.map do |name, field_def|
-            [name, {
+          fields = definition.transform_values do |field_def|
+            {
               inclusion: field_def[:inclusion],
               contents: field_def[:contents],
               position: field_def[:position].to_s
-            }]
-          end.to_h
-
-          if respond_to?(:child_record_types)
-            fields[:child_record_types] = child_record_types
+            }
           end
+
+          fields[:child_record_types] = child_record_types if respond_to?(:child_record_types)
 
           { record_type.to_sym => fields }
         end
