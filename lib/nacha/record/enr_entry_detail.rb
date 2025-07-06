@@ -6,13 +6,14 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents an Automated Enrollment Entry (ENR) detail record.
     class EnrEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
       nacha_field :record_type_code, inclusion: 'M', contents: 'C6', position: 1..1
       nacha_field :transaction_code, inclusion: 'M', contents: 'Numeric', position: 2..3
       nacha_field :receiving_dfi_identification, inclusion: 'M', contents: 'TTTTAAAAC', position: 4..12
-      nacha_field :receiving_dfi_identification, inclusion: 'M', contents: 'Alphameric', position: 13..29
+      nacha_field :dfi_account_number, inclusion: 'M', contents: 'Alphameric', position: 13..29
       nacha_field :amount, inclusion: 'M', contents: '$$$$$$$$¢¢', position: 30..39
       nacha_field :identification_number, inclusion: 'O', contents: 'Alphameric', position: 40..54
       nacha_field :number_of_addenda_records, inclusion: 'M', contents: 'Alphameric', position: 55..58
