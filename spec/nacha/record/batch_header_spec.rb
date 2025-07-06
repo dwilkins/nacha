@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
+RSpec.describe Nacha::Record::BatchHeader, :nacha_record_type do
   let(:example_batch_header_record) do
     '5220DHI PAYROLL                         2870327243PPDDHIPAYROLL' \
       '090702081205   1124000050000001'
@@ -14,32 +14,32 @@ RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
   it 'has a factory' do
     bh = build(:batch_header)
     pbh = build(:ppd_batch_header)
-    expect(bh).to be_a Nacha::Record::BatchHeader
-    expect(pbh).to be_a Nacha::Record::BatchHeader
+    expect(bh).to be_a described_class
+    expect(pbh).to be_a described_class
     expect(bh.standard_entry_class_code.to_s).to eq('PPD')
     expect(pbh.standard_entry_class_code.to_s).to eq('PPD')
   end
 
   it 'exists' do
-    expect { Nacha::Record::BatchHeader }.not_to raise_error
+    expect { described_class }.not_to raise_error
   end
 
   it 'generates a valid unpack string' do
-    expect(Nacha::Record::BatchHeader.unpack_str).to eq 'A1a3A16A20A10A3A10A6A6a3A1A8a7'
+    expect(described_class.unpack_str).to eq 'A1a3A16A20A10A3A10A6A6a3A1A8a7'
   end
 
   it 'generates a regexp matcher' do
-    expect(Nacha::Record::BatchHeader.matcher).to be_a Regexp
+    expect(described_class.matcher).to be_a Regexp
   end
 
   it 'recognizes input', skip: 'Matcher logic is complex and may change' do
-    expect(Nacha::Record::BatchHeader.matcher).to match example_batch_header_record
+    expect(described_class.matcher).to match example_batch_header_record
   end
 
   describe 'parses a record' do
-    let(:record) { Nacha::Record::BatchHeader.parse(example_batch_header_record) }
+    let(:record) { described_class.parse(example_batch_header_record) }
     let(:record_with_settlement_date) do
-      Nacha::Record::BatchHeader.parse(example_batch_header_record_settlement_date)
+      described_class.parse(example_batch_header_record_settlement_date)
     end
 
     it 'record_type_code' do
@@ -96,6 +96,34 @@ RSpec.describe 'Nacha::Record::BatchHeader', :nacha_record_type do
 
     it 'batch_number' do
       expect(record.batch_number.to_ach).to eq '0000001'
+    end
+  end
+
+  describe 'class generates json' do
+    let(:class_json) { described_class.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(class_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(class_json)[described_class.record_type].keys).to include(
+        'record_type_code',
+        'service_class_code',
+        'company_name',
+        'company_discretionary_data',
+        'company_identification',
+        'standard_entry_class_code',
+        'company_entry_description',
+        'company_descriptive_date',
+        'effective_entry_date',
+        'settlement_date_julian',
+        'originator_status_code',
+        'originating_dfi_identification',
+        'batch_number',
+        'child_record_types',
+        'klass'
+      )
     end
   end
 end
