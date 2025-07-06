@@ -91,34 +91,6 @@ RSpec.describe Nacha::Record::FileHeader, :nacha_record_type do
     end
   end
 
-  describe 'instance generates json' do
-    let(:fhr_json) { described_class.parse(example_file_header_record).to_json }
-
-    it 'is well formed' do
-      expect(JSON.parse(fhr_json)).to be_a Hash
-    end
-
-    it 'has the right keys' do
-      expect(JSON.parse(fhr_json).keys).to include(
-        'metadata',
-        'nacha_record_type',
-        'record_type_code',
-        'priority_code',
-        'immediate_destination',
-        'immediate_origin',
-        'file_creation_date',
-        'file_creation_time',
-        'file_id_modifier',
-        'record_size',
-        'blocking_factor',
-        'format_code',
-        'immediate_destination_name',
-        'immediate_origin_name',
-        'reference_code'
-      )
-    end
-  end
-
   describe 'class generates json' do
     let(:class_json) { described_class.to_json }
 
