@@ -6,10 +6,11 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents a Machine Transfer Entry (MTE) addenda record.
     class MteAddenda < Nacha::Record::Base
       include AddendaRecordType
 
-      nacha_field :record_type_code, inclusion: 'M', contents: 'C6', position: 1..1
+      nacha_field :record_type_code, inclusion: 'M', contents: 'C7', position: 1..1
       nacha_field :addenda_type_code, inclusion: 'M', contents: 'C02', position: 2..3
       nacha_field :transaction_description, inclusion: 'R', contents: 'Alphameric', position: 4..10
       nacha_field :network_identification_code, inclusion: 'O', contents: 'Alphameric', position: 11..13
