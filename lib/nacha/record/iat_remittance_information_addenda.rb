@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents an IAT Remittance Information addenda record.
     class IatRemittanceInformationAddenda < Nacha::Record::Base
       include AddendaRecordType
 
