@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents a Shared Network Entry (SHR) addenda record.
     class ShrAddenda < Nacha::Record::Base
       include AddendaRecordType
 
