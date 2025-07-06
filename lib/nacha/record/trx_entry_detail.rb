@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Truncated Entry with Remittance Data (TRX) detail record.
     class TrxEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
