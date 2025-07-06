@@ -58,6 +58,14 @@ module Nacha
       @ach_record_types || []
     end
 
+    def to_h
+      types_hash = {  }
+      ach_record_types.each do |record_type|
+        types_hash.merge! Object.const_get(record_type).to_h
+      end
+      types_hash
+    end
+
     # Parses a NACHA file or string into a structured object representation.
     #
     # @param object [String, File, IO] The input to parse, either a string containing

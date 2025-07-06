@@ -4,8 +4,7 @@ require 'json'
 require 'nacha/field'
 require 'nacha/record/validations/field_validations'
 
-# :reek:TooManyInstanceVariables
-# :reek:TooManyMethods
+# :reek:TooManyInstanceVariables, :reek:TooManyMethods
 module Nacha
   module Record
     # Base class for all Nacha records.
@@ -34,8 +33,7 @@ module Nacha
       end
 
       class << self
-        # :reek:LongParameterList
-        # :reek:ManualDispatch
+        # :reek:LongParameterList, :reek:ManualDispatch
         def nacha_field(name, inclusion:, contents:, position:)
           Nacha.add_ach_record_type(self)
           definition[name] = { inclusion: inclusion,
@@ -113,11 +111,13 @@ module Nacha
             {
               inclusion: field_def[:inclusion],
               contents: field_def[:contents],
-              position: field_def[:position].to_s
+              position: field_def[:position].to_s,
             }
           end
 
-          fields[:child_record_types] = child_record_types if respond_to?(:child_record_types)
+          fields[:child_record_types] = child_record_types&.to_a || []
+          fields[:child_record_types] ||= []
+          fields[:klass] = name.to_s
 
           { record_type.to_sym => fields }
         end

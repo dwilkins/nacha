@@ -92,16 +92,18 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   end
 
   describe 'generates json' do
-    let(:fhr_json) do
+    let(:afhr_json) do
       Nacha::Record::AdvFileHeader.parse(example_file_header_record).to_json
     end
 
     it 'is well formed' do
-      expect(JSON.parse(fhr_json)).to be_a Hash
+      expect(JSON.parse(afhr_json)).to be_a Hash
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(fhr_json).keys).to include(
+      expect(JSON.parse(afhr_json).keys).to include(
+        'metadata',
+        'nacha_record_type',
         'record_type_code',
         'priority_code',
         'immediate_destination',
