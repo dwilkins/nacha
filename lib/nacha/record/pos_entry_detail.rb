@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Point-of-Sale (POS) entry detail record.
     class PosEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
