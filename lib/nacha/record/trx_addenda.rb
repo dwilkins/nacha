@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents a Truncated Entry (TRX) addenda record.
     class TrxAddenda < Nacha::Record::Base
       include AddendaRecordType
 
