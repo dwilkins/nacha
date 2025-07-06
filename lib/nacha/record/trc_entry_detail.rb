@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Truncated Entry (TRC) detail record.
     class TrcEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
