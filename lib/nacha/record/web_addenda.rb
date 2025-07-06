@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents an Internet-Initiated Entry (WEB) addenda record.
     class WebAddenda < Nacha::Record::Base
       include AddendaRecordType
 
