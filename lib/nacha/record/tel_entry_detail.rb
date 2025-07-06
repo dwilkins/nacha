@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Telephone-Initiated Entry (TEL) detail record.
     class TelEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
