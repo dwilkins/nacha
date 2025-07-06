@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents a seventh IAT addenda record.
     class SeventhIatAddenda < Nacha::Record::Base
       include AddendaRecordType
 
