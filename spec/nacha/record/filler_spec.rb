@@ -33,4 +33,21 @@ RSpec.describe Nacha::Record::Filler, :nacha_record_type do
     expect(filler_record.class).to eq described_class
     expect(filler_record.errors).not_to be_empty
   end
+
+  describe 'class generates json' do
+    let(:class_json) { described_class.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(class_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(class_json)[described_class.record_type].keys).to include(
+        'record_type_code',
+        'filler',
+        'child_record_types',
+        'klass'
+      )
+    end
+  end
 end
