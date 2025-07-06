@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Re-presented Check Entry (RCK) detail record.
     class RckEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
