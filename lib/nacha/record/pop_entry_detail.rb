@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Point-of-Purchase (POP) entry detail record.
     class PopEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
