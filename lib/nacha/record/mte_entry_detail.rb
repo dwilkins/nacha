@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Machine Transfer Entry (MTE) detail record.
     class MteEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
