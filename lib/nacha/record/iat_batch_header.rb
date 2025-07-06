@@ -5,6 +5,7 @@ require 'nacha/record/batch_header_record_type'
 
 module Nacha
   module Record
+    # Represents an IAT batch header record
     class IatBatchHeader < Nacha::Record::Base
       include BatchHeaderRecordType
 
