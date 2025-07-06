@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Destroyed Check Entry (XCK) detail record.
     class XckEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
