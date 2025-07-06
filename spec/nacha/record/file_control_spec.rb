@@ -62,7 +62,7 @@ RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
       expect(fcr.total_debit_entry_dollar_amount_in_file.to_ach).to eq '000000000000'
     end
 
-    it 'total_credit_entry_dollar_amount_inf_file' do
+    it 'total_credit_entry_dollar_amount_in_file' do
       expect(fcr.total_credit_entry_dollar_amount_in_file.to_ach).to eq '000000200100'
     end
 
@@ -74,6 +74,29 @@ RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
     it 'converts to json' do
       expect(JSON.parse(fcr.to_json).values).to include(*fcr_hash.values)
       expect(JSON.parse(fcr.to_json).keys).to include(*fcr_hash.keys.collect(&:to_s))
+    end
+  end
+
+  describe 'class generates json' do
+    let(:class_json) { described_class.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(class_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(class_json)[described_class.record_type].keys).to include(
+        'record_type_code',
+        'batch_count',
+        'block_count',
+        'entry_addenda_count',
+        'entry_hash',
+        'total_debit_entry_dollar_amount_in_file',
+        'total_credit_entry_dollar_amount_in_file',
+        'reserved',
+        'child_record_types',
+        'klass'
+      )
     end
   end
 end
