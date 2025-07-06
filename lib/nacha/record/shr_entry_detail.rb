@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Shared Network Entry (SHR) detail record.
     class ShrEntryDetail < Nacha::Record::Base
       include DetailRecordType
 

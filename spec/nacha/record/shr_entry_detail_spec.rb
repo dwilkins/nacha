@@ -4,4 +4,30 @@ RSpec.describe Nacha::Record::ShrEntryDetail, :nacha_record_type do
   it 'exists' do
     expect { described_class }.not_to raise_error
   end
+
+  describe 'class generates json' do
+    let(:class_json) { described_class.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(class_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(class_json)[described_class.record_type].keys).to include(
+        'record_type_code',
+        'transaction_code',
+        'receiving_dfi_identification',
+        'dfi_account_number',
+        'amount',
+        'card_expiration_date',
+        'document_reference_number',
+        'individual_card_account_number',
+        'card_transaction_type',
+        'addenda_record_indicator',
+        'trace_number',
+        'child_record_types',
+        'klass'
+      )
+    end
+  end
 end
