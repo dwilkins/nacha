@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents an Internet-Initiated Entry (WEB) detail record.
     class WebEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
