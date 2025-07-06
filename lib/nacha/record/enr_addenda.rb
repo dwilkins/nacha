@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents an Automated Enrollment Entry (ENR) addenda record.
     class EnrAddenda < Nacha::Record::Base
       include AddendaRecordType
 
