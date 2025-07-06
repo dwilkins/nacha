@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents an IAT entry detail record
     class IatEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
