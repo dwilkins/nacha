@@ -6,6 +6,7 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # Represents a Death Notification Entry (DNE) detail record.
     class DneEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
