@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents a Point-of-Sale (POS) addenda record.
     class PosAddenda < Nacha::Record::Base
       include AddendaRecordType
 
