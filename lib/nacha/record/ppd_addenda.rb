@@ -6,6 +6,7 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # Represents a Prearranged Payment and Deposit (PPD) addenda record.
     class PpdAddenda < Nacha::Record::Base
       include AddendaRecordType
 
