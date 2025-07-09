@@ -59,7 +59,7 @@ module Nacha
     end
 
     def to_h
-      types_hash = {  }
+      types_hash = {}
       ach_record_types.each do |record_type|
         types_hash.merge! Object.const_get(record_type).to_h
       end

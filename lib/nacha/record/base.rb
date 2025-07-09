@@ -27,8 +27,9 @@ module Nacha
         create_fields_from_definition
         opts.each do |key, value|
           setter = "#{key}="
-
+          # rubocop:disable GitlabSecurity/PublicSend
           public_send(setter, value) if value && respond_to?(setter)
+          # rubocop:enable GitlabSecurity/PublicSend
         end
       end
 
@@ -61,37 +62,39 @@ module Nacha
         end
 
         # :reek:TooManyStatements
+        # rubocop:disable Layout/BlockAlignment,
+        # rubocop:disable Style/StringConcatenation:
         def matcher
           @matcher ||= begin
             output_started = false
             skipped_output = false
-            Regexp.new('\A' + definition.values.reverse.collect do |d|
-                         if d[:contents] =~ /\AC(.+)\z/
-                           if Regexp.last_match(1).match?(/  */) && !output_started
+            Regexp.new('\A' + definition.values.reverse.collect do |field|
+                         contents = field[:contents]
+                         position = field[:position]
+                         size = position.size
+                         if contents =~ /\AC(.+)\z/
+                           last_match = Regexp.last_match(1)
+                           if last_match.match?(/  */) && !output_started
                              skipped_output = true
                              ''
                            else
                              output_started = true
-                             Regexp.last_match(1)
+                             last_match
                            end
-                         elsif d[:contents] =~ /\ANumeric\z/
+                         elsif contents.match?(/\ANumeric\z/) || contents.match?(/\AYYMMDD\z/)
                            output_started = true
-                           '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
-                         elsif d[:contents] =~ /\AYYMMDD\z/
-                           output_started = true
-                           '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
+                           '[0-9 ]' + "{#{size}}"
+                         elsif output_started
+                           '.' + "{#{size}}"
                          else
-                           if output_started
-                             '.' + "{#{(d[:position] || d['position']).size}}"
-                           else
-                             skipped_output = true
-                             ''
-                           end
+                           skipped_output = true
+                           ''
                          end
                        end.reverse.join + (skipped_output ? '.*' : '') + '\z')
-                       end
-
+          end
         end
+        # rubocop:enable Layout/BlockAlignment,
+        # rubocop:enable Style/StringConcatenation:
 
         def parse(ach_str)
           rec = new(original_input_line: ach_str)
@@ -112,11 +115,11 @@ module Nacha
             {
               inclusion: field_def[:inclusion],
               contents: field_def[:contents],
-              position: field_def[:position].to_s,
+              position: field_def[:position].to_s
             }
           end
 
-          fields[:child_record_types] = child_record_types&.to_a || []
+          fields[:child_record_types] = child_record_types.to_a
           fields[:child_record_types] ||= []
           fields[:klass] = name.to_s
 

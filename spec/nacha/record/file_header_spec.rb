@@ -114,10 +114,8 @@ RSpec.describe Nacha::Record::FileHeader, :nacha_record_type do
         "immediate_origin_name",
         "reference_code",
         "child_record_types",
-        "klass",
+        "klass"
       )
     end
   end
-
-
 end

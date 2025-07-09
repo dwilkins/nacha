@@ -32,10 +32,10 @@ module Nacha
       if ach_file && ach_file.is_a?(Array) && !ach_file.empty?
         if options[:output_file]
           File.open(options[:output_file], "w") do |file|
-            write_output(file_path, ach_file, file)
+            write_output(ach_file, file)
           end
         else
-          write_output(file_path, ach_file, $stdout)
+          write_output(ach_file, $stdout)
         end
       else
         puts "Could not parse the file or the file was empty."
@@ -48,7 +48,7 @@ module Nacha
 
     private
 
-    def write_output(file_path, ach_records, io)
+    def write_output(ach_records, io)
       case options[:format]
       when 'html'
         output_html(ach_records, io)
@@ -60,7 +60,7 @@ module Nacha
     end
 
     def output_json(ach_records, io)
-      io.puts JSON.pretty_generate(ach_records.map { |record| record.to_h })
+      io.puts JSON.pretty_generate(ach_records.map(&:to_h))
       # io.puts JSON.pretty_generate(json_output)
     end
 
