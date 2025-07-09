@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.12] - 2025-07-08
+
+- Fixed a bug with parsing files with misshapen lines.  Now it
+  _should_ handle lines that are shorter than 94 characters _and_ have
+  (CR|CRLF|LF) as the terminating character.
+
+
+
 ## [0.1.11] - 2025-07-05
 
 ### Output formatting options
