@@ -91,7 +91,7 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
     end
   end
 
-  describe 'generates json' do
+  describe 'instance generates json' do
     let(:afhr_json) do
       Nacha::Record::AdvFileHeader.parse(example_file_header_record).to_json
     end
