@@ -50,4 +50,21 @@ RSpec.describe Nacha::Record::Filler, :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:record_json) { described_class.parse(example_filler_record).to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(record_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(record_json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'filler'
+      )
+    end
+  end
 end

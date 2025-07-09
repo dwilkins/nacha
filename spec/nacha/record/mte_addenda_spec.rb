@@ -31,4 +31,31 @@ RSpec.describe Nacha::Record::MteAddenda, :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:json) { described_class.new.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'addenda_type_code',
+        'transaction_description',
+        'network_identification_code',
+        'terminal_identification_code',
+        'transaction_serial_number',
+        'transaction_date',
+        'transaction_time',
+        'terminal_location',
+        'terminal_city',
+        'terminal_state',
+        'trace_number'
+      )
+    end
+  end
 end

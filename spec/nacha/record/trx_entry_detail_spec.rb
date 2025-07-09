@@ -31,4 +31,31 @@ RSpec.describe Nacha::Record::TrxEntryDetail, :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:json) { described_class.new.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'transaction_code',
+        'receiving_dfi_identification',
+        'dfi_account_number',
+        'total_amount',
+        'identification_number',
+        'number_of_addenda_records',
+        'receiving_company_name_id_number',
+        'reserved',
+        'item_type_indicator',
+        'addenda_record_indicator',
+        'trace_number'
+      )
+    end
+  end
 end

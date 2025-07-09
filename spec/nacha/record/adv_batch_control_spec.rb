@@ -76,4 +76,30 @@ RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:abcr_json) do
+      record_class.parse(example_adv_batch_control_record).to_json
+    end
+
+    it 'is well formed' do
+      expect(JSON.parse(abcr_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(abcr_json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'service_class_code',
+        'entry_addenda_count',
+        'entry_hash',
+        'total_debit_entry_dollar_amount',
+        'total_credit_entry_dollar_amount',
+        'ach_operator_data',
+        'originating_dfi_identification',
+        'batch_number'
+      )
+    end
+  end
 end

@@ -126,4 +126,32 @@ RSpec.describe Nacha::Record::BatchHeader, :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:record_json) { described_class.parse(example_batch_header_record).to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(record_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(record_json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'service_class_code',
+        'company_name',
+        'company_discretionary_data',
+        'company_identification',
+        'standard_entry_class_code',
+        'company_entry_description',
+        'company_descriptive_date',
+        'effective_entry_date',
+        'settlement_date_julian',
+        'originator_status_code',
+        'originating_dfi_identification',
+        'batch_number'
+      )
+    end
+  end
 end

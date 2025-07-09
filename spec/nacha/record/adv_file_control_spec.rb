@@ -101,4 +101,27 @@ RSpec.describe Nacha::Record::AdvFileControl, :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:record_json) { described_class.parse(example_file_control_record).to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(record_json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(record_json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'batch_count',
+        'block_count',
+        'entry_addenda_count',
+        'entry_hash',
+        'total_debit_entry_dollar_amount_in_file',
+        'total_credit_entry_dollar_amount_in_file',
+        'reserved'
+      )
+    end
+  end
 end

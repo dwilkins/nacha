@@ -24,4 +24,24 @@ RSpec.describe Nacha::Record::WebAddenda, :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:json) { described_class.new.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'addenda_type_code',
+        'payment_related_information',
+        'addenda_sequence_number',
+        'entry_detail_sequence_number'
+      )
+    end
+  end
 end

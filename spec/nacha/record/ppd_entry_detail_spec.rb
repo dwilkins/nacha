@@ -49,4 +49,29 @@ RSpec.describe Nacha::Record::PpdEntryDetail, :nacha_record_type do
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:json) { build(:debit_ppd_entry_detail).to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'transaction_code',
+        'receiving_dfi_identification',
+        'dfi_account_number',
+        'amount',
+        'individual_identification_number',
+        'individual_name',
+        'discretionary_data',
+        'addenda_record_indicator',
+        'trace_number'
+      )
+    end
+  end
 end

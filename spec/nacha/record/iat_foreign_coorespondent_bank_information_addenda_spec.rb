@@ -28,4 +28,28 @@ RSpec.describe Nacha::Record::IatForeignCoorespondentBankInformationAddenda, :na
       )
     end
   end
+
+  describe 'instance generates json' do
+    let(:json) { described_class.new.to_json }
+
+    it 'is well formed' do
+      expect(JSON.parse(json)).to be_a Hash
+    end
+
+    it 'has the right keys' do
+      expect(JSON.parse(json).keys).to include(
+        'metadata',
+        'nacha_record_type',
+        'record_type_code',
+        'addenda_type_code',
+        'foreign_correspondent_bank_name',
+        'foreign_correspondent_bank_identification_number_qualifier',
+        'foreign_correspondent_bank_identification_number',
+        'foreign_correspondent_bank_branch_country_code',
+        'reserved',
+        'addenda_sequence_number',
+        'entry_detail_sequence_number'
+      )
+    end
+  end
 end
