@@ -13,10 +13,11 @@ class Nacha::AbaNumber
   end
 
   def compute_check_digit
-    n = @routing_number.to_s.strip.ljust(8, '0').chars.collect(&:to_i)
-    sum = (3 * (n[0] + n[3] + n[6])) +
-      (7 * (n[1] + n[4] + n[7])) +
-      (n[2] + n[5])
+    digit_array = @routing_number.to_s.strip.ljust(8, '0').chars.collect(&:to_i)
+    sum = (3 * (digit_array[0] + digit_array[3] + digit_array[6])) +
+      (7 * (digit_array[1] + digit_array[4] + digit_array[7])) +
+      (digit_array[2] + digit_array[5])
+
     intermediate = (sum % 10)
     intermediate.zero? ? '0' : (10 - intermediate).to_s
   end
