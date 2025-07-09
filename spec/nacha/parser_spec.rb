@@ -17,12 +17,27 @@ RSpec.describe Nacha::Parser do
       '9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999'
   end
 
+  let(:truncated_ach_file) do
+    #           1         2         3         4         5         6         7         8         9
+    #  1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234
+    "" \
+      "101 03130001202313801041908161055A094101Federal Reserve Bank   My Bank Name           12345678" \
+      "5225Name on Account                     231380104 CCDVndr Pay        190816   1031300010000001" \
+      "627231380104744-5678-99      0000500000location1234567Best Co. #123456789012S 0031300010000001" \
+      "627231380104744-5678-99      0000000125Fee123456789012Best Co. #123456789012S 0031300010000002" \
+      "82250000020046276020000000500125000000000000231380104                          031300010000001" \
+      "9000001000001000000020046276020000000500125000000000000                                   \n" \
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" \
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" \
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999" \
+      "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+  end
+
   it 'file is not empty' do
     expect(example_ach_file.size).to be > 0
   end
 
   it 'parses a file' do
-    # skip 'not working yet'
     parsed = described_class.new.parse_string(example_ach_file)
     expect(parsed).to be_a Array
     expect(parsed.count).to eq 10
@@ -30,6 +45,17 @@ RSpec.describe Nacha::Parser do
     expect(parsed[1]).to be_a Nacha::Record::BatchHeader
     expect(parsed[2]).to be_a Nacha::Record::PpdEntryDetail
     expect(parsed[3]).to be_a Nacha::Record::PpdEntryDetail
+    expect(parsed[4]).to be_a Nacha::Record::BatchControl
+  end
+
+  it 'parses a truncated file' do
+    parsed = described_class.new.parse_string(truncated_ach_file)
+    expect(parsed).to be_a Array
+    expect(parsed.count).to eq 10
+    expect(parsed[0]).to be_a Nacha::Record::FileHeader
+    expect(parsed[1]).to be_a Nacha::Record::BatchHeader
+    expect(parsed[2]).to be_a Nacha::Record::CcdEntryDetail
+    expect(parsed[3]).to be_a Nacha::Record::CcdEntryDetail
     expect(parsed[4]).to be_a Nacha::Record::BatchControl
   end
 

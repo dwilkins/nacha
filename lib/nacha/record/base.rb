@@ -65,31 +65,32 @@ module Nacha
           @matcher ||= begin
             output_started = false
             skipped_output = false
-            Regexp.new("\\A#{definition.values.reverse.collect do |field_def|
-              contents = field_def[:contents]
-              position = field_def[:position].size
-              if contents =~ /\AC(.+)\z/
-                last_match = Regexp.last_match(1)
-                if last_match.match?(/\A  *\z/)
-                  skipped_output = true
-                  ''
-                else
-                  output_started = true
-                  last_match
-                end
-              elsif output_started
-                case contents
-                when /\ANumeric\z/, /\AYYMMDD\z/
-                  "[0-9 ]{#{position}}"
-                else
-                  ".{#{position}}"
-                end
-              else
-                skipped_output = true
-                ''
-              end
-            end.reverse.join}#{skipped_output ? '.*' : ''}\\z")
-          end
+            Regexp.new('\A' + definition.values.reverse.collect do |d|
+                         if d[:contents] =~ /\AC(.+)\z/
+                           if Regexp.last_match(1).match?(/  */) && !output_started
+                             skipped_output = true
+                             ''
+                           else
+                             output_started = true
+                             Regexp.last_match(1)
+                           end
+                         elsif d[:contents] =~ /\ANumeric\z/
+                           output_started = true
+                           '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
+                         elsif d[:contents] =~ /\AYYMMDD\z/
+                           output_started = true
+                           '[0-9 ]' + "{#{(d[:position] || d['position']).size}}"
+                         else
+                           if output_started
+                             '.' + "{#{(d[:position] || d['position']).size}}"
+                           else
+                             skipped_output = true
+                             ''
+                           end
+                         end
+                       end.reverse.join + (skipped_output ? '.*' : '') + '\z')
+                       end
+
         end
 
         def parse(ach_str)
@@ -105,7 +106,7 @@ module Nacha
           Nacha.record_name(self)
         end
 
-        # :reek:ManualDispatch
+        # :reek:ManualDispatch, :reek:TooManyStatements
         def to_h
           fields = definition.transform_values do |field_def|
             {

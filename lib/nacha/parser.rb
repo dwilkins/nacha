@@ -34,8 +34,9 @@ class Nacha::Parser
     line_num = -1
     records = []
     @context.parser_started_at ||= Time.now.utc
-    str.scan(/(.{94}|(\A[^\n]+))/).each do |line|
+    str.scan(/(.{0,94})[\r\n]*/).each do |line|
       line = line.compact.first.strip
+      next if line.empty? || line.start_with?('#') # Skip empty lines and comments
       line_num += 1
       @context.line_number = line_num
       @context.line_length = line.length
