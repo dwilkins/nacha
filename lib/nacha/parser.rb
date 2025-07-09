@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
+require 'byebug'
 require 'nacha'
 require 'nacha/parser_context'
 
 # Nacha Parser - deal with figuring out what record type a line is
 class Nacha::Parser
-  DEFAULT_RECORD_TYPES = ['Nacha::Record::AdvFileHeader',
+  DEFAULT_RECORD_TYPES = [
     'Nacha::Record::FileHeader',
-    'Nacha::Record::Filler'].freeze
+    'Nacha::Record::AdvFileHeader',
+    'Nacha::Record::Filler'
+  ].freeze
 
   attr_reader :context
 
@@ -32,7 +35,7 @@ class Nacha::Parser
     records = []
     @context.parser_started_at ||= Time.now.utc
     str.scan(/(.{94}|(\A[^\n]+))/).each do |line|
-      line = line.first.strip
+      line = line.compact.first.strip
       line_num += 1
       @context.line_number = line_num
       @context.line_length = line.length
@@ -46,6 +49,7 @@ class Nacha::Parser
     parent = previous
 
     record_types = valid_record_types(parent)
+
     while record_types
       record = parse_first_by_types(line, record_types)
       break if record || !parent
