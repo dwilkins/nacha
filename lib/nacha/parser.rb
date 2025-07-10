@@ -56,12 +56,14 @@ class Nacha::Parser
       record = parse_first_by_types(line, record_types)
       break if record || !parent
 
-      record.validate if record
+      record_types = valid_record_types(parent.parent)
       parent = parent.parent
-      record_types = valid_record_types(parent)
     end
-    record.line_number = line_num if record
-    add_child(parent, record)
+    if(record)
+      record.line_number = line_num
+      record.validate
+      add_child(parent, record)
+    end
     record
   end
 
