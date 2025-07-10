@@ -82,6 +82,6 @@ RSpec.describe Nacha::AbaNumber do
   it 'can strip off the check_digit' do
     aba = described_class.new('111000025')
     expect(aba).to be_valid
-    expect(aba.to_s(false)).to eq '11100002'
+    expect(aba.to_s_base).to eq '11100002'
   end
 end

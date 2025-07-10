@@ -2,6 +2,7 @@
 
 require "nacha/has_errors"
 
+# Validates and formats an ABA routing number.
 class Nacha::AbaNumber
   attr_reader :routing_number, :aba_number
 
@@ -12,8 +13,9 @@ class Nacha::AbaNumber
     self.routing_number = routing_number
   end
 
+  # :reek:FeatureEnvy
   def compute_check_digit
-    digit_array = @routing_number.to_s.strip.ljust(8, '0').chars.collect(&:to_i)
+    digit_array = @routing_number.ljust(8, '0').chars.collect(&:to_i)
     sum = (3 * (digit_array[0] + digit_array[3] + digit_array[6])) +
       (7 * (digit_array[1] + digit_array[4] + digit_array[7])) +
       (digit_array[2] + digit_array[5])
@@ -33,9 +35,10 @@ class Nacha::AbaNumber
   end
 
   def check_digit
-    return unless @routing_number.length == 9 && compute_check_digit == @routing_number[8]
+    check = @routing_number[8]
+    return unless @routing_number.length == 9 && compute_check_digit == check
 
-    @routing_number[8]
+    check
   end
 
   def valid?
@@ -63,8 +66,9 @@ class Nacha::AbaNumber
   end
 
   def valid_check_digit?
-    if compute_check_digit != @routing_number[8]
-      add_error("Incorrect Check Digit \"#{@routing_number[8]}\" should be " \
+    check = @routing_number[8]
+    if compute_check_digit != check
+      add_error("Incorrect Check Digit \"#{check}\" should be " \
         "\"#{compute_check_digit}\"")
       false
     else
@@ -72,11 +76,11 @@ class Nacha::AbaNumber
     end
   end
 
-  def to_s(with_checkdigit = true)
-    if with_checkdigit
-      @routing_number
-    else
-      @routing_number[0..7]
-    end
+  def to_s
+    @routing_number
+  end
+
+  def to_s_base
+    @routing_number[0..7]
   end
 end
