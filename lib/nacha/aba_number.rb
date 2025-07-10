@@ -4,13 +4,14 @@ require "nacha/has_errors"
 
 # Validates and formats an ABA routing number.
 class Nacha::AbaNumber
-  attr_reader :routing_number, :aba_number
+  attr_reader :routing_number
 
   include Nacha::HasErrors
 
   def initialize(routing_number)
     @errors = []
-    self.routing_number = routing_number
+    @valid = nil
+    @routing_number = routing_number.to_s.strip
   end
 
   # :reek:FeatureEnvy
