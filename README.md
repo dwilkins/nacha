@@ -1,6 +1,6 @@
 # Nacha
 
-[![Coverage Status](https://coveralls.io/repos/github/dwilkins/nacha/badge.svg?branch=dwilkins/add-github-ci)](https://coveralls.io/github/dwilkins/nacha?branch=dwilkins/add-github-ci)
+[![Coverage Status](https://coveralls.io/repos/github/badges/shields/badge.svg?branch=master)](https://coveralls.io/github/badges/shields?branch=master)
 
 Validating Ruby ACH parser and generator
 
