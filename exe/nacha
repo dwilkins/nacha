@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
-require 'byebug'
 require 'thor'
 require 'json'
 require 'nacha' # Assuming this loads the Nacha gem
@@ -82,7 +81,7 @@ module Nacha
     def output_html(ach_records, io)
       io.puts html_preamble
       ach_records.each do |record|
-        io.puts record.to_html
+        io.puts record.to_html if record
       end
       io.puts html_postamble
     end

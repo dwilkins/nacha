@@ -2,7 +2,7 @@
 
 module Nacha
   module Version
-    STRING = '0.1.12'
+    STRING = '0.1.13'
   end
   VERSION = Version::STRING
 end

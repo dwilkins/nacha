@@ -16,7 +16,7 @@ module Nacha
       nacha_field :foreign_payment_amount, inclusion: 'R', contents: 'Alphameric', position: 7..24
       nacha_field :foreign_trace_number, inclusion: 'O', contents: 'Alphameric', position: 25..46
       nacha_field :receiving_company_name, inclusion: 'M', contents: 'Alphameric', position: 47..81
-      nacha_field :reserved, inclusion: 'M', contents: 'C      ', position: 84..87
+      nacha_field :reserved, inclusion: 'M', contents: 'C      ', position: 82..87
       nacha_field :entry_detail_sequence_number, inclusion: 'M', contents: 'Numeric', position: 88..94
     end
   end

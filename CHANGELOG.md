@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.13] - 2025-07-16
+
+- Fixed an issue with IatEntryDetail where there were multiple
+  `reserved` fields.  Fixed the associated spec
+
+- Fixed column positions for FirstIatAddenda#reserved
+
+- Added `child_record_types` for DetailRecordType and AddendaRecordType
+  so that parsing work right.  Probably need to start using
+  `next_record_types` for some of the record types that are in
+  `child_record_types` right now
+
+- Sorted the fields by position.first when building the matcher and
+  the unpack string.
+
+- Split the `child_record_types` between the class method and the
+  instance method.  Concatenated the class method types when the
+  instance method is called.
+
 ## [0.1.12] - 2025-07-08
 
 - Fixed a bug with parsing files with misshapen lines.  Now it

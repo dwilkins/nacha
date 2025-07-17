@@ -14,10 +14,10 @@ module Nacha
       nacha_field :transaction_code, inclusion: 'M', contents: 'Numeric', position: 2..3
       nacha_field :receiving_dfi_identification, inclusion: 'M', contents: 'TTTTAAAAC', position: 4..12
       nacha_field :number_of_addenda_records, inclusion: 'M', contents: 'Alphameric', position: 13..16
-      nacha_field :reserved, inclusion: 'O', contents: 'C             ', position: 17..29
+      nacha_field :reserved1, inclusion: 'O', contents: 'C             ', position: 17..29
       nacha_field :amount, inclusion: 'M', contents: '$$$$$$$$¢¢', position: 30..39
       nacha_field :dfi_account_number, inclusion: 'M', contents: 'Numeric', position: 40..74
-      nacha_field :reserved, inclusion: 'O', contents: 'C  ', position: 75..76
+      nacha_field :reserved2, inclusion: 'O', contents: 'C  ', position: 75..76
       nacha_field :gateway_operator_ofac_screening_indicator, inclusion: 'O', contents: 'Alphameric',
         position: 77..77
       nacha_field :secondary_ofac_screening_indicator, inclusion: 'O', contents: 'Alphameric',

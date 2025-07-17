@@ -9,7 +9,14 @@ module Nacha
 
       module ClassMethods
         def child_record_types
-          []
+          [
+            "Nacha::Record::SecondIatAddenda",
+            "Nacha::Record::ThirdIatAddenda",
+            "Nacha::Record::FourthIatAddenda",
+            "Nacha::Record::FifthIatAddenda",
+            "Nacha::Record::SixthIatAddenda",
+            "Nacha::Record::SeventhIatAddenda",
+          ]
         end
 
         def self.next_record_types

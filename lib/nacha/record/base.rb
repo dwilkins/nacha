@@ -56,7 +56,9 @@ module Nacha
         end
 
         def unpack_str
-          @unpack_str ||= definition.values.collect do |field_def|
+          @unpack_str ||= definition.values
+                            .sort { |a,b| a[:position].first <=> b[:position].first }
+                            .collect do |field_def|
             Nacha::Field.unpack_str(field_def)
           end.join.freeze
         end
@@ -68,7 +70,8 @@ module Nacha
           @matcher ||= begin
             output_started = false
             skipped_output = false
-            Regexp.new('\A' + definition.values.reverse.collect do |field|
+            Regexp.new('\A' + definition.values
+                                .sort { |a,b| a[:position].first <=> b[:position].first }.reverse.collect do |field|
                          contents = field[:contents]
                          position = field[:position]
                          size = position.size
@@ -83,9 +86,9 @@ module Nacha
                            end
                          elsif contents.match?(/\ANumeric\z/) || contents.match?(/\AYYMMDD\z/)
                            output_started = true
-                           '[0-9 ]' + "{#{size}}"
+                           "[0-9 ]{#{size}}"
                          elsif output_started
-                           '.' + "{#{size}}"
+                           ".{#{size}}"
                          else
                            skipped_output = true
                            ''
@@ -181,7 +184,7 @@ module Nacha
           field.to_html
         end.join
         "<div class=\"nacha-record tooltip #{record_type} #{record_error_class}\">" \
-          "<span class=\"nacha-field\" data-name=\"record-number\">#{format('%05d',
+          "<span class=\"nacha-record-number\" data-name=\"record-number\">#{format('%05d',
             line_number)}&nbsp;|&nbsp</span>" \
           "#{field_html}" \
           "<span class=\"record-type\" data-name=\"record-type\">#{human_name}</span>" \

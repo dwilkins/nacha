@@ -9,7 +9,9 @@ module Nacha
 
       module ClassMethods
         def child_record_types
-          []
+          [
+            'Nacha::Record::BatchControl'
+          ]
         end
       end
 
@@ -17,8 +19,7 @@ module Nacha
         sec = standard_entry_class_code.to_s.capitalize
         [
           "Nacha::Record::#{sec}EntryDetail",
-          'Nacha::Record::BatchControl'
-        ]
+        ] + self.class.child_record_types
       end
     end
   end

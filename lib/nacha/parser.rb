@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'byebug'
 require 'nacha'
 require 'nacha/parser_context'
 
@@ -50,7 +49,7 @@ class Nacha::Parser
     @context.line_errors = []
     parent = previous
 
-    record_types = valid_record_types(parent)
+    main_record_types = record_types = valid_record_types(parent)
 
     while record_types
       record = parse_first_by_types(line, record_types)
@@ -59,6 +58,10 @@ class Nacha::Parser
       record_types = valid_record_types(parent.parent)
       parent = parent.parent
     end
+    # Check all record types if no record was found
+    # TODO: remove this fallback logic
+    record ||= parse_first_by_types(line, Nacha.ach_record_types)
+
     if(record)
       record.line_number = line_num
       record.validate
