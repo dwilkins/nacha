@@ -1,5 +1,7 @@
 # Nacha
 
+[![Coverage Status](https://coveralls.io/repos/github/dwilkins/nacha/badge.svg?branch=dwilkins/add-github-ci)](https://coveralls.io/github/dwilkins/nacha?branch=dwilkins/add-github-ci)
+
 Validating Ruby ACH parser and generator
 
 Format documentation here: http://achrulesonline.org/

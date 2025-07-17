@@ -1,10 +1,12 @@
 require 'simplecov'
-# require 'coveralls_reborn'
+require 'simplecov-lcov'
 
-SimpleCov.formatters = [
-  SimpleCov::Formatter::HTMLFormatter,
-#  CoverallsReborn::SimpleCov::Formatter
-]
+SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+                                                                 SimpleCov::Formatter::HTMLFormatter,
+                                                                 SimpleCov::Formatter::LcovFormatter
+                                                               ])
+
 SimpleCov.start do
   add_filter 'spec'
 end
