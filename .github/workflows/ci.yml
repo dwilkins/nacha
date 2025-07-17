@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['.ruby-version', 'jruby-latest']
+        ruby: ['.ruby-version', 'jruby-head']
     steps:
       - uses: actions/checkout@v4
       - name: Set up Ruby
@@ -18,3 +18,30 @@ jobs:
           bundler-cache: true
       - name: Run RSpec
         run: bundle exec rspec
+# name: CI
+
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         ruby-version: ['3.2.8', 'jruby-latest']
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Set up Ruby
+#         uses: ruby/setup-ruby@v1
+#         with:
+#           ruby-version: ${{ matrix.ruby-version }}
+#           bundler-cache: true # runs 'bundle install' and caches installed gems
+
+#       - name: Run tests
+#         run: bundle exec rspec
