@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'bigdecimal'
 
   spec.add_development_dependency 'bundler'
+#  spec.add_development_dependency 'coveralls_reborn'
   spec.add_development_dependency 'byebug' if RUBY_ENGINE == 'ruby'
   spec.add_development_dependency 'factory_bot'
   spec.add_development_dependency 'gitlab-styles'

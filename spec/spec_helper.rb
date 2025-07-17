@@ -1,5 +1,13 @@
 require 'simplecov'
-SimpleCov.start
+# require 'coveralls_reborn'
+
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+#  CoverallsReborn::SimpleCov::Formatter
+]
+SimpleCov.start do
+  add_filter 'spec'
+end
 
 require 'bundler/setup'
 require 'fileutils'
