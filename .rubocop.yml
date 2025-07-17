@@ -26,6 +26,7 @@ Style/FrozenStringLiteralComment:
     - 'Rakefile'
     - 'spec/**/*'
 
+# So that ACH strings in tests won't trigger Cops
 Layout/LineLength:
   Max: 108
 
