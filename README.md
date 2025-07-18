@@ -6,8 +6,10 @@ Validating Ruby ACH parser and generator
 
 Format documentation here: http://achrulesonline.org/
 
-The definition of the records exactly mirrors the NACHA documentation so that
-development and business can use the same terminology.
+Record Documentation here: https://nachaoperatingrulesonline.org/assets/attachments/25_basic_appendixes.pdf
+
+The definition of the records in this gem exactly mirrors the NACHA
+documentation so that development and business can use the same terminology.
 
 Work in progress - contributors welcome.
 
