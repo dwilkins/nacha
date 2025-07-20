@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'nacha/formatter'
 
 RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   let(:example_file_header_record) do
@@ -92,16 +93,16 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:afhr_json) do
-      Nacha::Record::AdvFileHeader.parse(example_file_header_record).to_json
-    end
+    let(:record) { Nacha::Record::AdvFileHeader.parse(example_file_header_record) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
+    let(:afhr_json) { JSON.parse(formatter.format)['records'].first }
 
     it 'is well formed' do
-      expect(JSON.parse(afhr_json)).to be_a Hash
+      expect(afhr_json).to be_a Hash
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(afhr_json).keys).to include(
+      expect(afhr_json.keys).to include(
         'metadata',
         'nacha_record_type',
         'record_type_code',

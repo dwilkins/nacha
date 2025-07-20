@@ -10,7 +10,7 @@ module Nacha
       module ClassMethods
         def child_record_types
           [
-            "Nacha::Record::FirstIatAddenda",
+            "Nacha::Record::FirstIatAddenda"
             # Among other ...
           ]
         end

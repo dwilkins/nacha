@@ -18,7 +18,7 @@ module Nacha
       def child_record_types
         sec = standard_entry_class_code.to_s.capitalize
         [
-          "Nacha::Record::#{sec}EntryDetail",
+          "Nacha::Record::#{sec}EntryDetail"
         ] + self.class.child_record_types
       end
     end

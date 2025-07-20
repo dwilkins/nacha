@@ -133,35 +133,9 @@ class Nacha::Field
     # rubocop:enable GitlabSecurity/PublicSend
   end
 
-  def to_json_output
-    if @json_output
-      @json_output.reduce(@data) do |memo, operation|
-        # rubocop:disable GitlabSecurity/PublicSend
-        memo&.public_send(*operation)
-        # rubocop:enable GitlabSecurity/PublicSend
-      end
-    else
-      to_s
-    end
-  end
-
   def human_name
     # @human_name ||= @name.to_s.gsub('_', ' ').capitalize
     @human_name ||= @name.to_s.split('_').map(&:capitalize).join(' ')
-  end
-
-  def to_html
-    tooltip_text = "<span class=\"tooltiptext\" >#{human_name} #{errors.join(' ')}</span>"
-    field_classes = ["nacha-field tooltip"]
-    field_classes += ['mandatory'] if mandatory?
-    field_classes += ['required'] if required?
-    field_classes += ['optional'] if optional?
-    field_classes += ['error'] if errors.any?
-
-    ach_string = to_ach.gsub(' ', '&nbsp;')
-    "<span data-field-name=\"#{@name}\" contentEditable=true " \
-      "class=\"#{field_classes.join(' ')}\" data-name=\"#{@name}\">" \
-      "#{ach_string}#{tooltip_text}</span>"
   end
 
   def to_s

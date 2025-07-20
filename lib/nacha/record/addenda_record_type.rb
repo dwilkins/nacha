@@ -15,7 +15,7 @@ module Nacha
             "Nacha::Record::FourthIatAddenda",
             "Nacha::Record::FifthIatAddenda",
             "Nacha::Record::SixthIatAddenda",
-            "Nacha::Record::SeventhIatAddenda",
+            "Nacha::Record::SeventhIatAddenda"
           ]
         end
 

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'nacha/formatter'
 
 RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
   let(:example_file_control_record) do
@@ -24,6 +25,8 @@ RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
 
   describe 'parses a record' do
     let(:fcr) { described_class.parse(example_file_control_record) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new([fcr]) }
+    let(:fcr_json) { JSON.parse(formatter.format)['records'].first }
     let(:fcr_hash) do
       {
         nacha_record_type: 'file_control',
@@ -66,19 +69,13 @@ RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
       expect(fcr.total_credit_entry_dollar_amount_in_file.to_ach).to eq '000000200100'
     end
 
-    it 'converts to a hash' do
-      expect(fcr.to_h.values).to include(*fcr_hash.values)
-      expect(fcr.to_h.keys).to include(*fcr_hash.keys)
-    end
-
-    it 'converts to json' do
-      expect(JSON.parse(fcr.to_json).values).to include(*fcr_hash.values)
-      expect(JSON.parse(fcr.to_json).keys).to include(*fcr_hash.keys.collect(&:to_s))
+    it 'converts to a hash and json' do
+      fcr_hash.each { |key, value| expect(fcr_json[key.to_s]).to eq(value) }
     end
   end
 
   describe 'class generates json' do
-    let(:class_json) { described_class.to_json }
+    let(:class_json) { JSON.pretty_generate(described_class.to_h) }
 
     it 'is well formed' do
       expect(JSON.parse(class_json)).to be_a Hash
@@ -101,14 +98,16 @@ RSpec.describe Nacha::Record::FileControl, :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:record_json) { described_class.parse(example_file_control_record).to_json }
+    let(:record) { described_class.parse(example_file_control_record) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
+    let(:record_json) { JSON.parse(formatter.format)['records'].first }
 
     it 'is well formed' do
-      expect(JSON.parse(record_json)).to be_a Hash
+      expect(record_json).to be_a Hash
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(record_json).keys).to include(
+      expect(record_json.keys).to include(
         'metadata',
         'nacha_record_type',
         'record_type_code',
