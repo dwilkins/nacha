@@ -49,7 +49,7 @@ class Nacha::Parser
     @context.line_errors = []
     parent = previous
 
-    main_record_types = record_types = valid_record_types(parent)
+    record_types = valid_record_types(parent)
 
     while record_types
       record = parse_first_by_types(line, record_types)
@@ -62,11 +62,12 @@ class Nacha::Parser
     # TODO: remove this fallback logic
     record ||= parse_first_by_types(line, Nacha.ach_record_types)
 
-    if(record)
+    if record
       record.line_number = line_num
       record.validate
       add_child(parent, record)
     end
+
     record
   end
 

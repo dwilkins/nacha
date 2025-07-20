@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'nacha/formatter'
 
 RSpec.describe Nacha::Record::PpdEntryDetail, :nacha_record_type do
   it 'exists' do
@@ -26,7 +27,7 @@ RSpec.describe Nacha::Record::PpdEntryDetail, :nacha_record_type do
   end
 
   describe 'class generates json' do
-    let(:class_json) { described_class.to_json }
+    let(:class_json) { JSON.pretty_generate(described_class.to_h) }
 
     it 'is well formed' do
       expect(JSON.parse(class_json)).to be_a Hash
@@ -51,14 +52,16 @@ RSpec.describe Nacha::Record::PpdEntryDetail, :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:json) { build(:debit_ppd_entry_detail).to_json }
+    let(:record) { build(:debit_ppd_entry_detail) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
+    let(:json) { JSON.parse(formatter.format)['records'].first }
 
     it 'is well formed' do
-      expect(JSON.parse(json)).to be_a Hash
+      expect(json).to be_a Hash
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(json).keys).to include(
+      expect(json.keys).to include(
         'metadata',
         'nacha_record_type',
         'record_type_code',

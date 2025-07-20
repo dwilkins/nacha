@@ -4,7 +4,9 @@
 $LOAD_PATH.unshift(File.expand_path('../lib', __dir__))
 require 'thor'
 require 'json'
-require 'nacha' # Assuming this loads the Nacha gem
+require 'nacha'
+require 'nacha/formatter'
+require 'openssl'
 
 module Nacha
   class CLI < Thor
@@ -17,24 +19,24 @@ module Nacha
     desc "parse FILE", "Parse an ACH file"
     option :output_file, aliases: "-o"
     option :format, aliases: "-f", default: "html",
-      desc: "Output format (html, json, or ach)", enum: %w[html json ach]
+      desc: "Output format (html, json, md, or ach)", enum: %w[html json md ach]
+    option :md_flavor, default: "common_mark", enum: %w[common_mark github]
     def parse(file_path)
       unless File.exist?(file_path)
         puts "Error: File not found at #{file_path}"
         exit 1
       end
 
-      ach_file = Nacha.parse(File.open(file_path))
+      file = File.open(file_path)
+      ach_file = Nacha.parse(file)
 
-      # TODO: Determine a user-friendly way to output the parsed data.
-      # For now, let's print the records.
       if ach_file && ach_file.is_a?(Array) && !ach_file.empty?
         if options[:output_file]
-          File.open(options[:output_file], "w") do |file|
-            write_output(ach_file, file)
+          File.open(options[:output_file], "w") do |f|
+            write_output(ach_file, f, file)
           end
         else
-          write_output(ach_file, $stdout)
+          write_output(ach_file, $stdout, file)
         end
       else
         puts "Could not parse the file or the file was empty."
@@ -47,51 +49,38 @@ module Nacha
 
     private
 
-    def write_output(ach_records, io)
+    def write_output(ach_records, io, file)
+      puts "DEBUG: format=#{options[:format]}"
+      formatter_options = {
+        file_name: File.basename(file.path),
+        file_size: file.size,
+        number_of_lines: ach_records.size,
+        created_at: file.ctime,
+        modified_at: file.mtime,
+        checksum: OpenSSL::Digest::SHA256.file(File.expand_path(file.path)).hexdigest,
+        preamble: HTML_PREAMBLE_FILE,
+        postamble: HTML_POSTAMBLE_FILE
+      }
+
       case options[:format]
-      when 'html'
-        output_html(ach_records, io)
-      when 'json'
-        output_json(ach_records, io)
       when 'ach'
         output_ach(ach_records, io)
+      when 'md'
+        formatter_options[:flavor] = options[:md_flavor].to_sym
+        formatter = Nacha::Formatter::FormatterFactory.get(:markdown, ach_records, formatter_options)
+        io.puts formatter.format
+      else
+        formatter = Nacha::Formatter::FormatterFactory.get(options[:format].to_sym, ach_records,
+          formatter_options)
+        puts "DEBUG: formatter=#{formatter.class.name}"
+        io.puts formatter.format
       end
-    end
-
-    def output_json(ach_records, io)
-      io.puts JSON.pretty_generate(ach_records.map(&:to_h))
-      # io.puts JSON.pretty_generate(json_output)
-    end
-
-    def record_to_h(record)
-      {
-        record.class.name.split('::').last => {
-          fields: record.fields.transform_values(&:to_s),
-          children: record.children.map { |child| record_to_h(child) }
-        }
-      }
     end
 
     def output_ach(ach_records, io)
       ach_records.each do |record|
         io.puts record.to_ach
       end
-    end
-
-    def output_html(ach_records, io)
-      io.puts html_preamble
-      ach_records.each do |record|
-        io.puts record.to_html if record
-      end
-      io.puts html_postamble
-    end
-
-    def html_preamble
-      @html_preamble ||= File.read(HTML_PREAMBLE_FILE)
-    end
-
-    def html_postamble
-      @html_postamble ||= File.read(HTML_POSTAMBLE_FILE)
     end
   end
 end

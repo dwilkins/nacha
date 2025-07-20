@@ -13,7 +13,6 @@ RSpec.describe 'Nacha CLI' do
     context 'when printing to stdout' do
       it 'parses the file and prints a success message' do
         stdout, stderr, status = Open3.capture3(executable, 'parse', fixture_path)
-
         expect(status.success?).to be(true), "Command failed. STDERR:\n#{stderr}"
         expect(stderr).to be_empty
         expect(stdout).to include('data-name="record-number"')
@@ -25,7 +24,6 @@ RSpec.describe 'Nacha CLI' do
         Dir.mktmpdir do |dir|
           output_path = File.join(dir, 'output.html')
           _stdout, stderr, status = Open3.capture3(executable, 'parse', fixture_path, '-o', output_path)
-
           expect(status.success?).to be(true), "Command failed. STDERR:\n#{stderr}"
           expect(stderr).to be_empty
 
@@ -41,7 +39,6 @@ RSpec.describe 'Nacha CLI' do
           _stdout, stderr, status = Open3.capture3(
             executable, 'parse', fixture_path, '--output-file', output_path
           )
-
           expect(status.success?).to be(true), "Command failed. STDERR:\n#{stderr}"
           expect(stderr).to be_empty
 

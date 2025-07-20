@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'nacha/formatter'
 
 RSpec.describe Nacha::Record::BatchHeader, :nacha_record_type do
   let(:example_batch_header_record) do
@@ -100,7 +101,7 @@ RSpec.describe Nacha::Record::BatchHeader, :nacha_record_type do
   end
 
   describe 'class generates json' do
-    let(:class_json) { described_class.to_json }
+    let(:class_json) { JSON.pretty_generate(described_class.to_h) }
 
     it 'is well formed' do
       expect(JSON.parse(class_json)).to be_a Hash
@@ -128,14 +129,16 @@ RSpec.describe Nacha::Record::BatchHeader, :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:record_json) { described_class.parse(example_batch_header_record).to_json }
+    let(:record) { described_class.parse(example_batch_header_record) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
+    let(:record_json) { JSON.parse(formatter.format)['records'].first }
 
     it 'is well formed' do
-      expect(JSON.parse(record_json)).to be_a Hash
+      expect(record_json).to be_a Hash
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(record_json).keys).to include(
+      expect(record_json.keys).to include(
         'metadata',
         'nacha_record_type',
         'record_type_code',

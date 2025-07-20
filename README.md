@@ -80,6 +80,10 @@ Parsing starts by looking for a default record type 'Nacha::Record::FileHeader'
 When that is found, the valid child record types for 'Nacha::Record::FileHeader'
 are gathered and the subsequent lines are parsed using only those types
 
+If there is no record type match after exhausing the list of child record types
+for previous records in the hierarchy, the entire list of ACH record types is
+checked
+
 When a record is created, the fields for the instance are created from
 the field definitions.
 

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'nacha/formatter'
 
 RSpec.describe Nacha::Record::Base, :nacha_record_type do
   it 'fields can be loaded' do

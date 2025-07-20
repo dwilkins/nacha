@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'nacha/formatter'
 
 RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
   subject(:record_class) { Nacha::Record::AdvBatchControl }
@@ -54,7 +55,7 @@ RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
   end
 
   describe 'class generates json' do
-    let(:class_json) { record_class.to_json }
+    let(:class_json) { JSON.pretty_generate(record_class.to_h) }
 
     it 'is well formed' do
       expect(JSON.parse(class_json)).to be_a Hash
@@ -78,16 +79,16 @@ RSpec.describe 'Nacha::Record::AdvBatchControl', :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:abcr_json) do
-      record_class.parse(example_adv_batch_control_record).to_json
-    end
+    let(:record) { record_class.parse(example_adv_batch_control_record) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
+    let(:abcr_json) { JSON.parse(formatter.format)['records'].first }
 
     it 'is well formed' do
-      expect(JSON.parse(abcr_json)).to be_a Hash
+      expect(abcr_json).to be_a Hash
     end
 
     it 'has the right keys' do
-      expect(JSON.parse(abcr_json).keys).to include(
+      expect(abcr_json.keys).to include(
         'metadata',
         'nacha_record_type',
         'record_type_code',
