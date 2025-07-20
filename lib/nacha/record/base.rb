@@ -64,40 +64,39 @@ module Nacha
         end
 
         # :reek:TooManyStatements
+        # rubocop:disable Layout/BlockAlignment,
         # rubocop:disable Style/StringConcatenation:
         def matcher
           @matcher ||= begin
             output_started = false
             skipped_output = false
-            regexp_body = definition.values
-                                    # rubocop:disable Layout/LineLength
-                                    .sort { |a, b| a[:position].first <=> b[:position].first }.reverse.collect do |field|
-              # rubocop:enable Layout/LineLength
-              contents = field[:contents]
-              position = field[:position]
-              size = position.size
-              if contents =~ /\AC(.+)\z/
-                last_match = Regexp.last_match(1)
-                if last_match.match?(/  */) && !output_started
-                  skipped_output = true
-                  ''
-                else
-                  output_started = true
-                  last_match
-                end
-              elsif contents.match?(/\ANumeric\z/) || contents.match?(/\AYYMMDD\z/)
-                output_started = true
-                "[0-9 ]{#{size}}"
-              elsif output_started
-                ".{#{size}}"
-              else
-                skipped_output = true
-                ''
-              end
-            end.reverse.join
-            Regexp.new('\A' + regexp_body + (skipped_output ? '.*' : '') + '\z')
+            Regexp.new('\A' + definition.values
+                                .sort { |a,b| a[:position].first <=> b[:position].first }.reverse.collect do |field|
+                         contents = field[:contents]
+                         position = field[:position]
+                         size = position.size
+                         if contents =~ /\AC(.+)\z/
+                           last_match = Regexp.last_match(1)
+                           if last_match.match?(/  */) && !output_started
+                             skipped_output = true
+                             ''
+                           else
+                             output_started = true
+                             last_match
+                           end
+                         elsif contents.match?(/\ANumeric\z/) || contents.match?(/\AYYMMDD\z/)
+                           output_started = true
+                           "[0-9 ]{#{size}}"
+                         elsif output_started
+                           ".{#{size}}"
+                         else
+                           skipped_output = true
+                           ''
+                         end
+                       end.reverse.join + (skipped_output ? '.*' : '') + '\z')
           end
         end
+        # rubocop:enable Layout/BlockAlignment,
         # rubocop:enable Style/StringConcatenation:
 
         def parse(ach_str)
@@ -129,6 +128,10 @@ module Nacha
 
           { record_type.to_sym => fields }
         end
+
+        def to_json(*_args)
+          JSON.pretty_generate(to_h)
+        end
       end
 
       # :reek:FeatureEnvy
@@ -150,14 +153,46 @@ module Nacha
         @human_name ||= record_type.to_s.split('_').map(&:capitalize).join(' ')
       end
 
+      def to_h
+        { nacha_record_type: record_type,
+          metadata: {
+            klass: self.class.name,
+            errors: errors,
+            line_number: @line_number,
+            original_input_line: original_input_line
+          } }.merge(
+            @fields.keys.to_h do |key|
+              [key, @fields[key].to_json_output]
+            end)
+      end
+
+      def to_json(*_args)
+        JSON.pretty_generate(to_h)
+      end
+
       def to_ach
         @fields.keys.collect do |key|
           @fields[key].to_ach
         end.join
       end
 
+      def to_html(_opts = {})
+        record_error_class = nil
+
+        field_html = @fields.values.collect do |field|
+          record_error_class ||= 'error' if field.errors.any?
+          field.to_html
+        end.join
+        "<div class=\"nacha-record tooltip #{record_type} #{record_error_class}\">" \
+          "<span class=\"nacha-record-number\" data-name=\"record-number\">#{format('%05d',
+            line_number)}&nbsp;|&nbsp</span>" \
+          "#{field_html}" \
+          "<span class=\"record-type\" data-name=\"record-type\">#{human_name}</span>" \
+          "</div>"
+      end
+
       def inspect
-        "#<#{self.class.name}>"
+        "#<#{self.class.name}> #{to_h}"
       end
 
       def definition

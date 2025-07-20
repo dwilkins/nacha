@@ -50,7 +50,6 @@ module Nacha
     private
 
     def write_output(ach_records, io, file)
-      puts "DEBUG: format=#{options[:format]}"
       formatter_options = {
         file_name: File.basename(file.path),
         file_size: file.size,
@@ -72,7 +71,6 @@ module Nacha
       else
         formatter = Nacha::Formatter::FormatterFactory.get(options[:format].to_sym, ach_records,
           formatter_options)
-        puts "DEBUG: formatter=#{formatter.class.name}"
         io.puts formatter.format
       end
     end
