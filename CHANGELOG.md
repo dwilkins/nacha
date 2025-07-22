@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.15] - 2025-07-21
+
+- Added back `Nacha::Field#to_json_output` that got removed in some of the
+  recent AI developemnt
+
 ## [0.1.14] - 2025-07-19
 
 - Added markdown and github flavored markdown output

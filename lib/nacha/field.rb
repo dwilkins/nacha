@@ -123,7 +123,19 @@ class Nacha::Field
     errors << err_string
   end
 
-  def to_ach
+  def to_json_output
+    if @json_output
+      @json_output.reduce(@data) do |memo, operation|
+        # rubocop:disable GitlabSecurity/PublicSend
+        memo&.public_send(*operation)
+        # rubocop:enable GitlabSecurity/PublicSend
+      end
+    else
+      to_s
+    end
+  end
+
+def to_ach
     str = to_s
     fill_char = @fill_character
     fill_char = ' ' unless str
