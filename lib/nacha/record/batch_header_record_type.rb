@@ -16,6 +16,8 @@ module Nacha
       end
 
       def child_record_types
+        return self.class.child_record_types unless standard_entry_class_code.valid?
+
         sec = standard_entry_class_code.to_s.capitalize
         [
           "Nacha::Record::#{sec}EntryDetail"

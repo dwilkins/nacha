@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.16] - 2025-07-22
+
+- `Nacha::Record::BatchHeader` would blissfully attempt to add a
+  `child_record_type` that referenced `Nacha::Record::000EntryDetail` even though
+  no such record type exists.  Now `standard_entry_class_code` must be valid to
+  create a `child_record_type`
+
 ## [0.1.15] - 2025-07-21
 
 - Added back `Nacha::Field#to_json_output` that got removed in some of the
