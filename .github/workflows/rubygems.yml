@@ -1,0 +1,34 @@
+name: Publish to RubyGems.org
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-publish:
+    name: Build and Publish Gem
+    runs-on: ubuntu-latest
+    # Specifies that the build-and-publish job requires read permissions for the repository contents and write permissions for package deployments.
+    permissions:
+      contents: write
+      # This is required for trusted publishing
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+          bundler-cache: true # runs 'bundle install' and caches installed gems
+
+      - name: Build gem
+        run: gem build nacha.gemspec
+
+      - name: Publish to RubyGems.org
+        uses: rubygems/release-gem@v1
