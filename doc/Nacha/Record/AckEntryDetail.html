@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Nacha::Record::AckEntryDetail
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Nacha::Record::AckEntryDetail";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span>
+     &raquo; 
+    <span class="title">AckEntryDetail</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Nacha::Record::AckEntryDetail
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></li>
+          
+            <li class="next">Nacha::Record::AckEntryDetail</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/nacha/record/ack_entry_detail.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#addenda_record_indicator-instance_method" title="#addenda_record_indicator (instance method)">#<strong>addenda_record_indicator</strong>  &#x21d2; Nacha::Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A code indicating whether an addenda record follows, ‘1’ for yes and ‘0’ for no.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#amount-instance_method" title="#amount (instance method)">#<strong>amount</strong>  &#x21d2; Nacha::Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The amount of the entry being acknowledged, which is always zero for ACK entries.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dfi_account_number-instance_method" title="#dfi_account_number (instance method)">#<strong>dfi_account_number</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The DFI account number of the receiver from the original entry detail record.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#discretionary_data-instance_method" title="#discretionary_data (instance method)">#<strong>discretionary_data</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Optional data field which can be used by the ODFI or Originator for their own purposes.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#originl_entry_trace_number-instance_method" title="#originl_entry_trace_number (instance method)">#<strong>originl_entry_trace_number</strong>  &#x21d2; Nacha::Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The trace number from the original Entry Detail Record to which this acknowledgment applies.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#receiving_company_name-instance_method" title="#receiving_company_name (instance method)">#<strong>receiving_company_name</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The name of the receiver from the original entry detail record.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#receiving_dfi_identification-instance_method" title="#receiving_dfi_identification (instance method)">#<strong>receiving_dfi_identification</strong>  &#x21d2; Nacha::AbaNumber </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The routing number of the financial institution that is to receive the acknowledgement.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#record_type_code-instance_method" title="#record_type_code (instance method)">#<strong>record_type_code</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Identifies the record as an ACK Entry Detail record with a constant value of ‘6’.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trace_number-instance_method" title="#trace_number (instance method)">#<strong>trace_number</strong>  &#x21d2; Nacha::Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A unique number assigned by the ODFI to this specific acknowledgement entry.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#transaction_code-instance_method" title="#transaction_code (instance method)">#<strong>transaction_code</strong>  &#x21d2; Nacha::Numeric </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Identifies the transaction as an acknowledgment for a received credit entry.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+  
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Base.html#children-instance_method" title="Nacha::Record::Base#children (method)">#children</a></span>, <span class='object_link'><a href="Base.html#fields-instance_method" title="Nacha::Record::Base#fields (method)">#fields</a></span>, <span class='object_link'><a href="Base.html#line_number-instance_method" title="Nacha::Record::Base#line_number (method)">#line_number</a></span>, <span class='object_link'><a href="Base.html#name-instance_method" title="Nacha::Record::Base#name (method)">#name</a></span>, <span class='object_link'><a href="Base.html#original_input_line-instance_method" title="Nacha::Record::Base#original_input_line (method)">#original_input_line</a></span>, <span class='object_link'><a href="Base.html#parent-instance_method" title="Nacha::Record::Base#parent (method)">#parent</a></span>, <span class='object_link'><a href="Base.html#validations-instance_method" title="Nacha::Record::Base#validations (method)">#validations</a></span></p>
+
+
+
+  
+  
+  
+  
+  
+  
+  <h2>Method Summary</h2>
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="DetailRecordType.html#child_record_types-instance_method" title="Nacha::Record::DetailRecordType#child_record_types (method)">#child_record_types</a></span>, <span class='object_link'><a href="DetailRecordType.html#included-class_method" title="Nacha::Record::DetailRecordType.included (method)">included</a></span>, <span class='object_link'><a href="DetailRecordType.html#next_record_types-instance_method" title="Nacha::Record::DetailRecordType#next_record_types (method)">#next_record_types</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Base.html#add_error-instance_method" title="Nacha::Record::Base#add_error (method)">#add_error</a></span>, <span class='object_link'><a href="Base.html#create_fields_from_definition-instance_method" title="Nacha::Record::Base#create_fields_from_definition (method)">#create_fields_from_definition</a></span>, <span class='object_link'><a href="Base.html#credit%3F-instance_method" title="Nacha::Record::Base#credit? (method)">#credit?</a></span>, <span class='object_link'><a href="Base.html#debit%3F-instance_method" title="Nacha::Record::Base#debit? (method)">#debit?</a></span>, <span class='object_link'><a href="Base.html#definition-class_method" title="Nacha::Record::Base.definition (method)">definition</a></span>, <span class='object_link'><a href="Base.html#definition-instance_method" title="Nacha::Record::Base#definition (method)">#definition</a></span>, <span class='object_link'><a href="Base.html#errors-instance_method" title="Nacha::Record::Base#errors (method)">#errors</a></span>, <span class='object_link'><a href="Base.html#human_name-instance_method" title="Nacha::Record::Base#human_name (method)">#human_name</a></span>, <span class='object_link'><a href="Base.html#initialize-instance_method" title="Nacha::Record::Base#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="Base.html#inspect-instance_method" title="Nacha::Record::Base#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="Base.html#matcher-class_method" title="Nacha::Record::Base.matcher (method)">matcher</a></span>, <span class='object_link'><a href="Base.html#method_missing-instance_method" title="Nacha::Record::Base#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="Base.html#nacha_field-class_method" title="Nacha::Record::Base.nacha_field (method)">nacha_field</a></span>, <span class='object_link'><a href="Base.html#parse-class_method" title="Nacha::Record::Base.parse (method)">parse</a></span>, <span class='object_link'><a href="Base.html#record_type-class_method" title="Nacha::Record::Base.record_type (method)">record_type</a></span>, <span class='object_link'><a href="Base.html#record_type-instance_method" title="Nacha::Record::Base#record_type (method)">#record_type</a></span>, <span class='object_link'><a href="Base.html#respond_to_missing%3F-instance_method" title="Nacha::Record::Base#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="Base.html#to_ach-instance_method" title="Nacha::Record::Base#to_ach (method)">#to_ach</a></span>, <span class='object_link'><a href="Base.html#to_h-class_method" title="Nacha::Record::Base.to_h (method)">to_h</a></span>, <span class='object_link'><a href="Base.html#to_h-instance_method" title="Nacha::Record::Base#to_h (method)">#to_h</a></span>, <span class='object_link'><a href="Base.html#to_html-instance_method" title="Nacha::Record::Base#to_html (method)">#to_html</a></span>, <span class='object_link'><a href="Base.html#to_json-class_method" title="Nacha::Record::Base.to_json (method)">to_json</a></span>, <span class='object_link'><a href="Base.html#to_json-instance_method" title="Nacha::Record::Base#to_json (method)">#to_json</a></span>, <span class='object_link'><a href="Base.html#unpack_str-class_method" title="Nacha::Record::Base.unpack_str (method)">unpack_str</a></span>, <span class='object_link'><a href="Base.html#valid%3F-instance_method" title="Nacha::Record::Base#valid? (method)">#valid?</a></span>, <span class='object_link'><a href="Base.html#validate-instance_method" title="Nacha::Record::Base#validate (method)">#validate</a></span>, <span class='object_link'><a href="Base.html#validations-class_method" title="Nacha::Record::Base.validations (method)">validations</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Validations/FieldValidations.html" title="Nacha::Record::Validations::FieldValidations (module)">Validations::FieldValidations</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Validations/FieldValidations.html#included-class_method" title="Nacha::Record::Validations::FieldValidations.included (method)">included</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="Base.html#initialize-instance_method" title="Nacha::Record::Base#initialize (method)">Nacha::Record::Base</a></span></p>
+  
+</div>
+<div id="method_missing_details" class="method_details_list">
+  <h2>Dynamic Method Handling</h2>
+  <p class="notice super">
+    This class handles dynamic methods through the <tt>method_missing</tt> method
+    
+      in the class <span class='object_link'><a href="Base.html#method_missing-instance_method" title="Nacha::Record::Base#method_missing (method)">Nacha::Record::Base</a></span>
+    
+  </p>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="addenda_record_indicator=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="addenda_record_indicator-instance_method">
+  
+    #<strong>addenda_record_indicator</strong>  &#x21d2; <tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns A code indicating whether an addenda record follows, ‘1’ for yes and ‘0’ for no.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A code indicating whether an addenda record follows, ‘1’ for yes and ‘0’ for no.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="amount=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="amount-instance_method">
+  
+    #<strong>amount</strong>  &#x21d2; <tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The amount of the entry being acknowledged, which is always zero for ACK entries.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The amount of the entry being acknowledged, which is always zero for ACK entries.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="dfi_account_number=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="dfi_account_number-instance_method">
+  
+    #<strong>dfi_account_number</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The DFI account number of the receiver from the original entry detail record.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The DFI account number of the receiver from the original entry detail record.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="discretionary_data=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="discretionary_data-instance_method">
+  
+    #<strong>discretionary_data</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Optional data field which can be used by the ODFI or Originator for their own purposes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Optional data field which can be used by the ODFI or Originator for their own purposes.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="originl_entry_trace_number=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="originl_entry_trace_number-instance_method">
+  
+    #<strong>originl_entry_trace_number</strong>  &#x21d2; <tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The trace number from the original Entry Detail Record to which this acknowledgment applies.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The trace number from the original Entry Detail Record to which this acknowledgment applies.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="receiving_company_name=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="receiving_company_name-instance_method">
+  
+    #<strong>receiving_company_name</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The name of the receiver from the original entry detail record.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The name of the receiver from the original entry detail record.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="receiving_dfi_identification=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="receiving_dfi_identification-instance_method">
+  
+    #<strong>receiving_dfi_identification</strong>  &#x21d2; <tt><span class='object_link'><a href="../AbaNumber.html" title="Nacha::AbaNumber (class)">Nacha::AbaNumber</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The routing number of the financial institution that is to receive the acknowledgement.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../AbaNumber.html" title="Nacha::AbaNumber (class)">Nacha::AbaNumber</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The routing number of the financial institution that is to receive the acknowledgement.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="record_type_code=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="record_type_code-instance_method">
+  
+    #<strong>record_type_code</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Identifies the record as an ACK Entry Detail record with a constant value of ‘6’.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Identifies the record as an ACK Entry Detail record with a constant value of ‘6’.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="trace_number=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="trace_number-instance_method">
+  
+    #<strong>trace_number</strong>  &#x21d2; <tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns A unique number assigned by the ODFI to this specific acknowledgement entry.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A unique number assigned by the ODFI to this specific acknowledgement entry.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="transaction_code=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="transaction_code-instance_method">
+  
+    #<strong>transaction_code</strong>  &#x21d2; <tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Identifies the transaction as an acknowledgment for a received credit entry.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Numeric.html" title="Nacha::Numeric (class)">Nacha::Numeric</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Identifies the transaction as an acknowledgment for a received credit entry.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/nacha/record/ack_entry_detail.rb', line 29</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Nacha.html" title="Nacha (module)">Nacha</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Record.html" title="Nacha::Record (module)">Record</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Base.html" title="Nacha::Record::Base (class)">Base</a></span></span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span></span>
+
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:record_type_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>C6</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='op'>..</span><span class='int'>1</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:transaction_code</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>2</span><span class='op'>..</span><span class='int'>3</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_dfi_identification</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>TTTTAAAAC</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>4</span><span class='op'>..</span><span class='int'>12</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:dfi_account_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>13</span><span class='op'>..</span><span class='int'>29</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:amount</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$$$$$$$$¢¢</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>30</span><span class='op'>..</span><span class='int'>39</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:originl_entry_trace_number</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>40</span><span class='op'>..</span><span class='int'>54</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:receiving_company_name</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>R</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>55</span><span class='op'>..</span><span class='int'>76</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:discretionary_data</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>O</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Alphameric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>77</span><span class='op'>..</span><span class='int'>78</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:addenda_record_indicator</span><span class='comma'>,</span>
+    <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>79</span><span class='op'>..</span><span class='int'>79</span>
+  <span class='id identifier rubyid_nacha_field'>nacha_field</span> <span class='symbol'>:trace_number</span><span class='comma'>,</span> <span class='label'>inclusion:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>M</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>contents:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Numeric</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>80</span><span class='op'>..</span><span class='int'>94</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+</div>
+
+      <div id="footer">
+  Generated on Fri Jul 25 22:15:18 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.8).
+</div>
+
+    </div>
+  </body>
+</html>

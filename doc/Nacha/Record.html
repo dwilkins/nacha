@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Nacha::Record
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Nacha::Record";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Nacha.html" title="Nacha (module)">Nacha</a></span></span>
+     &raquo; 
+    <span class="title">Record</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Nacha::Record
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/nacha/record/base.rb<span class="defines">,<br />
+  lib/nacha/record/filler.rb,<br /> lib/nacha/record/ccd_addenda.rb,<br /> lib/nacha/record/cie_addenda.rb,<br /> lib/nacha/record/ctx_addenda.rb,<br /> lib/nacha/record/dne_addenda.rb,<br /> lib/nacha/record/enr_addenda.rb,<br /> lib/nacha/record/file_header.rb,<br /> lib/nacha/record/mte_addenda.rb,<br /> lib/nacha/record/pos_addenda.rb,<br /> lib/nacha/record/ppd_addenda.rb,<br /> lib/nacha/record/shr_addenda.rb,<br /> lib/nacha/record/trx_addenda.rb,<br /> lib/nacha/record/web_addenda.rb,<br /> lib/nacha/record/batch_header.rb,<br /> lib/nacha/record/file_control.rb,<br /> lib/nacha/record/batch_control.rb,<br /> lib/nacha/record/adv_file_header.rb,<br /> lib/nacha/record/ack_entry_detail.rb,<br /> lib/nacha/record/adv_entry_detail.rb,<br /> lib/nacha/record/adv_file_control.rb,<br /> lib/nacha/record/arc_entry_detail.rb,<br /> lib/nacha/record/boc_entry_detail.rb,<br /> lib/nacha/record/ccd_entry_detail.rb,<br /> lib/nacha/record/cie_entry_detail.rb,<br /> lib/nacha/record/cor_entry_detail.rb,<br /> lib/nacha/record/dne_entry_detail.rb,<br /> lib/nacha/record/enr_entry_detail.rb,<br /> lib/nacha/record/iat_batch_header.rb,<br /> lib/nacha/record/iat_entry_detail.rb,<br /> lib/nacha/record/mte_entry_detail.rb,<br /> lib/nacha/record/pop_entry_detail.rb,<br /> lib/nacha/record/pos_entry_detail.rb,<br /> lib/nacha/record/ppd_entry_detail.rb,<br /> lib/nacha/record/rck_entry_detail.rb,<br /> lib/nacha/record/shr_entry_detail.rb,<br /> lib/nacha/record/tel_entry_detail.rb,<br /> lib/nacha/record/trc_entry_detail.rb,<br /> lib/nacha/record/trx_entry_detail.rb,<br /> lib/nacha/record/web_entry_detail.rb,<br /> lib/nacha/record/xck_entry_detail.rb,<br /> lib/nacha/record/adv_batch_control.rb,<br /> lib/nacha/record/fifth_iat_addenda.rb,<br /> lib/nacha/record/first_iat_addenda.rb,<br /> lib/nacha/record/sixth_iat_addenda.rb,<br /> lib/nacha/record/third_iat_addenda.rb,<br /> lib/nacha/record/detail_record_type.rb,<br /> lib/nacha/record/filler_record_type.rb,<br /> lib/nacha/record/fourth_iat_addenda.rb,<br /> lib/nacha/record/second_iat_addenda.rb,<br /> lib/nacha/record/addenda_record_type.rb,<br /> lib/nacha/record/seventh_iat_addenda.rb,<br /> lib/nacha/record/file_header_record_type.rb,<br /> lib/nacha/record/batch_header_record_type.rb,<br /> lib/nacha/record/file_control_record_type.rb,<br /> lib/nacha/record/batch_control_record_type.rb,<br /> lib/nacha/record/ctx_corporate_entry_detail.rb,<br /> lib/nacha/record/validations/field_validations.rb,<br /> lib/nacha/record/validations/record_validations.rb,<br /> lib/nacha/record/iat_remittance_information_addenda.rb,<br /> lib/nacha/record/iat_foreign_coorespondent_bank_information_addenda.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Record/AddendaRecordType.html" title="Nacha::Record::AddendaRecordType (module)">AddendaRecordType</a></span>, <span class='object_link'><a href="Record/BatchControlRecordType.html" title="Nacha::Record::BatchControlRecordType (module)">BatchControlRecordType</a></span>, <span class='object_link'><a href="Record/BatchHeaderRecordType.html" title="Nacha::Record::BatchHeaderRecordType (module)">BatchHeaderRecordType</a></span>, <span class='object_link'><a href="Record/DetailRecordType.html" title="Nacha::Record::DetailRecordType (module)">DetailRecordType</a></span>, <span class='object_link'><a href="Record/FileControlRecordType.html" title="Nacha::Record::FileControlRecordType (module)">FileControlRecordType</a></span>, <span class='object_link'><a href="Record/FileHeaderRecordType.html" title="Nacha::Record::FileHeaderRecordType (module)">FileHeaderRecordType</a></span>, <span class='object_link'><a href="Record/FillerRecordType.html" title="Nacha::Record::FillerRecordType (module)">FillerRecordType</a></span>, <span class='object_link'><a href="Record/Validations.html" title="Nacha::Record::Validations (module)">Validations</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Record/AckEntryDetail.html" title="Nacha::Record::AckEntryDetail (class)">AckEntryDetail</a></span>, <span class='object_link'><a href="Record/AdvBatchControl.html" title="Nacha::Record::AdvBatchControl (class)">AdvBatchControl</a></span>, <span class='object_link'><a href="Record/AdvEntryDetail.html" title="Nacha::Record::AdvEntryDetail (class)">AdvEntryDetail</a></span>, <span class='object_link'><a href="Record/AdvFileControl.html" title="Nacha::Record::AdvFileControl (class)">AdvFileControl</a></span>, <span class='object_link'><a href="Record/AdvFileHeader.html" title="Nacha::Record::AdvFileHeader (class)">AdvFileHeader</a></span>, <span class='object_link'><a href="Record/ArcEntryDetail.html" title="Nacha::Record::ArcEntryDetail (class)">ArcEntryDetail</a></span>, <span class='object_link'><a href="Record/Base.html" title="Nacha::Record::Base (class)">Base</a></span>, <span class='object_link'><a href="Record/BatchControl.html" title="Nacha::Record::BatchControl (class)">BatchControl</a></span>, <span class='object_link'><a href="Record/BatchHeader.html" title="Nacha::Record::BatchHeader (class)">BatchHeader</a></span>, <span class='object_link'><a href="Record/BocEntryDetail.html" title="Nacha::Record::BocEntryDetail (class)">BocEntryDetail</a></span>, <span class='object_link'><a href="Record/CcdAddenda.html" title="Nacha::Record::CcdAddenda (class)">CcdAddenda</a></span>, <span class='object_link'><a href="Record/CcdEntryDetail.html" title="Nacha::Record::CcdEntryDetail (class)">CcdEntryDetail</a></span>, <span class='object_link'><a href="Record/CieAddenda.html" title="Nacha::Record::CieAddenda (class)">CieAddenda</a></span>, <span class='object_link'><a href="Record/CieEntryDetail.html" title="Nacha::Record::CieEntryDetail (class)">CieEntryDetail</a></span>, <span class='object_link'><a href="Record/CorEntryDetail.html" title="Nacha::Record::CorEntryDetail (class)">CorEntryDetail</a></span>, <span class='object_link'><a href="Record/CtxAddenda.html" title="Nacha::Record::CtxAddenda (class)">CtxAddenda</a></span>, <span class='object_link'><a href="Record/CtxCorporateEntryDetail.html" title="Nacha::Record::CtxCorporateEntryDetail (class)">CtxCorporateEntryDetail</a></span>, <span class='object_link'><a href="Record/DneAddenda.html" title="Nacha::Record::DneAddenda (class)">DneAddenda</a></span>, <span class='object_link'><a href="Record/DneEntryDetail.html" title="Nacha::Record::DneEntryDetail (class)">DneEntryDetail</a></span>, <span class='object_link'><a href="Record/EnrAddenda.html" title="Nacha::Record::EnrAddenda (class)">EnrAddenda</a></span>, <span class='object_link'><a href="Record/EnrEntryDetail.html" title="Nacha::Record::EnrEntryDetail (class)">EnrEntryDetail</a></span>, <span class='object_link'><a href="Record/FifthIatAddenda.html" title="Nacha::Record::FifthIatAddenda (class)">FifthIatAddenda</a></span>, <span class='object_link'><a href="Record/FileControl.html" title="Nacha::Record::FileControl (class)">FileControl</a></span>, <span class='object_link'><a href="Record/FileHeader.html" title="Nacha::Record::FileHeader (class)">FileHeader</a></span>, <span class='object_link'><a href="Record/Filler.html" title="Nacha::Record::Filler (class)">Filler</a></span>, <span class='object_link'><a href="Record/FirstIatAddenda.html" title="Nacha::Record::FirstIatAddenda (class)">FirstIatAddenda</a></span>, <span class='object_link'><a href="Record/FourthIatAddenda.html" title="Nacha::Record::FourthIatAddenda (class)">FourthIatAddenda</a></span>, <span class='object_link'><a href="Record/IatBatchHeader.html" title="Nacha::Record::IatBatchHeader (class)">IatBatchHeader</a></span>, <span class='object_link'><a href="Record/IatEntryDetail.html" title="Nacha::Record::IatEntryDetail (class)">IatEntryDetail</a></span>, <span class='object_link'><a href="Record/IatForeignCoorespondentBankInformationAddenda.html" title="Nacha::Record::IatForeignCoorespondentBankInformationAddenda (class)">IatForeignCoorespondentBankInformationAddenda</a></span>, <span class='object_link'><a href="Record/IatRemittanceInformationAddenda.html" title="Nacha::Record::IatRemittanceInformationAddenda (class)">IatRemittanceInformationAddenda</a></span>, <span class='object_link'><a href="Record/MteAddenda.html" title="Nacha::Record::MteAddenda (class)">MteAddenda</a></span>, <span class='object_link'><a href="Record/MteEntryDetail.html" title="Nacha::Record::MteEntryDetail (class)">MteEntryDetail</a></span>, <span class='object_link'><a href="Record/PopEntryDetail.html" title="Nacha::Record::PopEntryDetail (class)">PopEntryDetail</a></span>, <span class='object_link'><a href="Record/PosAddenda.html" title="Nacha::Record::PosAddenda (class)">PosAddenda</a></span>, <span class='object_link'><a href="Record/PosEntryDetail.html" title="Nacha::Record::PosEntryDetail (class)">PosEntryDetail</a></span>, <span class='object_link'><a href="Record/PpdAddenda.html" title="Nacha::Record::PpdAddenda (class)">PpdAddenda</a></span>, <span class='object_link'><a href="Record/PpdEntryDetail.html" title="Nacha::Record::PpdEntryDetail (class)">PpdEntryDetail</a></span>, <span class='object_link'><a href="Record/RckEntryDetail.html" title="Nacha::Record::RckEntryDetail (class)">RckEntryDetail</a></span>, <span class='object_link'><a href="Record/SecondIatAddenda.html" title="Nacha::Record::SecondIatAddenda (class)">SecondIatAddenda</a></span>, <span class='object_link'><a href="Record/SeventhIatAddenda.html" title="Nacha::Record::SeventhIatAddenda (class)">SeventhIatAddenda</a></span>, <span class='object_link'><a href="Record/ShrAddenda.html" title="Nacha::Record::ShrAddenda (class)">ShrAddenda</a></span>, <span class='object_link'><a href="Record/ShrEntryDetail.html" title="Nacha::Record::ShrEntryDetail (class)">ShrEntryDetail</a></span>, <span class='object_link'><a href="Record/SixthIatAddenda.html" title="Nacha::Record::SixthIatAddenda (class)">SixthIatAddenda</a></span>, <span class='object_link'><a href="Record/TelEntryDetail.html" title="Nacha::Record::TelEntryDetail (class)">TelEntryDetail</a></span>, <span class='object_link'><a href="Record/ThirdIatAddenda.html" title="Nacha::Record::ThirdIatAddenda (class)">ThirdIatAddenda</a></span>, <span class='object_link'><a href="Record/TrcEntryDetail.html" title="Nacha::Record::TrcEntryDetail (class)">TrcEntryDetail</a></span>, <span class='object_link'><a href="Record/TrxAddenda.html" title="Nacha::Record::TrxAddenda (class)">TrxAddenda</a></span>, <span class='object_link'><a href="Record/TrxEntryDetail.html" title="Nacha::Record::TrxEntryDetail (class)">TrxEntryDetail</a></span>, <span class='object_link'><a href="Record/WebAddenda.html" title="Nacha::Record::WebAddenda (class)">WebAddenda</a></span>, <span class='object_link'><a href="Record/WebEntryDetail.html" title="Nacha::Record::WebEntryDetail (class)">WebEntryDetail</a></span>, <span class='object_link'><a href="Record/XckEntryDetail.html" title="Nacha::Record::XckEntryDetail (class)">XckEntryDetail</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+
+
+</div>
+
+      <div id="footer">
+  Generated on Fri Jul 25 22:15:15 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.8).
+</div>
+
+    </div>
+  </body>
+</html>
