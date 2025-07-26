@@ -6,34 +6,34 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
-    # @!attribute [r] record_type_code
+    # @!attribute [rw] record_type_code
     #   @return [String]
-    # @!attribute [r] transaction_code
+    # @!attribute [rw] transaction_code
     #   Identifies whether the transaction is a debit or credit and the type of account (e.g., checking, savings).
     #   @return [Nacha::Numeric]
-    # @!attribute [r] receiving_dfi_identification
+    # @!attribute [rw] receiving_dfi_identification
     #   @return [String]
-    # @!attribute [r] dfi_account_number
+    # @!attribute [rw] dfi_account_number
     #   @return [String]
-    # @!attribute [r] amount
+    # @!attribute [rw] amount
     #   @return [Nacha::Numeric]
-    # @!attribute [r] advice_routing_number
+    # @!attribute [rw] advice_routing_number
     #   @return [Nacha::Numeric]
-    # @!attribute [r] file_identification
+    # @!attribute [rw] file_identification
     #   @return [String]
-    # @!attribute [r] ach_operator_data
+    # @!attribute [rw] ach_operator_data
     #   @return [String]
-    # @!attribute [r] individual_name
+    # @!attribute [rw] individual_name
     #   @return [String]
-    # @!attribute [r] discretionary_data
+    # @!attribute [rw] discretionary_data
     #   @return [String]
-    # @!attribute [r] addenda_record_indicator
+    # @!attribute [rw] addenda_record_indicator
     #   @return [Nacha::Numeric]
-    # @!attribute [r] routing_number_of_ach_operator
+    # @!attribute [rw] routing_number_of_ach_operator
     #   @return [String]
-    # @!attribute [r] julian_date_created
+    # @!attribute [rw] julian_date_created
     #   @return [Nacha::Numeric]
-    # @!attribute [r] sequence_number
+    # @!attribute [rw] sequence_number
     #   @return [Nacha::Numeric]
     class AdvEntryDetail < Nacha::Record::Base
       include DetailRecordType
