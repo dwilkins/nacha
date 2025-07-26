@@ -9,6 +9,7 @@ module Nacha
     # @!attribute [r] record_type_code
     #   @return [String]
     # @!attribute [r] transaction_code
+    #   Identifies whether the transaction is a debit or credit and the type of account (e.g., checking, savings).
     #   @return [Nacha::Numeric]
     # @!attribute [r] receiving_dfi_identification
     #   @return [String]
