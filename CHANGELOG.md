@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.18] - 2025-07-26
+
+- first build automatically pushed from Github Actions
+
 ## [0.1.17] - 2025-07-25
 
 - lots of yard documentation for all the Ach record types.  Generating
