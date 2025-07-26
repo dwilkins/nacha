@@ -6,6 +6,34 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # @!attribute [r] record_type_code
+    #   @return [String]
+    # @!attribute [r] transaction_code
+    #   @return [Nacha::Numeric]
+    # @!attribute [r] receiving_dfi_identification
+    #   @return [String]
+    # @!attribute [r] dfi_account_number
+    #   @return [String]
+    # @!attribute [r] amount
+    #   @return [Nacha::Numeric]
+    # @!attribute [r] advice_routing_number
+    #   @return [Nacha::Numeric]
+    # @!attribute [r] file_identification
+    #   @return [String]
+    # @!attribute [r] ach_operator_data
+    #   @return [String]
+    # @!attribute [r] individual_name
+    #   @return [String]
+    # @!attribute [r] discretionary_data
+    #   @return [String]
+    # @!attribute [r] addenda_record_indicator
+    #   @return [Nacha::Numeric]
+    # @!attribute [r] routing_number_of_ach_operator
+    #   @return [String]
+    # @!attribute [r] julian_date_created
+    #   @return [Nacha::Numeric]
+    # @!attribute [r] sequence_number
+    #   @return [Nacha::Numeric]
     class AdvEntryDetail < Nacha::Record::Base
       include DetailRecordType
 
