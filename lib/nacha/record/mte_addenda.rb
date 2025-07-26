@@ -7,6 +7,30 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents a Machine Transfer Entry (MTE) addenda record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies the type of addenda, '02' for MTE terminal information.
+    # @!attribute [rw] transaction_description
+    #   @return [String] A description of the transaction.
+    # @!attribute [rw] network_identification_code
+    #   @return [String] Identifies the ATM network through which the transaction was processed.
+    # @!attribute [rw] terminal_identification_code
+    #   @return [String] A unique code identifying the ATM terminal.
+    # @!attribute [rw] transaction_serial_number
+    #   @return [String] The serial number assigned to the transaction by the terminal.
+    # @!attribute [rw] transaction_date
+    #   @return [String] The date of the transaction in MMDD format.
+    # @!attribute [rw] transaction_time
+    #   @return [String] The time of the transaction in HHMMSS format.
+    # @!attribute [rw] terminal_location
+    #   @return [String] The physical location of the terminal.
+    # @!attribute [rw] terminal_city
+    #   @return [String] The city where the terminal is located.
+    # @!attribute [rw] terminal_state
+    #   @return [String] The state where the terminal is located.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] The trace number of the associated MTE Entry Detail record.
     class MteAddenda < Nacha::Record::Base
       include AddendaRecordType
 

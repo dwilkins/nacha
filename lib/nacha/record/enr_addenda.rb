@@ -7,6 +7,16 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents an Automated Enrollment Entry (ENR) addenda record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Indicates the type of addenda information, '05' for ENR.
+    # @!attribute [rw] payment_related_information
+    #   @return [String] Contains enrollment-related information provided by the Federal Government agency.
+    # @!attribute [rw] addenda_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of this addenda record.
+    # @!attribute [rw] entry_detail_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of the associated ENR Entry Detail record.
     class EnrAddenda < Nacha::Record::Base
       include AddendaRecordType
 

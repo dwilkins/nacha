@@ -6,6 +6,16 @@ require 'nacha/record/addenda_record_type'
 
 module Nacha
   module Record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies the type of addenda, which is '05' for CIE payment-related information.
+    # @!attribute [rw] payment_related_information
+    #   @return [String] Contains additional information about the payment, like an invoice number.
+    # @!attribute [rw] addenda_sequence_number
+    #   @return [Nacha::Numeric] The sequence number for this addenda record.
+    # @!attribute [rw] entry_detail_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of the associated Entry Detail record.
     class CieAddenda < Nacha::Record::Base
       include AddendaRecordType
 

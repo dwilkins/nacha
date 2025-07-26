@@ -41,7 +41,7 @@ class Nacha::Numeric
     @op_value.respond_to?(method_name)
   end
 
-  # @op_value is the value for operations.   @value may still be a string
+  # The value for operations is @op_value.   @value may still be a string
   # from the input data.   If an operation is attempted, then @op_value
   # should be checked to see if the operation is valid for it, not
   # necessarily the potentially string @value

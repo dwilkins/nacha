@@ -6,6 +6,28 @@ require 'nacha/record/batch_control_record_type'
 
 module Nacha
   module Record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as a Batch Control record with a constant value of '8'.
+    # @!attribute [rw] service_class_code
+    #   @return [Nacha::Numeric] Specifies the type of entries in the batch (e.g., credits, debits, or mixed).
+    # @!attribute [rw] entry_addenda_count
+    #   @return [Nacha::Numeric] The total count of entry detail and addenda records within the batch.
+    # @!attribute [rw] entry_hash
+    #   @return [Nacha::Numeric] A hash total of the routing numbers of all entry detail records in the batch for validation.
+    # @!attribute [rw] total_debit_entry_dollar_amount
+    #   @return [Nacha::Numeric] The total dollar amount of all debit entries in the batch.
+    # @!attribute [rw] total_credit_entry_dollar_amount
+    #   @return [Nacha::Numeric] The total dollar amount of all credit entries in the batch.
+    # @!attribute [rw] company_identification
+    #   @return [String] The identifier for the company that originated the entries in the batch.
+    # @!attribute [rw] message_authentication_code
+    #   @return [String] A code used to authenticate the batch, if required by the ODFI.
+    # @!attribute [rw] reserved
+    #   @return [String] A reserved field for future use.
+    # @!attribute [rw] originating_dfi_identification
+    #   @return [String] The 8-digit routing number of the financial institution originating the batch.
+    # @!attribute [rw] batch_number
+    #   @return [Nacha::Numeric] A number assigned by the ODFI to uniquely identify the batch.
     class BatchControl < Nacha::Record::Base
       include BatchControlRecordType
 

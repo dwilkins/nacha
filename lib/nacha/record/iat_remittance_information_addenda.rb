@@ -7,6 +7,16 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents an IAT Remittance Information addenda record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies this is a remittance information addenda record with code '17'.
+    # @!attribute [rw] payment_related_information
+    #   @return [String] Contains remittance information, such as invoice numbers or other reference data.
+    # @!attribute [rw] addenda_sequence_number
+    #   @return [Nacha::Numeric] The sequence number for this addenda record within the entry.
+    # @!attribute [rw] entry_detail_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of the IAT Entry Detail record this addenda is associated with.
     class IatRemittanceInformationAddenda < Nacha::Record::Base
       include AddendaRecordType
 

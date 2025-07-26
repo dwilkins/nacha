@@ -6,6 +6,22 @@ require 'nacha/record/file_control_record_type'
 
 module Nacha
   module Record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an ADV File Control record with a constant value of '9'.
+    # @!attribute [rw] batch_count
+    #   @return [Nacha::Numeric] The total number of batch records in the file.
+    # @!attribute [rw] block_count
+    #   @return [Nacha::Numeric] The total number of blocks in the file, where a block is 10 lines.
+    # @!attribute [rw] entry_addenda_count
+    #   @return [Nacha::Numeric] The total number of entry detail and addenda records in the file.
+    # @!attribute [rw] entry_hash
+    #   @return [Nacha::Numeric] The sum of all Entry Hash fields from the Batch Control records in the file.
+    # @!attribute [rw] total_debit_entry_dollar_amount_in_file
+    #   @return [Nacha::Numeric] The total value of all debit entries in the file, which is zero for ADV files.
+    # @!attribute [rw] total_credit_entry_dollar_amount_in_file
+    #   @return [Nacha::Numeric] The total value of all credit entries in the file.
+    # @!attribute [rw] reserved
+    #   @return [String] A reserved field for future use.
     class AdvFileControl < Nacha::Record::Base
       include FileControlRecordType
 

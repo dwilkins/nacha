@@ -7,6 +7,28 @@ require 'nacha/record/detail_record_type'
 module Nacha
   module Record
     # Represents a Shared Network Entry (SHR) detail record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an SHR Entry Detail record with a constant value of '6'.
+    # @!attribute [rw] transaction_code
+    #   @return [Nacha::Numeric] Defines the type of account and transaction.
+    # @!attribute [rw] receiving_dfi_identification
+    #   @return [Nacha::AbaNumber] The routing number of the financial institution receiving the entry.
+    # @!attribute [rw] dfi_account_number
+    #   @return [String] The account number being credited or debited.
+    # @!attribute [rw] amount
+    #   @return [Nacha::Numeric] The amount of the transaction.
+    # @!attribute [rw] card_expiration_date
+    #   @return [String] The expiration date of the card used in the transaction.
+    # @!attribute [rw] document_reference_number
+    #   @return [String] A reference number for the transaction document.
+    # @!attribute [rw] individual_card_account_number
+    #   @return [String] The account number of the card used in the transaction.
+    # @!attribute [rw] card_transaction_type
+    #   @return [String] A code identifying the type of card transaction.
+    # @!attribute [rw] addenda_record_indicator
+    #   @return [Nacha::Numeric] Indicates if an addenda record with terminal information is present.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] A unique number assigned by the ODFI to trace the entry.
     class ShrEntryDetail < Nacha::Record::Base
       include DetailRecordType
 

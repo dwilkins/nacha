@@ -7,6 +7,26 @@ require 'nacha/record/detail_record_type'
 module Nacha
   module Record
     # Represents a Death Notification Entry (DNE) detail record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as a DNE Entry Detail record with a constant value of '6'.
+    # @!attribute [rw] transaction_code
+    #   @return [Nacha::Numeric] Defines the transaction as a DNE.
+    # @!attribute [rw] receiving_dfi_identification
+    #   @return [Nacha::AbaNumber] The routing number of the financial institution that received the original payment.
+    # @!attribute [rw] dfi_account_number
+    #   @return [String] The account number of the deceased individual.
+    # @!attribute [rw] amount
+    #   @return [Nacha::Numeric] The amount of the entry, which is typically zero for a DNE.
+    # @!attribute [rw] individual_identification_number
+    #   @return [String] The Social Security Number of the deceased individual.
+    # @!attribute [rw] individual_name
+    #   @return [String] The name of the deceased individual.
+    # @!attribute [rw] discretionary_data
+    #   @return [String] Optional data field for the Originator's use.
+    # @!attribute [rw] addenda_record_indicator
+    #   @return [Nacha::Numeric] Indicates if an addenda record with further information is present.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] A unique number assigned by the ODFI for tracing the entry.
     class DneEntryDetail < Nacha::Record::Base
       include DetailRecordType
 

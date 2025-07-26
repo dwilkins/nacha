@@ -7,6 +7,32 @@ module Nacha
   module Record
     # The FileHeader record is the first record in a
     # Nacha file and contains information about the file itself.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as a File Header record with a constant value of '1'.
+    # @!attribute [rw] priority_code
+    #   @return [Nacha::Numeric] A code assigned by the ODFI to indicate the processing priority of the file.
+    # @!attribute [rw] immediate_destination
+    #   @return [Nacha::AbaNumber] The routing number of the ACH Operator or receiving point to which the file is sent.
+    # @!attribute [rw] immediate_origin
+    #   @return [Nacha::AbaNumber] The routing number of the ODFI or sending point that created the file.
+    # @!attribute [rw] file_creation_date
+    #   @return [String] The date the file was created, in YYMMDD format.
+    # @!attribute [rw] file_creation_time
+    #   @return [String] The time the file was created, in HHMM format.
+    # @!attribute [rw] file_id_modifier
+    #   @return [String] A character used to distinguish between multiple files created on the same day.
+    # @!attribute [rw] record_size
+    #   @return [String] The fixed number of characters per record, which is always '094'.
+    # @!attribute [rw] blocking_factor
+    #   @return [String] The number of records in a block, which is always '10'.
+    # @!attribute [rw] format_code
+    #   @return [String] Indicates the version of the Nacha file format, typically '1'.
+    # @!attribute [rw] immediate_destination_name
+    #   @return [String] The name of the ACH Operator or receiving point.
+    # @!attribute [rw] immediate_origin_name
+    #   @return [String] The name of the ODFI or sending point.
+    # @!attribute [rw] reference_code
+    #   @return [String] An optional code for the ODFI's use.
     class FileHeader < Nacha::Record::Base
       include FileHeaderRecordType
 

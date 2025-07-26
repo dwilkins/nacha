@@ -7,6 +7,18 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents a sixth IAT addenda record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies this is the sixth in a series of IAT addenda records with code '15'.
+    # @!attribute [rw] receiver_identification_number
+    #   @return [String] An identification number for the receiver of the transaction.
+    # @!attribute [rw] receiver_street_address
+    #   @return [String] The street address of the receiver.
+    # @!attribute [rw] reserved
+    #   @return [String] A reserved field for future use.
+    # @!attribute [rw] entry_detail_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of the IAT Entry Detail record this addenda is associated with.
     class SixthIatAddenda < Nacha::Record::Base
       include AddendaRecordType
 

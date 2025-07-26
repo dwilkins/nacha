@@ -7,6 +7,30 @@ require 'nacha/record/detail_record_type'
 module Nacha
   module Record
     # Represents an Automated Enrollment Entry (ENR) detail record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an ENR Entry Detail record with a constant value of '6'.
+    # @!attribute [rw] transaction_code
+    #   @return [Nacha::Numeric] The transaction code for the enrollment.
+    # @!attribute [rw] receiving_dfi_identification
+    #   @return [Nacha::AbaNumber] The routing number of the financial institution where the enrollment is to occur.
+    # @!attribute [rw] dfi_account_number
+    #   @return [String] The account number for the enrollment.
+    # @!attribute [rw] amount
+    #   @return [Nacha::Numeric] The amount of the entry, which is always zero for ENR.
+    # @!attribute [rw] identification_number
+    #   @return [String] A unique identifier for the enrollee.
+    # @!attribute [rw] number_of_addenda_records
+    #   @return [String] The number of addenda records containing enrollment information.
+    # @!attribute [rw] receiving_company_name
+    #   @return [String] The name of the enrollee.
+    # @!attribute [rw] reserved
+    #   @return [String] A reserved field.
+    # @!attribute [rw] discretionary_data
+    #   @return [String] Optional data field for use by the receiving DFI.
+    # @!attribute [rw] addenda_record_indicator
+    #   @return [Nacha::Numeric] Indicates that an addenda record is present.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] A unique number assigned by the ODFI to trace the enrollment.
     class EnrEntryDetail < Nacha::Record::Base
       include DetailRecordType
 

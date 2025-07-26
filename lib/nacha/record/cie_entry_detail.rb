@@ -6,6 +6,26 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as a CIE Entry Detail record with a constant value of '6'.
+    # @!attribute [rw] transaction_code
+    #   @return [Nacha::Numeric] Defines the account type and nature of the transaction.
+    # @!attribute [rw] receiving_dfi_identification
+    #   @return [Nacha::AbaNumber] The routing number of the financial institution receiving the entry.
+    # @!attribute [rw] dfi_account_number
+    #   @return [String] The account number at the receiving institution.
+    # @!attribute [rw] amount
+    #   @return [Nacha::Numeric] The amount of the transaction.
+    # @!attribute [rw] individual_name
+    #   @return [String] The name of the individual receiver.
+    # @!attribute [rw] individual_identification_number
+    #   @return [String] A unique identifier for the individual receiver.
+    # @!attribute [rw] discretionary_data
+    #   @return [String] An optional data field for the Originator's use.
+    # @!attribute [rw] addenda_record_indicator
+    #   @return [Nacha::Numeric] Indicates whether an addenda record follows.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] A unique number assigned by the ODFI for tracing the entry.
     class CieEntryDetail < Nacha::Record::Base
       include DetailRecordType
 

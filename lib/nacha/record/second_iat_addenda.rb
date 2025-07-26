@@ -7,6 +7,18 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents a second IAT addenda record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies this is the second in a series of IAT addenda records with code '11'.
+    # @!attribute [rw] originator_name
+    #   @return [String] The name of the originator of the transaction.
+    # @!attribute [rw] originator_street_address
+    #   @return [String] The street address of the originator.
+    # @!attribute [rw] reserved
+    #   @return [String] A reserved field for future use.
+    # @!attribute [rw] entry_detail_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of the IAT Entry Detail record this addenda is associated with.
     class SecondIatAddenda < Nacha::Record::Base
       include AddendaRecordType
 

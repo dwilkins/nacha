@@ -7,6 +7,16 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents an Internet-Initiated Entry (WEB) addenda record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies the type of addenda, '05' for WEB payment information.
+    # @!attribute [rw] payment_related_information
+    #   @return [String] Contains additional information about the payment, such as a reference number.
+    # @!attribute [rw] addenda_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of this addenda record.
+    # @!attribute [rw] entry_detail_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of the associated WEB Entry Detail record.
     class WebAddenda < Nacha::Record::Base
       include AddendaRecordType
 

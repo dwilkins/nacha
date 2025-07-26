@@ -7,6 +7,24 @@ require 'nacha/record/batch_control_record_type'
 module Nacha
   module Record
     # The AdvBatchControl record is used to control the batch of adv entry detail records.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an ADV Batch Control record with a constant value of '8'.
+    # @!attribute [rw] service_class_code
+    #   @return [Nacha::Numeric] Indicates the type of entries in the batch, such as automated accounting advices.
+    # @!attribute [rw] entry_addenda_count
+    #   @return [Nacha::Numeric] A count of all ADV Entry Detail records plus all Addenda records in the batch.
+    # @!attribute [rw] entry_hash
+    #   @return [Nacha::Numeric] A hash total of the routing numbers of all ADV Entry Detail records in the batch.
+    # @!attribute [rw] total_debit_entry_dollar_amount
+    #   @return [Nacha::Numeric] The total dollar amount of all debit entries in the batch, which is zero for ADV files.
+    # @!attribute [rw] total_credit_entry_dollar_amount
+    #   @return [Nacha::Numeric] The total dollar amount of all credit entries in the batch.
+    # @!attribute [rw] ach_operator_data
+    #   @return [String] Data that an ACH Operator may use to provide additional information about the batch.
+    # @!attribute [rw] originating_dfi_identification
+    #   @return [String] The 8-digit routing number of the ACH Operator that created the batch.
+    # @!attribute [rw] batch_number
+    #   @return [Nacha::Numeric] A number assigned by the ACH Operator to uniquely identify the batch.
     class AdvBatchControl < Nacha::Record::Base
       include BatchControlRecordType
 

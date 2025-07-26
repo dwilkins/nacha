@@ -7,6 +7,16 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents a Truncated Entry (TRX) addenda record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies the type of addenda, '05' for TRX remittance information.
+    # @!attribute [rw] payment_related_information
+    #   @return [String] Contains remittance information, such as invoice numbers.
+    # @!attribute [rw] addenda_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of this addenda record within the entry.
+    # @!attribute [rw] entry_detail_sequence_number
+    #   @return [Nacha::Numeric] The sequence number of the associated TRX Entry Detail record.
     class TrxAddenda < Nacha::Record::Base
       include AddendaRecordType
 

@@ -8,14 +8,29 @@ require 'nacha/record/validations/field_validations'
 module Nacha
   module Record
     # Base class for all Nacha records.
+    # @!attribute [r] children
+    #   @return [Array<Nacha::Record::Base>] An array of child records associated with this record.
+    # @!attribute [r] original_input_line
+    #   @return [String, nil] The original string from the ACH file that this record was parsed from.
+    # @!attribute [r] fields
+    #   @return [Hash{Symbol => Nacha::Field}] A hash of field objects that belong to this record, keyed by field name.
+    # @!attribute [rw] parent
+    #   @return [Nacha::Record::Base, nil] The parent record of this record in the ACH file hierarchy.
+    # @!attribute [rw] line_number
+    #   @return [Integer, nil] The line number of this record within the ACH file.
     class Base
       include Validations::FieldValidations
 
       attr_reader :children, :name, :validations, :original_input_line, :fields
+
       # :reek:Attribute
+
       attr_accessor :parent, :line_number
 
       # :reek:ManualDispatch
+
+      # Initializes a new record object.
+      # @param opts [Hash] A hash of options to set as attributes on the new record.
       def initialize(opts = {})
         @children = []
         @parent = nil
@@ -35,6 +50,16 @@ module Nacha
 
       class << self
         # :reek:LongParameterList, :reek:ManualDispatch
+        # Defines a field for the record type.
+        #
+        # This class method is used in subclasses to declare each field within the NACHA record.
+        # It stores the definition and sets up validations.
+        #
+        # @param name [Symbol] The name of the field.
+        # @param inclusion [String] The inclusion rule for the field ('M' for mandatory, 'R' for required, 'O' for optional).
+        # @param contents [String] The expected content type of the field (e.g., 'Numeric', 'Alphameric', 'C...').
+        # @param position [Range] The character position range of the field in the record string.
+        # @return [void]
         def nacha_field(name, inclusion:, contents:, position:)
           Nacha.add_ach_record_type(self)
           definition[name] = { inclusion: inclusion,
@@ -47,14 +72,22 @@ module Nacha
           (validations[name] ||= []) << validation_method
         end
 
+        # Returns the field definitions for the record class.
+        # @return [Hash] A hash containing the definitions of all fields for this record type.
         def definition
           @definition ||= {}
         end
 
+        # Returns the validation methods for the record class.
+        # @return [Hash] A hash of validation methods for the fields of this record type.
         def validations
           @validations ||= {}
         end
 
+        # Generates and returns a format string for `String#unpack` to parse a record line.
+        #
+        # The format string is built based on the field definitions.
+        # @return [String] The unpack format string.
         def unpack_str
           @unpack_str ||= definition.values
                             .sort { |a, b| a[:position].first <=> b[:position].first }
@@ -66,6 +99,9 @@ module Nacha
         # :reek:TooManyStatements
         # rubocop:disable Layout/BlockAlignment,
         # rubocop:disable Style/StringConcatenation:
+
+        # Generates a Regexp to match against a line to determine if it is of this record type.
+        # @return [Regexp] The regular expression for matching record lines.
         def matcher
           @matcher ||= begin
             output_started = false
@@ -99,6 +135,12 @@ module Nacha
         # rubocop:enable Layout/BlockAlignment,
         # rubocop:enable Style/StringConcatenation:
 
+        # Parses an ACH string and creates a new record instance.
+        #
+        # It unpacks the string based on field definitions, populates the fields,
+        # and runs validations.
+        # @param ach_str [String] The 94-character string representing a NACHA record.
+        # @return [Nacha::Record::Base] A new instance of the record class populated with data from the string.
         def parse(ach_str)
           rec = new(original_input_line: ach_str)
           ach_str.unpack(unpack_str).zip(rec.fields.values) do |input_data, field|
@@ -108,12 +150,19 @@ module Nacha
           rec
         end
 
+        # Returns the record type name.
+        #
+        # The name is derived from the class name, converted to a snake_case symbol.
+        # @return [Symbol] The record type as a symbol (e.g., :file_header).
         def record_type
           Nacha.record_name(self)
         end
 
-        # :reek:ManualDispatch, :reek:TooManyStatements
-        def to_h
+        # Returns a hash representation of the record class definition.
+        #
+        # This includes field definitions and child record types.
+        # @return [Hash] A hash representing the structure of the record type.
+        def to_h # :reek:ManualDispatch, :reek:TooManyStatements
           fields = definition.transform_values do |field_def|
             {
               inclusion: field_def[:inclusion],
@@ -129,30 +178,52 @@ module Nacha
           { record_type.to_sym => fields }
         end
 
+        # Returns a JSON string representing the record class definition.
+        # @param _args [Array] Arguments to be passed to `JSON.pretty_generate`.
+        # @return [String] The JSON representation of the record definition.
         def to_json(*_args)
           JSON.pretty_generate(to_h)
         end
       end
 
       # :reek:FeatureEnvy
+
+      # Sets the original input line string for the record.
+      # @param line [String] The original 94-character string from the ACH file.
+      # @return [void]
       def original_input_line=(line)
         @original_input_line = line.dup if line.is_a?(String)
       end
 
+      # Creates field instances from the class's field definitions.
+      #
+      # This method is called during initialization to populate the `@fields` hash.
+      # @return [void]
       def create_fields_from_definition
         definition.each_pair do |field_name, field_def|
           @fields[field_name.to_sym] = Nacha::Field.new(field_def)
         end
       end
 
+      # Returns the record type name for the instance.
+      # @return [Symbol] The record type as a symbol.
+      # @see .record_type
       def record_type
         self.class.record_type
       end
 
+      # Returns a human-readable name for the record type.
+      #
+      # It converts the snake_case `record_type` into a capitalized string with spaces.
+      # @return [String] The human-readable name (e.g., 'File Header').
       def human_name
         @human_name ||= record_type.to_s.split('_').map(&:capitalize).join(' ')
       end
 
+      # Returns a hash representation of the record instance.
+      #
+      # The hash includes metadata and a representation of each field's data and errors.
+      # @return [Hash] A hash representing the record's current state.
       def to_h
         { nacha_record_type: record_type,
           metadata: {
@@ -166,16 +237,28 @@ module Nacha
             end)
       end
 
+      # Returns a JSON string representing the record instance.
+      # @param _args [Array] Arguments to be passed to `JSON.pretty_generate`.
+      # @return [String] The JSON representation of the record's current state.
       def to_json(*_args)
         JSON.pretty_generate(to_h)
       end
 
+      # Generates the 94-character ACH string representation of the record.
+      #
+      # This is done by concatenating the ACH string representation of each field.
+      # @return [String] The 94-character ACH record string.
       def to_ach
         @fields.keys.collect do |key|
           @fields[key].to_ach
         end.join
       end
 
+      # Generates an HTML representation of the record.
+      #
+      # This is useful for displaying ACH data in a web interface.
+      # @param _opts [Hash] Options for HTML generation (currently unused).
+      # @return [String] The HTML representation of the record.
       def to_html(_opts = {})
         record_error_class = nil
 
@@ -191,14 +274,23 @@ module Nacha
           "</div>"
       end
 
+      # Returns a developer-friendly string representation of the record object.
+      # @return [String] A string showing the class name and a hash representation of the object.
       def inspect
         "#<#{self.class.name}> #{to_h}"
       end
 
+      # Returns the field definitions for the record class.
+      # @return [Hash] A hash containing the definitions of all fields for this record type.
+      # @see .definition
       def definition
         self.class.definition
       end
 
+      # Runs all field-level and record-level validations.
+      #
+      # This method populates the `errors` array on the record and its fields.
+      # @return [void]
       def validate
         # Run field-level validations first
         @fields.each_value(&:validate)
@@ -208,7 +300,8 @@ module Nacha
         end
       end
 
-      # look for invalid fields, if none, then return true
+      # Checks if the record is valid by running all validations.
+      # @return [Boolean] `true` if the record has no errors, `false` otherwise.
       def valid?
         validate
         errors.empty?
@@ -294,15 +387,29 @@ module Nacha
         false
       end
 
+      # Returns all validation errors for the record and its fields.
+      # @return [Array<String>] An array of error messages.
       def errors
         (@errors + @fields.values.map(&:errors)).flatten
       end
 
+      # Adds a validation error message to the record's error list.
+      # @param err_string [String] The error message to add.
+      # @return [void]
       def add_error(err_string)
         @errors << err_string
       end
 
       # :reek:TooManyStatements
+
+      # Handles dynamic access to fields as methods.
+      #
+      # This allows getting and setting field data using attribute-style methods
+      # (e.g., `record.amount`, `record.amount = 123.45`).
+      # @param method_name [Symbol] The name of the missing method.
+      # @param args [Array] The arguments passed to the method.
+      # @param block [Proc] A block passed to the method.
+      # @return [Nacha::Field, Object] Returns the `Nacha::Field` object for a getter, or the assigned value for a setter.
       def method_missing(method_name, *args, &block)
         method = method_name.to_s
         field_name = method.gsub(/=$/, '').to_sym
@@ -316,6 +423,10 @@ module Nacha
         end
       end
 
+      # Complements `method_missing` to allow `respond_to?` to work for dynamic field methods.
+      # @param method_name [Symbol] The name of the method to check.
+      # @param _ [Array] Additional arguments (e.g. `include_private`) are ignored.
+      # @return [Boolean] `true` if the method corresponds to a defined field, `false` otherwise.
       def respond_to_missing?(method_name, *)
         field_name = method_name.to_s.gsub(/=$/, '').to_sym
         definition[field_name] || super
@@ -331,6 +442,7 @@ module Nacha
       end
 
       # :reek:TooManyStatements
+
       def run_record_level_validations_for(field)
         klass = self.class
         validations = klass.validations[field]

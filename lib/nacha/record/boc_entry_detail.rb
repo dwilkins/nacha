@@ -6,6 +6,26 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as a BOC Entry Detail record with a constant value of '6'.
+    # @!attribute [rw] transaction_code
+    #   @return [Nacha::Numeric] Specifies the type of account and nature of the transaction.
+    # @!attribute [rw] receiving_dfi_identification
+    #   @return [Nacha::AbaNumber] The routing number of the financial institution receiving the entry.
+    # @!attribute [rw] dfi_account_number
+    #   @return [String] The account number to be debited at the receiving financial institution.
+    # @!attribute [rw] amount
+    #   @return [Nacha::Numeric] The amount of the check being converted to an ACH entry.
+    # @!attribute [rw] check_serial_number
+    #   @return [String] The serial number from the source check.
+    # @!attribute [rw] individual_name
+    #   @return [String] The name of the person who wrote the check.
+    # @!attribute [rw] discretionary_data
+    #   @return [String] Optional field for the Originator's use.
+    # @!attribute [rw] addenda_record_indicator
+    #   @return [Nacha::Numeric] Indicates if an addenda record follows.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] A unique number assigned by the ODFI for tracing the entry.
     class BocEntryDetail < Nacha::Record::Base
       include DetailRecordType
 

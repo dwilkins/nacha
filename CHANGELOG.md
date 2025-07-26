@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.17] - 2025-07-25
+
+- lots of yard documentation for all the Ach record types.  Generating
+  documentation so that the AI coders will have something to go by
+
 ## [0.1.16] - 2025-07-22
 
 - `Nacha::Record::BatchHeader` would blissfully attempt to add a

@@ -6,6 +6,30 @@ require 'nacha/record/detail_record_type'
 
 module Nacha
   module Record
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as a CTX Entry Detail record with a constant value of '6'.
+    # @!attribute [rw] transaction_code
+    #   @return [Nacha::Numeric] Defines the account type and whether the transaction is a debit or credit.
+    # @!attribute [rw] receiving_dfi_identification
+    #   @return [Nacha::AbaNumber] The routing number of the financial institution receiving the entry.
+    # @!attribute [rw] dfi_account_number
+    #   @return [String] The account number at the receiving DFI.
+    # @!attribute [rw] total_amount
+    #   @return [Nacha::Numeric] The total amount of the entry.
+    # @!attribute [rw] identification_number
+    #   @return [String] An identifier for the receiving company.
+    # @!attribute [rw] number_of_addenda_records
+    #   @return [String] The number of addenda records associated with this entry.
+    # @!attribute [rw] receiving_company_name
+    #   @return [String] The name of the company receiving the entry.
+    # @!attribute [rw] reserved
+    #   @return [String] A reserved field.
+    # @!attribute [rw] discretionary_data
+    #   @return [String] An optional data field for the Originator's use.
+    # @!attribute [rw] addenda_record_indicator
+    #   @return [Nacha::Numeric] Indicates that one or more addenda records follow.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] A unique number assigned by the ODFI to trace the entry.
     class CtxCorporateEntryDetail < Nacha::Record::Base
       include DetailRecordType
 

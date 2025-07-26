@@ -7,6 +7,30 @@ require 'nacha/record/addenda_record_type'
 module Nacha
   module Record
     # Represents a Point-of-Sale (POS) addenda record.
+    # @!attribute [rw] record_type_code
+    #   @return [String] Identifies the record as an Addenda record with a constant value of '7'.
+    # @!attribute [rw] addenda_type_code
+    #   @return [String] Specifies the type of addenda, '02' for POS terminal information.
+    # @!attribute [rw] reference_information_1
+    #   @return [String] First reference field for additional transaction information.
+    # @!attribute [rw] reference_information_2
+    #   @return [String] Second reference field for additional transaction information.
+    # @!attribute [rw] terminal_identification_code
+    #   @return [String] A unique code identifying the POS terminal.
+    # @!attribute [rw] transaction_serial_number
+    #   @return [String] The serial number of the transaction from the terminal.
+    # @!attribute [rw] transaction_date
+    #   @return [String] The date of the POS transaction.
+    # @!attribute [rw] authorization_code_or_card_expiration_date
+    #   @return [String] The authorization code for the transaction or the card's expiration date.
+    # @!attribute [rw] terminal_location
+    #   @return [String] The physical location of the POS terminal.
+    # @!attribute [rw] terminal_city
+    #   @return [String] The city where the terminal is located.
+    # @!attribute [rw] terminal_state
+    #   @return [Nacha::Numeric] The state where the terminal is located.
+    # @!attribute [rw] trace_number
+    #   @return [Nacha::Numeric] The trace number of the associated POS Entry Detail record.
     class PosAddenda < Nacha::Record::Base
       include AddendaRecordType
 
