@@ -19,24 +19,29 @@ module Nacha
     desc "parse FILE", "Parse an ACH file"
     option :output_file, aliases: "-o"
     option :format, aliases: "-f", default: "html",
-      desc: "Output format (html, json, md, or ach)", enum: %w[html json md ach]
+           desc: "Output format (html, json, md, markdown, or ach)",
+           enum: %w[html json md markdown ach]
     option :md_flavor, default: "common_mark", enum: %w[common_mark github]
-    def parse(file_path)
-      unless File.exist?(file_path)
+    def parse(file_path = nil)
+      if file_path.nil? || file_path.empty?
+        input_file = $stdin
+      elsif File.exist?(file_path)
+        input_file = File.open(file_path)
+      else
         puts "Error: File not found at #{file_path}"
         exit 1
       end
 
-      file = File.open(file_path)
-      ach_file = Nacha.parse(file)
+      raw_records = input_file.read
+      ach_file = Nacha.parse(raw_records)
 
       if ach_file && ach_file.is_a?(Array) && !ach_file.empty?
         if options[:output_file]
           File.open(options[:output_file], "w") do |f|
-            write_output(ach_file, f, file)
+            write_output(ach_file, f, input_file)
           end
         else
-          write_output(ach_file, $stdout, file)
+          write_output(ach_file, $stdout, input_file)
         end
       else
         puts "Could not parse the file or the file was empty."
@@ -52,11 +57,10 @@ module Nacha
     def write_output(ach_records, io, file)
       formatter_options = {
         file_name: File.basename(file.path),
-        file_size: file.size,
+        file_size: file.respond_to?(:size) ? file.size : nil,
         number_of_lines: ach_records.size,
-        created_at: file.ctime,
-        modified_at: file.mtime,
-        checksum: OpenSSL::Digest::SHA256.file(File.expand_path(file.path)).hexdigest,
+        created_at: file.respond_to?(:ctime) ? file.ctime : Time.now,
+        modified_at: file.respond_to?(:mtime) ? file.mtime : Time.now,
         preamble: HTML_PREAMBLE_FILE,
         postamble: HTML_POSTAMBLE_FILE
       }
@@ -64,7 +68,7 @@ module Nacha
       case options[:format]
       when 'ach'
         output_ach(ach_records, io)
-      when 'md'
+      when 'md', 'markdown'
         formatter_options[:flavor] = options[:md_flavor].to_sym
         formatter = Nacha::Formatter::FormatterFactory.get(:markdown, ach_records, formatter_options)
         io.puts formatter.format

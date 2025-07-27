@@ -64,6 +64,19 @@ API may change at any time.   Pull requests welcomed
 
 ```
 nacha parse ach_file.ach > ach_file.html`
+nacha parse -f html ach_file.ach -o ach_file.html`
+```
+
+## Parse an ach file into a JSON file
+
+```
+nacha parse -f json ach_file.ach > ach_file.json`
+```
+
+## Parse an ach file into Markdown
+
+```
+nacha parse -f md ach_file.ach > ach_file.md`
 ```
 
 ## Discussion
