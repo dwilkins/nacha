@@ -2,6 +2,7 @@
 
 require 'nacha'
 require 'nacha/parser_context'
+require 'nacha/ach_file'
 
 # Nacha Parser - deal with figuring out what record type a line is
 class Nacha::Parser
@@ -20,7 +21,7 @@ class Nacha::Parser
   def parse_file(file)
     @context.parser_started_at = Time.now.utc
     @context.file_name = file
-    parse_string(file.read)
+    Nacha::AchFile.new(parse_string(file.read).records, file_name: file)
   end
 
   def detect_possible_record_types(line)
@@ -42,7 +43,7 @@ class Nacha::Parser
       @context.line_length = line.length
       records << process(line, line_num, records.last)
     end.compact
-    records
+    Nacha::AchFile.new(records)
   end
 
   def process(line, line_num, previous = nil)

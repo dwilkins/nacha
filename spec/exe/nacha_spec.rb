@@ -47,6 +47,22 @@ RSpec.describe 'Nacha CLI' do
           expect(content).to include('data-name="record-number"')
         end
       end
+
+      it 'parses a file and writes ach output to a file' do
+        Dir.mktmpdir do |dir|
+          output_path = File.join(dir, 'output.ach')
+          _stdout, stderr, status = Open3.capture3(
+            executable, 'parse', fixture_path, "-f", "ach", '--output-file', output_path
+          )
+          expect(status.success?).to be(true), "Command failed. STDERR:\n#{stderr} \nSTDOUT:\n #{_stdout} #{status}"
+          expect(stderr).to be_empty
+
+          expect(File.exist?(output_path)).to be true
+          content = File.read(output_path)
+          original_content = File.read(fixture_path)
+          expect(content.strip).to eq(original_content.strip), "Output file content does not match original ACH file content"
+        end
+      end
     end
 
     context 'when given a non-existent file' do

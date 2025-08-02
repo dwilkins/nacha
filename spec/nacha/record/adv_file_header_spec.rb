@@ -94,7 +94,7 @@ RSpec.describe 'Nacha::Record::AdvFileHeader', :nacha_record_type do
 
   describe 'instance generates json' do
     let(:record) { Nacha::Record::AdvFileHeader.parse(example_file_header_record) }
-    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new(Nacha::AchFile.new([record])) }
     let(:afhr_json) { JSON.parse(formatter.format)['records'].first }
 
     it 'is well formed' do
