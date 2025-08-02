@@ -55,7 +55,7 @@ RSpec.describe Nacha::Record::Filler, :nacha_record_type do
 
   describe 'instance generates json' do
     let(:record) { described_class.parse(example_filler_record) }
-    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
+    let(:formatter) { Nacha::Formatter::JsonFormatter.new(Nacha::AchFile.new([record])) }
     let(:record_json) { JSON.parse(formatter.format)['records'].first }
 
     it 'is well formed' do

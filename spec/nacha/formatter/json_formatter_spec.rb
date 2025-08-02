@@ -18,7 +18,7 @@ RSpec.describe Nacha::Formatter::JsonFormatter do
 
     it 'includes an array of records' do
       expect(json_output['records']).to be_an(Array)
-      expect(json_output['records'].size).to eq(records.size)
+      expect(json_output['records'].size).to eq(records.records.size)
     end
 
     it 'includes metadata for each record' do

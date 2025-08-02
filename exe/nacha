@@ -35,7 +35,7 @@ module Nacha
       raw_records = input_file.read
       ach_file = Nacha.parse(raw_records)
 
-      if ach_file && ach_file.is_a?(Array) && !ach_file.empty?
+      if ach_file && ach_file.records.is_a?(Array) && !ach_file.records.empty?
         if options[:output_file]
           File.open(options[:output_file], "w") do |f|
             write_output(ach_file, f, input_file)
@@ -58,7 +58,7 @@ module Nacha
       formatter_options = {
         file_name: File.basename(file.path),
         file_size: file.respond_to?(:size) ? file.size : nil,
-        number_of_lines: ach_records.size,
+        number_of_lines: ach_records.records.size,
         created_at: file.respond_to?(:ctime) ? file.ctime : Time.now,
         modified_at: file.respond_to?(:mtime) ? file.mtime : Time.now,
         preamble: HTML_PREAMBLE_FILE,
@@ -67,7 +67,7 @@ module Nacha
 
       case options[:format]
       when 'ach'
-        output_ach(ach_records, io)
+        output_ach(ach_records.records, io)
       when 'md', 'markdown'
         formatter_options[:flavor] = options[:md_flavor].to_sym
         formatter = Nacha::Formatter::FormatterFactory.get(:markdown, ach_records, formatter_options)

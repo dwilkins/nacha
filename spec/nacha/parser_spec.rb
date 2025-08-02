@@ -39,24 +39,24 @@ RSpec.describe Nacha::Parser do
 
   it 'parses a file' do
     parsed = described_class.new.parse_string(example_ach_file)
-    expect(parsed).to be_a Array
-    expect(parsed.count).to eq 10
-    expect(parsed[0]).to be_a Nacha::Record::FileHeader
-    expect(parsed[1]).to be_a Nacha::Record::BatchHeader
-    expect(parsed[2]).to be_a Nacha::Record::PpdEntryDetail
-    expect(parsed[3]).to be_a Nacha::Record::PpdEntryDetail
-    expect(parsed[4]).to be_a Nacha::Record::BatchControl
+    expect(parsed).to be_a Nacha::AchFile
+    expect(parsed.records.count).to eq 10
+    expect(parsed.records[0]).to be_a Nacha::Record::FileHeader
+    expect(parsed.records[1]).to be_a Nacha::Record::BatchHeader
+    expect(parsed.records[2]).to be_a Nacha::Record::PpdEntryDetail
+    expect(parsed.records[3]).to be_a Nacha::Record::PpdEntryDetail
+    expect(parsed.records[4]).to be_a Nacha::Record::BatchControl
   end
 
   it 'parses a truncated file' do
     parsed = described_class.new.parse_string(truncated_ach_file)
-    expect(parsed).to be_a Array
-    expect(parsed.count).to eq 10
-    expect(parsed[0]).to be_a Nacha::Record::FileHeader
-    expect(parsed[1]).to be_a Nacha::Record::BatchHeader
-    expect(parsed[2]).to be_a Nacha::Record::CcdEntryDetail
-    expect(parsed[3]).to be_a Nacha::Record::CcdEntryDetail
-    expect(parsed[4]).to be_a Nacha::Record::BatchControl
+    expect(parsed).to be_a Nacha::AchFile
+    expect(parsed.records.count).to eq 10
+    expect(parsed.records[0]).to be_a Nacha::Record::FileHeader
+    expect(parsed.records[1]).to be_a Nacha::Record::BatchHeader
+    expect(parsed.records[2]).to be_a Nacha::Record::CcdEntryDetail
+    expect(parsed.records[3]).to be_a Nacha::Record::CcdEntryDetail
+    expect(parsed.records[4]).to be_a Nacha::Record::BatchControl
   end
 
   it 'parses a string' do

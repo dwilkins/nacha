@@ -10,6 +10,7 @@
 # end
 
 require 'yaml'
+require 'nacha/ach_file'
 require 'nacha/version'
 require 'nacha/aba_number'
 require 'nacha/ach_date'
