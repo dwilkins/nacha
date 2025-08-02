@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Better interface to parsed records (Nacha::AchFile)
+
+
 ## [0.1.19] - 2025-07-27
 
 - Accept stdin for command line parsing.
