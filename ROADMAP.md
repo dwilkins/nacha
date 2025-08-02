@@ -48,6 +48,13 @@
   - [x] WebAddendaRecord
   - [x] WebEntryDetailRecord
   - [x] XckEntryDetailRecord
+- [ ] External API Updates
+  - [ ] The interface to the gem needs some updating
+    - [ ] Create a Nacha::AchFile object to wrap the parsed records
+      - Encapsulate output formatting (json, markdown)
+      - Encapsulate file totals?
+    - [ ] Nacha::AchBatch object to wrap the batches include in the Nacha::AchFile
+
 - [ ] Debug / Inspection
 - [ ] Field Validations
 - [ ] Record Validations
