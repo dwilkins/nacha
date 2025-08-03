@@ -38,36 +38,29 @@ RSpec.describe Nacha::Parser do
   end
 
   it 'parses a file' do
-    parsed = described_class.new.parse_string(example_ach_file)
-    expect(parsed).to be_a Nacha::AchFile
-    expect(parsed.records.count).to eq 10
-    expect(parsed.records[0]).to be_a Nacha::Record::FileHeader
-    expect(parsed.records[1]).to be_a Nacha::Record::BatchHeader
-    expect(parsed.records[2]).to be_a Nacha::Record::PpdEntryDetail
-    expect(parsed.records[3]).to be_a Nacha::Record::PpdEntryDetail
-    expect(parsed.records[4]).to be_a Nacha::Record::BatchControl
+    records = described_class.new.parse_string(example_ach_file)
+    expect(records).to be_a Array
+    expect(records.count).to eq 10
+    expect(records[0]).to be_a Nacha::Record::FileHeader
+    expect(records[1]).to be_a Nacha::Record::BatchHeader
+    expect(records[2]).to be_a Nacha::Record::PpdEntryDetail
+    expect(records[3]).to be_a Nacha::Record::PpdEntryDetail
+    expect(records[4]).to be_a Nacha::Record::BatchControl
   end
 
   it 'parses a truncated file' do
-    parsed = described_class.new.parse_string(truncated_ach_file)
-    expect(parsed).to be_a Nacha::AchFile
-    expect(parsed.records.count).to eq 10
-    expect(parsed.records[0]).to be_a Nacha::Record::FileHeader
-    expect(parsed.records[1]).to be_a Nacha::Record::BatchHeader
-    expect(parsed.records[2]).to be_a Nacha::Record::CcdEntryDetail
-    expect(parsed.records[3]).to be_a Nacha::Record::CcdEntryDetail
-    expect(parsed.records[4]).to be_a Nacha::Record::BatchControl
+    records = described_class.new.parse_string(truncated_ach_file)
+    expect(records).to be_a Array
+    expect(records.count).to eq 10
+    expect(records[0]).to be_a Nacha::Record::FileHeader
+    expect(records[1]).to be_a Nacha::Record::BatchHeader
+    expect(records[2]).to be_a Nacha::Record::CcdEntryDetail
+    expect(records[3]).to be_a Nacha::Record::CcdEntryDetail
+    expect(records[4]).to be_a Nacha::Record::BatchControl
   end
 
   it 'parses a string' do
     expect_any_instance_of(described_class).to receive(:parse_string).once
     Nacha.parse("")
-  end
-
-  # Anything other than a string is assumed to be a file
-  # TODO: better file / URL handling
-  it 'parses a file' do
-    expect_any_instance_of(described_class).to receive(:parse_file).once
-    Nacha.parse(nil)
   end
 end

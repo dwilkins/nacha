@@ -19,9 +19,9 @@ class Nacha::Parser
   end
 
   def parse_file(file)
-    @context.parser_started_at = Time.now.utc
-    @context.file_name = file
-    Nacha::AchFile.new(parse_string(file.read).records, file_name: file)
+   @context.parser_started_at = Time.now.utc
+   @context.file_name = file
+   parse_string(file.read)
   end
 
   def detect_possible_record_types(line)
@@ -31,6 +31,8 @@ class Nacha::Parser
   end
 
   def parse_string(str)
+    return [] unless str.is_a?(String) && !str.empty?
+
     line_num = -1
     records = []
     @context.parser_started_at ||= Time.now.utc
@@ -43,7 +45,7 @@ class Nacha::Parser
       @context.line_length = line.length
       records << process(line, line_num, records.last)
     end.compact
-    Nacha::AchFile.new(records)
+    records
   end
 
   def process(line, line_num, previous = nil)

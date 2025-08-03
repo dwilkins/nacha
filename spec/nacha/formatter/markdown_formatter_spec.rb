@@ -5,7 +5,7 @@ require 'nacha/formatter/markdown_formatter'
 require 'nacha/parser'
 
 RSpec.describe Nacha::Formatter::MarkdownFormatter do
-  let(:records) { Nacha.parse(File.open('spec/fixtures/ccd-debit.ach')) }
+  let(:records) { Nacha.parse('spec/fixtures/ccd-debit.ach') }
   let(:options) { { file_name: 'ccd-debit.ach' } }
 
   describe '#format' do

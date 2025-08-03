@@ -67,18 +67,14 @@ module Nacha
       types_hash
     end
 
-    # Parses a NACHA file or string into a structured object representation.
+    # Parses a NACHA file, string or url into a structured object representation.
     #
-    # @param object [String, File, IO] The input to parse, either a string containing
+    # @param object [String, File, IO, URL] The input to parse, either a string containing
     #   NACHA data or an IO object (e.g., a File) representing the NACHA file.
-    # @return [Nacha::Record::Base] The parsed NACHA file object.
+    # @return [Nacha::AchFile] The parsed NACHA file object.
     def parse(object)
-      parser = Nacha::Parser.new
-      if object.is_a?(String)
-        parser.parse_string(object)
-      else
-        parser.parse_file(object)
-      end
+      ach_file = AchFile.new(object)
+      ach_file.parse
     end
 
     # Converts a given string into a underscored, lowercase record name.

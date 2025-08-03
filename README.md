@@ -34,6 +34,12 @@ Or install it yourself as:
 API may change at any time.   Pull requests welcomed
 
 
+```ruby
+ach_file = Nacha.parse('path/to/file.ach')
+
+puts ach_file.to_json
+puts ach_file.to_markdown
+```
 
 ```ruby
     ach_string = "101 124000054 1240000540907021214A094101ZIONS FIRST NATIONAL BAZIONS FIRST NATIONAL BA       1"

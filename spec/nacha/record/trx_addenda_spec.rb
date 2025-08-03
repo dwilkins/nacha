@@ -27,9 +27,7 @@ RSpec.describe Nacha::Record::TrxAddenda, :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:record) { described_class.new }
-    let(:formatter) { Nacha::Formatter::JsonFormatter.new(Nacha::AchFile.new([record])) }
-    let(:json) { JSON.parse(formatter.format)['records'].first }
+    let(:json) { JSON.parse(described_class.new.to_json) }
 
     it 'is well formed' do
       expect(json).to be_a Hash

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'nacha/formatter'
+require 'byebug'
 
 RSpec.describe Nacha::Record::MteEntryDetail, :nacha_record_type do
   it 'exists' do
@@ -32,15 +33,14 @@ RSpec.describe Nacha::Record::MteEntryDetail, :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:record) { described_class.new }
-    let(:formatter) { Nacha::Formatter::JsonFormatter.new(Nacha::AchFile.new([record])) }
-    let(:json) { JSON.parse(formatter.format)['records'].first }
+    let(:json) { JSON.parse(described_class.new.to_json) }
 
     it 'is well formed' do
       expect(json).to be_a Hash
     end
 
     it 'has the right keys' do
+
       expect(json.keys).to include(
         'metadata',
         'nacha_record_type',

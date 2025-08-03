@@ -68,7 +68,7 @@ RSpec.describe 'Nacha CLI' do
     context 'when given a non-existent file' do
       it 'prints an error message and exits with a non-zero status' do
         stdout, stderr, status = Open3.capture3(executable, 'parse', non_existent_file)
-        expect(stdout).to include("Error: File not found at #{non_existent_file}")
+        expect(stdout).to include("File not found: #{non_existent_file}")
         expect(stderr).to be_empty
         expect(status.success?).to be false
       end

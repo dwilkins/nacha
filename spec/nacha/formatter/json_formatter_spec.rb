@@ -5,7 +5,7 @@ require 'nacha/formatter/json_formatter'
 require 'nacha/parser'
 
 RSpec.describe Nacha::Formatter::JsonFormatter do
-  let(:records) { Nacha.parse(File.open('spec/fixtures/ccd-debit.ach')) }
+  let(:records) { Nacha.parse('spec/fixtures/ccd-debit.ach').parse }
   let(:options) { { file_name: 'ccd-debit.ach' } }
   let(:formatter) { described_class.new(records, options) }
 
