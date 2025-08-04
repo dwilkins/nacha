@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
   spec.add_dependency 'bigdecimal'
+  spec.add_dependency 'httparty'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'byebug' if RUBY_ENGINE == 'ruby'
@@ -40,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'reek'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rspec'

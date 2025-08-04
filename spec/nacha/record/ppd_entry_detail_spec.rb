@@ -52,9 +52,7 @@ RSpec.describe Nacha::Record::PpdEntryDetail, :nacha_record_type do
   end
 
   describe 'instance generates json' do
-    let(:record) { build(:debit_ppd_entry_detail) }
-    let(:formatter) { Nacha::Formatter::JsonFormatter.new([record]) }
-    let(:json) { JSON.parse(formatter.format)['records'].first }
+    let(:json) { JSON.parse(build(:debit_ppd_entry_detail).to_json) }
 
     it 'is well formed' do
       expect(json).to be_a Hash

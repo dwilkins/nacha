@@ -5,11 +5,15 @@ require 'digest'
 module Nacha
   module Formatter
     class Base
-      attr_reader :records, :options
+      attr_reader :ach_file, :options
 
-      def initialize(records, options = {})
-        @records = records
+      def initialize(ach_file, options = {})
+        @ach_file = ach_file
         @options = options
+      end
+
+      def records
+        @ach_file.records
       end
 
       def format

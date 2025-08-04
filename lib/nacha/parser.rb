@@ -2,6 +2,7 @@
 
 require 'nacha'
 require 'nacha/parser_context'
+require 'nacha/ach_file'
 
 # Nacha Parser - deal with figuring out what record type a line is
 class Nacha::Parser
@@ -18,9 +19,9 @@ class Nacha::Parser
   end
 
   def parse_file(file)
-    @context.parser_started_at = Time.now.utc
-    @context.file_name = file
-    parse_string(file.read)
+   @context.parser_started_at = Time.now.utc
+   @context.file_name = file
+   parse_string(file.read)
   end
 
   def detect_possible_record_types(line)
@@ -30,6 +31,8 @@ class Nacha::Parser
   end
 
   def parse_string(str)
+    return [] unless str.is_a?(String) && !str.empty?
+
     line_num = -1
     records = []
     @context.parser_started_at ||= Time.now.utc
